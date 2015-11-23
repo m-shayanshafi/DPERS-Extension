@@ -1,0 +1,2 @@
+FileWriter fileWritter = new FileWriter(outfileName,true)
+BufferedWriter writer = new BufferedWriter(fileWritter);

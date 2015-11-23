@@ -1,0 +1,7 @@
+this is leaf node so this method is not applicable to this class.
+this is leaf node so this method is not applicable to this class.
+this is leaf node so this method is not applicable to this class.
+
+  In this class,there are many methods which are not applicable to developer because
+  it is a leaf node.
+ 

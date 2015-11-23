@@ -1,0 +1,8 @@
+Accesing driver from the jar file
+Creating a variable for the connection
+localhost:3306derp","root","");
+jdbc:mysql:localhost:3306derp->is a database
+root is the username
+"" is password
+Here we are creating a query
+here we are executing a query 

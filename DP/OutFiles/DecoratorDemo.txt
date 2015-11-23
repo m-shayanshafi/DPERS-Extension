@@ -1,0 +1,13 @@
+ 1. "lowest common denominator"
+ 3. "Core" class with "isa" rel
+ 2. Second level base class
+    with "isa" relationship
+ 4. "hasa" relationship
+ 5. Delegation
+ 6. Optional embellishment
+ 7. Delegate to base class
+    and add extra stuff
+ 6. Optional embellishment
+ 7. Delegate to base class
+    and add extra stuff
+ 8. Client has the responsibility to compose desired configurations

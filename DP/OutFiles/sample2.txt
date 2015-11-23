@@ -1,0 +1,17 @@
+ A trick to help with debugging
+ Constructor
+ turn off debugging
+ Default constructor
+ Invokes 2 parameter Point2D constructor
+ Note that a this() invocation must be the BEGINNING of
+ statement body of constructor
+ Another consructor
+ a better method would be to replace the above code with
+    this (pt.getX(), pt.getY());
+ especially since the above code does not initialize the
+ variable debug.  This way we are reusing code that is already
+ working.
+ print the debugging string only if the "debug"
+ data member is true
+ check out the use of dprint()
+ The X and Y coordinates of the point--instance variables 
