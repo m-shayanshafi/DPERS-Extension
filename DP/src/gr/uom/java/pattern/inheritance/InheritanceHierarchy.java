@@ -1,7 +1,8 @@
 package gr.uom.java.pattern.inheritance;
 
-import java.util.*;
-import javax.swing.tree.*;
+import java.util.Enumeration;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class InheritanceHierarchy implements Enumeratable {
 	private DefaultMutableTreeNode rootNode;

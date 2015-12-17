@@ -1,10 +1,10 @@
 package gr.uom.java.bytecode.delegation;
 
-import gr.uom.java.bytecode.SignatureObject;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
+
+import gr.uom.java.bytecode.SignatureObject;
 
 public class DelegationPath {
     private List<SignatureObject> path;

@@ -1,12 +1,15 @@
 package gr.uom.java.pattern;
 
-import static org.math.array.DoubleArray.*;
-import static org.math.array.LinearAlgebra.*;
+import static org.math.array.DoubleArray.fill;
+import static org.math.array.DoubleArray.transpose;
+import static org.math.array.LinearAlgebra.divide;
+import static org.math.array.LinearAlgebra.plus;
+import static org.math.array.LinearAlgebra.times;
 
-import java.util.Map;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.text.NumberFormat;
+import java.util.Map;
 
 public class SimilarityAlgorithm {
 	

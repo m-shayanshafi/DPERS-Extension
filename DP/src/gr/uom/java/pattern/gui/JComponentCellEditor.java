@@ -1,13 +1,19 @@
 package gr.uom.java.pattern.gui;
 
 import java.awt.Component;
-import java.awt.event.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-import java.util.EventObject;
-import javax.swing.tree.*;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
-import javax.swing.*;
+import java.util.EventObject;
+
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.SwingUtilities;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import javax.swing.table.TableCellEditor;
+import javax.swing.tree.TreeCellEditor;
 
 
 public class JComponentCellEditor implements TableCellEditor, TreeCellEditor,

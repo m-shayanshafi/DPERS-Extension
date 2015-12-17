@@ -1,7 +1,8 @@
 package gr.uom.java.pattern.inheritance;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Enumeration;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface Enumeratable {
 

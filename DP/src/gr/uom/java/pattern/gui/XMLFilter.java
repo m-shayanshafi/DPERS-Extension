@@ -1,7 +1,8 @@
 package gr.uom.java.pattern.gui;
 
-import javax.swing.filechooser.FileFilter;
 import java.io.File;
+
+import javax.swing.filechooser.FileFilter;
 
 public class XMLFilter extends FileFilter {
 

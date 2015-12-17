@@ -1,0 +1,59 @@
+package TranslatorAdapter 
+
+public class clientAdpater  
+	public static void main String[] args  
+		ThirdParty thirdPartyinterface = new TranslatorAdaptee   
+		thirdPartyinterface.EnterInput   
+		thirdPartyinterface.translateTheText   
+	 
+ 
+package TranslatorAdapter 
+
+public class localConcreteInterface implements LocalInterface  
+	public void setInputText   
+		System.out.println "Local Interface Input text"  
+	  
+	
+	public void performTranslation    
+		System.out.println "Local Interface performing translation!!!"  
+		
+	  
+	package TranslatorAdapter 
+
+public interface LocalInterface  
+	public  void setInputText   
+	public  void performTranslation   
+ 
+package TranslatorAdapter 
+
+public interface ThirdParty  
+	public abstract void EnterInput   
+	public abstract void translateTheText   
+ 
+package TranslatorAdapter 
+
+public class TranslatorAdaptee implements  ThirdParty  
+	LocalInterface local 
+	
+	TranslatorAdaptee   
+		 local= new localConcreteInterface   
+	 
+
+	@Override
+	public void EnterInput    
+		System.out.println "Adapted from localInterface"  
+		local.setInputText   
+	 
+
+	@Override
+	public void translateTheText    
+		System.out.println "Adapted from localInterface"  
+		local.performTranslation   
+		
+	 
+	
+	
+ 
+
+	
+ 

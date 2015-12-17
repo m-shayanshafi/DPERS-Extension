@@ -1,17 +1,20 @@
 package gr.uom.java.pattern.gui;
 
-import gr.uom.java.pattern.PatternInstance;
-
-import java.util.*;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Set;
+import java.util.Vector;
 
-import org.jdom.Element;
 import org.jdom.Document;
-import org.jdom.output.XMLOutputter;
+import org.jdom.Element;
 import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+import gr.uom.java.pattern.PatternInstance;
 
 public class XMLExporter {
 

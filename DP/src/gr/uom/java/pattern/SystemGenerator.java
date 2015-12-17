@@ -1,18 +1,26 @@
 package gr.uom.java.pattern;
 
-import gr.uom.java.bytecode.*;
-import gr.uom.java.pattern.inheritance.Enumeratable;
-import gr.uom.java.pattern.inheritance.HierarchyDetection;
-import gr.uom.java.pattern.inheritance.InheritanceHierarchy;
-
-import java.util.List;
-import java.util.ListIterator;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import gr.uom.java.bytecode.Access;
+import gr.uom.java.bytecode.ClassObject;
+import gr.uom.java.bytecode.ConstructorObject;
+import gr.uom.java.bytecode.FieldInstructionObject;
+import gr.uom.java.bytecode.FieldObject;
+import gr.uom.java.bytecode.MethodInvocationObject;
+import gr.uom.java.bytecode.MethodObject;
+import gr.uom.java.bytecode.SystemObject;
+import gr.uom.java.bytecode.TypeObject;
+import gr.uom.java.pattern.inheritance.Enumeratable;
+import gr.uom.java.pattern.inheritance.HierarchyDetection;
+import gr.uom.java.pattern.inheritance.InheritanceHierarchy;
 
 public class SystemGenerator {
     private MatrixContainer matrixContainer;

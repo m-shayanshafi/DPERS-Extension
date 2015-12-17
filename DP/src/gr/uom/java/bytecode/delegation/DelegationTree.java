@@ -1,12 +1,17 @@
 package gr.uom.java.bytecode.delegation;
 
-import gr.uom.java.bytecode.*;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.ListIterator;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.ListIterator;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import gr.uom.java.bytecode.ClassObject;
+import gr.uom.java.bytecode.MethodInvocationObject;
+import gr.uom.java.bytecode.MethodObject;
+import gr.uom.java.bytecode.SignatureObject;
+import gr.uom.java.bytecode.SystemObject;
 
 
 public class DelegationTree {

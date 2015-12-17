@@ -1,14 +1,29 @@
 package gr.uom.java.pattern.gui;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.Vector;
+
 import gr.uom.java.bytecode.BytecodeReader;
 import gr.uom.java.bytecode.FieldObject;
 import gr.uom.java.bytecode.MethodObject;
 import gr.uom.java.bytecode.SystemObject;
-import gr.uom.java.pattern.*;
+import gr.uom.java.pattern.BehavioralData;
+import gr.uom.java.pattern.ClusterResult;
+import gr.uom.java.pattern.ClusterSet;
+import gr.uom.java.pattern.MatrixContainer;
+import gr.uom.java.pattern.PatternDescriptor;
+import gr.uom.java.pattern.PatternEnum;
+import gr.uom.java.pattern.PatternGenerator;
+import gr.uom.java.pattern.PatternInstance;
+import gr.uom.java.pattern.SimilarityAlgorithm;
+import gr.uom.java.pattern.SystemGenerator;
 import gr.uom.java.pattern.inheritance.Enumeratable;
-
-import java.io.File;
-import java.util.*;
 
 public class Console {
     public Console(File inputDir, File outputXML) {

@@ -1,12 +1,12 @@
 package gr.uom.java.bytecode.delegation;
 
-import gr.uom.java.bytecode.SystemObject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
 import gr.uom.java.bytecode.ClassObject;
 import gr.uom.java.bytecode.MethodObject;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.ListIterator;
+import gr.uom.java.bytecode.SystemObject;
 
 public class DelegationUtility {
     private List<DelegationPath> delegationPathList;

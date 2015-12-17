@@ -1,8 +1,9 @@
 package gr.uom.java.pattern.inheritance;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Vector;
 import java.util.Enumeration;
+import java.util.Vector;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class NonInheritingClassVector implements Enumeratable {
     private Vector<DefaultMutableTreeNode> nonInheritingClasses;

@@ -1,10 +1,14 @@
 package gr.uom.java.pattern.inheritance;
 
-import gr.uom.java.bytecode.SystemObject;
-import gr.uom.java.bytecode.ClassObject;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.ListIterator;
 
-import java.util.*;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import gr.uom.java.bytecode.ClassObject;
+import gr.uom.java.bytecode.SystemObject;
 
 public class HierarchyDetection {
 	

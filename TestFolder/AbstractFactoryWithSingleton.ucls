@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="AbstractFactoryWithSingleton.UrduLanguage" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/UrduLanguage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="203" x="1390" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="AbstractFactoryWithSingleton.UrduEdit" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/UrduEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="135" x="4845" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="AbstractFactoryWithSingleton.UrduFont" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/UrduFont.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="147" x="1831" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="AbstractFactoryWithSingleton.LanguageThesaurus" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/LanguageThesaurus.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="339" x="3712" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="AbstractFactoryWithSingleton.TestDrivenClassForAbstractFactoryWithSingleton" 
+    project="Editor" file="/Editor/src/AbstractFactoryWithSingleton/TestDrivenClassForAbstractFactoryWithSingleton.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="297" width="332" x="775" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="AbstractFactoryWithSingleton.UrduEditConfigurations" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/UrduEditConfigurations.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="187" x="2460" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" language="java" name="AbstractFactoryWithSingleton.ThesaurusActivate" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ThesaurusActivate.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="135" x="4318" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" name="AbstractFactoryWithSingleton.SpellCheckerUtility" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/SpellCheckerUtility.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="135" x="2439" y="742"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="9" language="java" name="AbstractFactoryWithSingleton.LanguageSpellchecker" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/LanguageSpellchecker.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="359" x="2687" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="AbstractFactoryWithSingleton.UrduSpellChecker" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/UrduSpellChecker.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="226" x="2192" y="567"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="AbstractFactoryWithSingleton.UrduThesaurus" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/UrduThesaurus.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="219" x="4318" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="AbstractFactoryWithSingleton.JapaneseLanguage" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/JapaneseLanguage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="203" x="41" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="AbstractFactoryWithSingleton.EnglishFont" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EnglishFont.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="158" x="1633" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="AbstractFactoryWithSingleton.JapaneseThesaurus" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/JapaneseThesaurus.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="243" x="3765" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="AbstractFactoryWithSingleton.EnglishThesaurus" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EnglishThesaurus.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="230" x="4048" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="AbstractFactoryWithSingleton.JapaneseSpellChecker" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/JapaneseSpellChecker.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="250" x="1604" y="567"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="AbstractFactoryWithSingleton.LanguageFont" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/LanguageFont.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="277" x="3086" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="18" language="java" name="AbstractFactoryWithSingleton.FontSelect" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/FontSelect.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="135" x="1831" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="19" language="java" name="AbstractFactoryWithSingleton.LanguageEdit" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/LanguageEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="269" x="3403" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="AbstractFactoryWithSingleton.EnglishLanguage" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EnglishLanguage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="203" x="1147" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="AbstractFactoryWithSingleton.JapaneseFont" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/JapaneseFont.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="171" x="2214" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="AbstractFactoryWithSingleton.EnglishSpellChecker" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EnglishSpellChecker.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="237" x="1894" y="567"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="AbstractFactoryWithSingleton.JapaneseEditConfigurations" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/JapaneseEditConfigurations.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="187" x="2006" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="AbstractFactoryWithSingleton.JapaneseEdit" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/JapaneseEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="159" x="5390" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="AbstractFactoryWithSingleton.Language" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/Language.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="164" x="3222" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="AbstractFactoryWithSingleton.ArabicEditConfigurations" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ArabicEditConfigurations.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="187" x="2233" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="27" language="java" name="AbstractFactoryWithSingleton.EditMode" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EditMode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="135" x="5115" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="28" language="java" name="AbstractFactoryWithSingleton.ArabicEdit" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ArabicEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="144" x="5020" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="AbstractFactoryWithSingleton.ArabicFont" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ArabicFont.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="156" x="2018" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="AbstractFactoryWithSingleton.EnglishEditConfigurations" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EnglishEditConfigurations.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="187" x="4091" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="AbstractFactoryWithSingleton.ArabicThesaurus" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ArabicThesaurus.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="228" x="4577" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="32" language="java" name="AbstractFactoryWithSingleton.EditConfigurations" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EditConfigurations.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="187" x="2687" y="567"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="33" language="java" name="AbstractFactoryWithSingleton.ArabicLanguage" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ArabicLanguage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="203" x="532" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="AbstractFactoryWithSingleton.ArabicSpellChecker" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/ArabicSpellChecker.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="235" x="1329" y="567"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="AbstractFactoryWithSingleton.EnglishEdit" project="Editor" 
+    file="/Editor/src/AbstractFactoryWithSingleton/EnglishEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="146" x="5204" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="36">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="37">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <dependency id="38">    
+    <bendpoint x="2448" y="567"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <realization id="39">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="40">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="41">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <realization id="42">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <realization id="43">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <dependency id="44">    
+    <bendpoint x="2161" y="567"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="45">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="46" name="factory"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="48">    
+    <bendpoint x="3274" y="567"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <association id="50">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="51" name="factory"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="53">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <association id="55">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="56" name="factory"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="58">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="59">    
+    <bendpoint x="2469" y="567"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <realization id="60">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="32"/>  
+  </realization>  
+  <realization id="61">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <realization id="62">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <realization id="63">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="64">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <realization id="65">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <generalization id="66">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <realization id="67">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="68">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="32"/>  
+  </realization>  
+  <realization id="69">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="32"/>  
+  </realization>  
+  <realization id="70">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="32"/>  
+  </realization>  
+  <realization id="71">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <dependency id="72">    
+    <bendpoint x="2572" y="567"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <generalization id="73">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <realization id="74">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

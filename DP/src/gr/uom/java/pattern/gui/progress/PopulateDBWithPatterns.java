@@ -1,43 +1,34 @@
 package gr.uom.java.pattern.gui.progress;
-import gr.uom.java.comments.LuceneForComments;
-
-import gr.uom.java.pattern.PatternInstance;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import com.sun.corba.se.spi.ior.Writeable;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import gr.uom.java.comments.LuceneForComments;
+import gr.uom.java.pattern.PatternInstance;
+import gr.uom.java.comments.*;
 
 public class PopulateDBWithPatterns {
 	protected String patternName;
+	protected createIndex index=new createIndex();
     protected Vector<PatternInstance> patternInstanceVector;
     private LuceneForComments CommentsExtractObj; 
     public String fileDirectory;
     private int fileID;
-    int patternID;
+    public int patternID;
+    public int patternInstanceID;
     public static Connection con;
     private PrintWriter writer;
     private FileReader reader;
     public PopulateDBWithPatterns() throws ClassNotFoundException, SQLException, FileNotFoundException, UnsupportedEncodingException
     {
-    	
-    	
     	Class.forName("com.mysql.jdbc.Driver");
     	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");
     }
@@ -57,24 +48,37 @@ public class PopulateDBWithPatterns {
 			return 0;
 		}
     }
-    public void fileDirectory(){
-    	
+    
+    public int getPattternInstanceID(String projectName){
+    	try {
+    		PreparedStatement getPatternID=con.prepareStatement("select patternInstanceID from patterninstance where projectName = ?");
+    		getPatternID.setString(1, projectName);
+    		ResultSet result=getPatternID.executeQuery();
+    		setPatternInstanceID(result);
+    		return this.patternInstanceID;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
     }
     public void populatePatternInstance(PopulateDBWithPatterns DBobj) throws Exception{
     	this.patternInstanceVector = DBobj.patternInstanceVector;
     	this.con=DBobj.con;
     	this.patternInstanceVector=DBobj.patternInstanceVector;
     	getPattternID(patternName);
+    	
     	if (!patternInstanceVector.isEmpty()){
     		PreparedStatement statement =con.prepareStatement("INSERT INTO `patterninstance` (`patternID`, `instanceClass`,`projectName`) VALUES (?,?,?);");
     		statement.setInt(1, this.patternID);
         	statement.setString(2, patternInstanceVector.toString());
           	statement.setString(3, this.getFileDir(DBobj.con));
-          	this.CommentsExtractObj.extractComments(this.fileDirectory,this.patternID);
+          	getPattternInstanceID(this.fileDirectory);
+          	this.CommentsExtractObj.extractComments(this.fileDirectory,this.patternInstanceID);
              
         	int result = statement.executeUpdate();
-//           System.out.print(result);
-//        	
+        	
+        	 	index.createindex();
     	}
     }
     
@@ -83,6 +87,12 @@ public class PopulateDBWithPatterns {
     public void setPatternID(ResultSet result) throws SQLException{
     	while(result.next()){
     		this.patternID=result.getInt(1);
+    	}
+	}   
+    
+    public void setPatternInstanceID(ResultSet result) throws SQLException{
+    	while(result.next()){
+    		this.patternInstanceID=result.getInt(1);
     	}
 	}   
     
@@ -97,7 +107,7 @@ public class PopulateDBWithPatterns {
 			e.printStackTrace();
 		}
     	this.fileDirectory = dir;
-    	   }
+    }
     public int getFileID(){
     	return this.fileID;
     }

@@ -1,9 +1,16 @@
 package gr.uom.java.pattern;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 import gr.uom.java.bytecode.FieldObject;
 import gr.uom.java.bytecode.MethodObject;
-
-import java.util.*;
 
 public class ClusterResult {
     private TreeSet<ClusterResult.Entry> entrySet;

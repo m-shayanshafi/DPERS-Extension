@@ -1,8 +1,8 @@
 package gr.uom.java.bytecode;
 
-import java.util.ListIterator;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MethodObject {
 

@@ -1,22 +1,19 @@
 package gr.uom.java.pattern.gui;
 
-import gr.uom.java.pattern.PatternInstance;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.util.Iterator;
-import java.util.Vector;
-import java.sql.SQLException;
-import java.util.logging.ConsoleHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Iterator;
+import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
+import gr.uom.java.pattern.PatternInstance;
 
 public class MatrixInternalFrame extends JInternalFrame {
     //private DefaultTableModel model;

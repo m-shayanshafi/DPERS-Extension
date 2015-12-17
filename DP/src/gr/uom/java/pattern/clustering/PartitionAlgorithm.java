@@ -1,9 +1,21 @@
 package gr.uom.java.pattern.clustering;
 
-import static org.math.array.LinearAlgebra.*;
-import org.math.array.linearalgebra.*;
-import javax.swing.tree.*;
-import java.util.*;
+import static org.math.array.DoubleArray.getColumnCopy;
+import static org.math.array.DoubleArray.sum;
+import static org.math.array.LinearAlgebra.eigen;
+import static org.math.array.LinearAlgebra.minus;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.math.array.linearalgebra.EigenvalueDecomposition;
+
 import gr.uom.java.pattern.SystemGenerator;
 
 public class PartitionAlgorithm {

@@ -1,10 +1,13 @@
 package gr.uom.java.pattern.gui.matrix;
 
-import javax.swing.*;
-import javax.swing.table.*;
-
 import java.awt.event.MouseEvent;
 import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.LookAndFeel;
+import javax.swing.table.JTableHeader;
 
 public class MatrixTable extends JTable {
 

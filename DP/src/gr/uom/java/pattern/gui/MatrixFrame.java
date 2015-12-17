@@ -2,24 +2,47 @@ package gr.uom.java.pattern.gui;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import java.awt.event.*;
-
-import javax.swing.event.*;
-import javax.swing.*;
-
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
-import gr.uom.java.bytecode.*;
-import gr.uom.java.pattern.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+
+import gr.uom.java.bytecode.BytecodeReader;
+import gr.uom.java.bytecode.FieldObject;
+import gr.uom.java.bytecode.MethodObject;
+import gr.uom.java.bytecode.SystemObject;
+import gr.uom.java.pattern.BehavioralData;
+import gr.uom.java.pattern.MatrixContainer;
+import gr.uom.java.pattern.PatternDescriptor;
+import gr.uom.java.pattern.PatternEnum;
+import gr.uom.java.pattern.PatternGenerator;
+import gr.uom.java.pattern.PatternInstance;
+import gr.uom.java.pattern.SystemGenerator;
+import gr.uom.java.pattern.gui.progress.DetectionFinishedEvent;
+import gr.uom.java.pattern.gui.progress.PatternDetectionSource;
 import gr.uom.java.pattern.gui.progress.PopulateDBWithPatterns;
 import gr.uom.java.pattern.gui.progress.ProgressListener;
-import gr.uom.java.pattern.gui.progress.DetectionFinishedEvent;
 import gr.uom.java.pattern.gui.progress.ProgressObserver;
-import gr.uom.java.pattern.gui.progress.PatternDetectionSource;
 
 public class MatrixFrame extends JFrame implements ActionListener, InternalFrameListener, ProgressListener {
 	private static JDesktopPane desktop;
@@ -201,7 +224,7 @@ public class MatrixFrame extends JFrame implements ActionListener, InternalFrame
 				File file = fc.getSelectedFile();
 				try {
 					this.DBobj.setFileDir(file.getPath());
-					DBobj.closeConnection();					
+									
 				}  catch (Throwable e1) {
 					e1.printStackTrace();
 				}
