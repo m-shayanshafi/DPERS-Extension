@@ -3,6 +3,8 @@
 	<name>TopicExtractionUtility</name>
 	<comment></comment>
 	<projects>
+		<project>DPD</project>
+		<project>SearchUtilityBasedOnLucene</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

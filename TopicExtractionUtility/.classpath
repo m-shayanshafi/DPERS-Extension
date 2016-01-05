@@ -15,6 +15,6 @@
 	<classpathentry kind="lib" path="lib/openjgraph.jar"/>
 	<classpathentry kind="lib" path="lib/trove-2.0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/TopicExtractionUtility/lib/mysql-connector-java-5.1.37-bin.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.37-bin.jar"/>
 	<classpathentry kind="output" path="class"/>
 </classpath>

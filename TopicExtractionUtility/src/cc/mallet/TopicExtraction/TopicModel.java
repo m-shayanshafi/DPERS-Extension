@@ -13,11 +13,12 @@ import java.io.*;
 
 public class TopicModel {
 	public static final String FILES_TO_INDEX_DIRECTORY="Outfile\\out.txt";
+	public static final String Compile_Code_Directory ="Outfile\\Output.txt";
 	public static void IdentifyTopic() throws Exception {
 
 		// Begin by importing documents from text to feature sequences
 		ArrayList<Pipe> pipeList = new ArrayList<Pipe>();
-
+		
 		// Pipes: lowercase, tokenize, remove stopwords, map to features
 		pipeList.add( new CharSequenceLowercase() );
 		pipeList.add( new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")) );
@@ -25,15 +26,16 @@ public class TopicModel {
 		pipeList.add( new TokenSequence2FeatureSequence() );
 
 		InstanceList instances = new InstanceList (new SerialPipes(pipeList));
-
-		Reader fileReader = new InputStreamReader(new FileInputStream("Outfile\\Output.txt"), "UTF-8");
+		if((new File(Compile_Code_Directory)).exists()){
+			Reader fileReader = new InputStreamReader(new FileInputStream(Compile_Code_Directory), "UTF-8");
+		
 		instances.addThruPipe(new CsvIterator (fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"),
 											   3, 2, 1)); // data, label, name fields
-
+		}
 		// Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
 		//  Note that the first parameter is passed as the sum over topics, while
 		//  the second is 
-		int numTopics = 1;
+		int numTopics = 10;
 		
 		ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
 
@@ -101,7 +103,7 @@ public class TopicModel {
 		testing.addThruPipe(new Instance(topicZeroText.toString(), null, "test instance", null));
 
 		TopicInferencer inferencer = model.getInferencer();
-		double[] testProbabilities = inferencer.getSampledDistribution(testing.get(0), 10, 1, 5);
+		double[] testProbabilities = inferencer.getSampledDistribution(testing.get(0), 10, 1, 10);
 		System.out.println("0\t" + testProbabilities[0]);
 		write("0\t" + testProbabilities[0]);
 		
