@@ -580,6 +580,10 @@ false
 String
 Document
 System.out.println
+System.
+system.out.println
+\\
+//
 file
 folder
 index
@@ -610,3 +614,5 @@ next
 hit
 java
 package
+\
+/

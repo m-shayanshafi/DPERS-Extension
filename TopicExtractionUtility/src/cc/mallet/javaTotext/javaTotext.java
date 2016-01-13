@@ -20,13 +20,27 @@ public class javaTotext {
 	public static final String FILES_TO_INDEX_DIRECTORY = "Outfile\\Output.txt"; //contains the java files
 	public static File folder;
 	  static String temp = "";
-
+	  public static void run(File directoryName) throws Exception{
+		  File directory = directoryName;
+		  List<File> resultList = new ArrayList<File>();
+		  File[] fList = directory.listFiles();
+	       for (File file : fList){
+	    	  if (file.isFile()){
+	    		  
+	    	  }
+	    	  else{
+	    		  resultList.add(file);
+	    	  }
+	      }
+	       for(File result:resultList){
+	    	    folderWisetopicExtraction(result);
+	       } 
+	  }
 	  public static List<File> listf(String directoryName) {
 	        File directory = new File(directoryName);
 
 	        List<File> resultList = new ArrayList<File>();
 
-	        // get all the files from a directory
 	        File[] fList = directory.listFiles();
 	        List<File> javaList =new ArrayList<File>();
 	        resultList.addAll(Arrays.asList(fList));
@@ -49,7 +63,7 @@ public class javaTotext {
 		  else{return f;}
 	  }
 
-	  public static void run(File file) throws Exception {
+	  public static void folderWisetopicExtraction(File file) throws Exception {
 	    // TODO Auto-generated method stub
 		  clean();
 		 List<File> javaFilesDirectory= listf(file.getPath());
@@ -57,15 +71,22 @@ public class javaTotext {
 		 while(javaFileIter.hasNext()){
 			 exteractTopic(javaFileIter.next());
 		 }
-		 javaTotext.delete(new File("Outfile\\out.txt"));
+		 if(isSrcFolder(file)){
 		 identifyTopic.IdentifyTopic();
 		 db = DbConnection.getDBcon();
-		 db.insertTopicData(getTopics(), getProjectPath(file).getPath());
+		 List<String> list=getTopics();
+		 db.insertTopicData(list.toString(), getProjectPath(file).getPath());
+		 }
 		 javaTotext.delete(new File("Outfile\\Output.txt"));
 		 
 		// exteractTopic(file);
 	  }
-	  
+	  public static boolean isSrcFolder(File file){
+		  if(file.getAbsolutePath().contains("src")){
+			  return true;
+		  }
+		  else{return false;}
+	  } 
 	  public static void exteractTopic(File file) throws Exception{
 		if(file.exists()){
 	    System.out.println("Reading file from "+ file.getAbsolutePath());
@@ -74,14 +95,17 @@ public class javaTotext {
 		}
 		 
 	  }
-	  public static String getTopics() throws IOException{
+	  public static List<String> getTopics() throws IOException{
+		  File f= new File("Outfile\\out.txt");
 		  FileReader fr = new FileReader("Outfile\\out.txt");
+		  String line = "";
 	         BufferedReader br = new BufferedReader(fr);
-	         String s = "";
-	         
+	         ArrayList<String> s = new ArrayList<String>();
 	         while (br.ready()) {
-	            s += br.readLine() + "\n";
-	  }
+	        	line =br.readLine();
+	        	s.add(line);
+	         }
+	         f.delete();
 			return s;
 	  }
 	
@@ -112,21 +136,28 @@ public class javaTotext {
 	      writer.close();
 	  }
 	  public static void read(final File folder) throws IOException{
-	  File path = folder;      
+	  File path = folder;     
+	  String line="";
 	  FileReader fr = new FileReader(path);
       BufferedReader br = new BufferedReader(fr);
       String s = "";
 	         while (br.ready()) {
-	            s += br.readLine() + "\n";
+	        	line =br.readLine();
+		        if (line.contains("Copyright")|| line.startsWith("import ") ||line.startsWith("package ")||line.equals(" ")){
+		        		
+		        	}
+		        else{
+	            s += line + "\n";
 	            s = cleanString(s);
-	            write(s);
+	          //  write(s);
+		        }
 	         }
-	         
+	         write(s,true);
 	         br.close();
 		}
 	  
-	  public static void write(String s) throws IOException{
-		  FileWriter fileWritter = new FileWriter(FILES_TO_INDEX_DIRECTORY,true);
+	  public static void write(String s, boolean overwrite) throws IOException{
+		  FileWriter fileWritter = new FileWriter(FILES_TO_INDEX_DIRECTORY,overwrite);
 	      BufferedWriter writer = new BufferedWriter(fileWritter);
 	      writer.write(s);
 	      writer.close();
@@ -134,15 +165,26 @@ public class javaTotext {
 	  
 	  public static String cleanString(String s){
 		  String str=s;
-		  str=str.replace("(", " ");
-          str=str.replace(")", " ");
-          str=str.replace("{", " ");
-          str=str.replace("}", " ");
-          str=str.replace(";", " ");
-          str=str.replace("*", " ");
-          str=str.replace("\\", " ");
-          str=str.replace("//", " ");
-          str=str.replace("@Override", " ");
+		  str=str.replace("(", "");
+          str=str.replace(")", "");
+          str=str.replace("{", "");
+          str=str.replace("}", "");
+          str=str.replace(";", "");
+          str=str.replace("*", "");
+          str=str.replace("\\*", "");
+          str=str.replace("\\", "");
+          str=str.replace("//", "");
+          str=str.replace("\n", " ");
+          str=str.replace("\r", " ");
+          str=str.replace("\"", " ");
+          str=str.replace("string", "");
+          str=str.replace("String", "");
+          str=str.replace("println", " ");
+          str=str.replace("equals", " ");
+          str=str.replace("equal", " ");
+          str=str.replace(".", " ");
+          str=str.replace("\\s", "");
+          str=str.replace("@Override", "");
 		  return str;
 	  }
 	  public static void listFilesForFolder(final File folder) {

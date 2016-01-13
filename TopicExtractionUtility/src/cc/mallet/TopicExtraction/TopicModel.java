@@ -47,7 +47,7 @@ public class TopicModel {
 
 		// Run the model for 50 iterations and stop (this is for testing only, 
 		//  for real applications, use 1000 to 2000 iterations)
-		model.setNumIterations(50);
+		model.setNumIterations(1000);
 		model.estimate();
 
 		// Show the words and topics in the first instance
@@ -83,8 +83,13 @@ public class TopicModel {
 				out.format("%s (%.0f) ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
 				rank++;
 			}
-			System.out.println(out);
-			write(out.toString());
+			System.out.println(out+"\n");
+			if(topic==0){
+			write(out.toString()+"\n", false);
+			}
+			else{
+				write(out.toString()+"\n", true);
+			}
 		}
 	
 		// Create a new instance with high probability of topic 0
@@ -105,11 +110,11 @@ public class TopicModel {
 		TopicInferencer inferencer = model.getInferencer();
 		double[] testProbabilities = inferencer.getSampledDistribution(testing.get(0), 10, 1, 10);
 		System.out.println("0\t" + testProbabilities[0]);
-		write("0\t" + testProbabilities[0]);
+		write("0\t" + testProbabilities[0],true);
 		
 	}
-	public static void write(String s) throws IOException{
-		  FileWriter fileWritter = new FileWriter(FILES_TO_INDEX_DIRECTORY,true);
+	public static void write(String s, boolean ind) throws IOException{
+		  FileWriter fileWritter = new FileWriter(FILES_TO_INDEX_DIRECTORY,ind);
 	      BufferedWriter writer = new BufferedWriter(fileWritter);
 	      writer.write(s);
 	      writer.close();

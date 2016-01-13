@@ -1,1 +1,11 @@
-0	0.100	code (40) strategies (39) args (17) string (17) main (17) 1	0.100	site (96) web (96) form (96) electronic (96) paper (96) 2	0.100	distributed (19) code (19) freely (17) context.getresult (15) good (15) 3	0.100	publish (62) credit (59) remove (59) 4	0.100	project (92) freely (89) code (88) distributed (87) 5	0.100	skichange (50) context (47) change (36) temperatureinf (28) 6	0.100	credit (42) remove (42) publish (39) demo (19) hikechange (3) 7	0.100	temperatureinf (83) checktemperature (25) boolean (23) getresult (5) 8	0.100	change (107) temperatureinf (29) context (18) setchange (13) 9	0.100	strategies (72) code (70) hikechange (32) gettemperatureinf (9) 0	0.81666666666666570	0.100	code (65) project (54) distributed (54) freely (54) 1	0.100	project (52) distributed (52) freely (52) code (48) 2	0.100	strategies (111) code (104) 3	0.100	publish (101) credit (101) remove (101) 4	0.100	change (48) args (17) string (17) main (17) setchange (13) 5	0.100	context (65) change (61) skichange (50) temperatureinf (31) 6	0.100	site (96) web (96) form (96) electronic (96) paper (96) 7	0.100	hikechange (35) change (34) temperatureinf (28) 8	0.100	temperatureinf (81) checktemperature (25) boolean (23) getresult (5) 9	0.100	demo (19) context.getresult (15) good (15) context.gettemperatureinf (15) temperature (15) 0	0.020000000000000014
+0	0.055	translator (7) factory (5) urduthesaurussingleton (4) lang (4) violations (3) 
+1	0.605	system (91) uniqueinstance (83) language (73) feature (70) configurations (43) 
+2	0.034	englishfont (6) englishedit (5) getinstance (4) japanesespellcheckersingleton (3) editorlanguages (3) 
+3	0.018	arabicspellcheckersingleton (3) performtranslation (2) urdu (2) equals"spellchecker (2) checker (1) 
+4	0.065	string (8) editmode (8) editorlanguages (7) equals"edit (6) println"the (5) 
+5	0.011	equals"thesaurus (2) suggestremedies (1) loadgrammarrules (1) urduthesaurussingleton (1) englishlanguagesingleton (1) 
+6	0.104	println"spellcheck (12) configurationssingleton (11) configuration (10) println"setting (9) thesaurusactivate (9) 
+7	0.012	equals"font (3) configureeditorlanguage (2) japanesethesaurus (2) initiated (2) grammar (1) 
+8	0.053	customtranslator (8) editorlanguagessingleton (6) englishthesaurussingleton (4) equals"edit (4) mode (4) 
+9	0.043	spellcheckerutility (7) spellcheck (5) languagefontingredientfactory (4) ingredientfactory (4) println"running (3) 
+0	0.16201857862988706

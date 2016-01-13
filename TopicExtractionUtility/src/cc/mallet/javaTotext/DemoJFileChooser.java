@@ -42,9 +42,6 @@ public class DemoJFileChooser extends JPanel
          +  chooser.getSelectedFile());
       try {
 			javaTotext.run(chooser.getSelectedFile());
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
 	} catch (Exception e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
