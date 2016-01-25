@@ -51,7 +51,7 @@ public class BytecodeReader {
 		else if(file.getName().toLowerCase().endsWith(".class"))
 			so.addClass(parseBytecode(file));
 		//Natasha Khan
-		System.out.print("Recursing file and finding Pattern in Classes");
+		System.out.print("Recursing file and finding Pattern in Classes. ");
 			System.out.print(so);
 	}
 	

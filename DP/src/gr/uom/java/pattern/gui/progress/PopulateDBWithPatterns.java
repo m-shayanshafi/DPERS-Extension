@@ -67,18 +67,19 @@ public class PopulateDBWithPatterns {
     	this.con=DBobj.con;
     	this.patternInstanceVector=DBobj.patternInstanceVector;
     	getPattternID(patternName);
-    	
+    	for(PatternInstance instance:patternInstanceVector){
     	if (!patternInstanceVector.isEmpty()){
     		PreparedStatement statement =con.prepareStatement("INSERT INTO `patterninstance` (`patternID`, `instanceClass`,`projectName`) VALUES (?,?,?);");
     		statement.setInt(1, this.patternID);
-        	statement.setString(2, patternInstanceVector.toString());
+        	statement.setString(2, instance.toString());
           	statement.setString(3, this.getFileDir(DBobj.con));
           	getPattternInstanceID(this.fileDirectory);
-          	this.CommentsExtractObj.extractComments(this.fileDirectory,this.patternInstanceID);
+          //	this.CommentsExtractObj.extractComments(this.fileDirectory,this.patternInstanceID);
              
         	int result = statement.executeUpdate();
         	
         	 	index.createindex();
+    	}
     	}
     }
     

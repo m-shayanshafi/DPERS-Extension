@@ -6,20 +6,26 @@
 	<classpathentry kind="lib" path="lib/asm-util-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/jmatharray.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/Desktop/mysql-connector-java-5.1.37/mysql-connector-java-5.1.37/mysql-connector-java-5.1.37-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/asm-3.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/asm-tree-3.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/asm-util-3.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/compass-2.2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/jdom.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/jmatharray.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/lucene-core-5.3.1-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/lucene-core-5.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/lucene-core-5.3.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/lukeall-0.9.9.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib/mysql-connector-java-5.1.37-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/Downloads/Compressed/lucene-5.3.1/lucene-5.3.1/analysis/common/lucene-analyzers-common-5.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Natasha Khan/workspace/DP/lib"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.37-bin.jar"/>
+	<classpathentry kind="lib" path="lib/compass-2.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-core-5.3.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-core-5.3.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-core-5.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/lukeall-0.9.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-analyzers-common-5.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/bsh.jar"/>
+	<classpathentry kind="lib" path="lib/derby.jar"/>
+	<classpathentry kind="lib" path="lib/grmm-deps.jar"/>
+	<classpathentry kind="lib" path="lib/indexer.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jgrapht-0.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/jwnl-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/mallet-deps.jar"/>
+	<classpathentry kind="lib" path="lib/mtj-0.9.9.jar"/>
+	<classpathentry kind="lib" path="lib/openjgraph.jar"/>
+	<classpathentry kind="lib" path="lib/trove-2.0.2.jar"/>
+	<classpathentry kind="lib" path="/TopicExtractionUtility/dist/mallet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
