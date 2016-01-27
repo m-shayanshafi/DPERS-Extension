@@ -22,6 +22,7 @@ public class PopulateDBWithPatterns {
     private LuceneForComments CommentsExtractObj; 
     public String fileDirectory;
     private int fileID;
+    private int projectID;
     public int patternID;
     public int patternInstanceID;
     public static Connection con;
@@ -69,10 +70,11 @@ public class PopulateDBWithPatterns {
     	getPattternID(patternName);
     	for(PatternInstance instance:patternInstanceVector){
     	if (!patternInstanceVector.isEmpty()){
-    		PreparedStatement statement =con.prepareStatement("INSERT INTO `patterninstance` (`patternID`, `instanceClass`,`projectName`) VALUES (?,?,?);");
+    		PreparedStatement statement =con.prepareStatement("INSERT INTO `patterninstance` (`patternID`, `instanceClass`,`projectName`,`projectID`) VALUES (?,?,?,?);");
     		statement.setInt(1, this.patternID);
         	statement.setString(2, instance.toString());
           	statement.setString(3, this.getFileDir(DBobj.con));
+          	statement.setInt(4, this.projectID);
           	getPattternInstanceID(this.fileDirectory);
           //	this.CommentsExtractObj.extractComments(this.fileDirectory,this.patternInstanceID);
              
@@ -118,6 +120,7 @@ public class PopulateDBWithPatterns {
 		while(result.next()){
 			if(result.last()){
 				this.fileDirectory=result.getString(2);
+				this.projectID=result.getInt(1);
 //				System.out.println(this.fileDirectory);
 			}
 		}
