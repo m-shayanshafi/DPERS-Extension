@@ -223,6 +223,7 @@ public class MatrixFrame extends JFrame implements ActionListener, InternalFrame
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
 				try {
+					this.DBobj = new PopulateDBWithPatterns();
 					this.DBobj.setFileDir(file.getPath());
 									
 				}  catch (Throwable e1) {
