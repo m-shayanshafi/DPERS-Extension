@@ -5,6 +5,9 @@ bin/
 # ignore all target directories
 target/
 
+# ignore all class directories
+class/
+
 # ignore all files ending with ~
 *~ 
 
