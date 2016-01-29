@@ -1,0 +1,175 @@
+package com.lucene.test;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.apache.lucene.analysis.core.KeywordAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+
+import com.mysql.jdbc.PreparedStatement;
+
+public class createIndex {
+	public static final File INDEX_DIRECTORY = new File("IndexDirectory");
+	static Connection conn;
+	static Statement stmt;
+
+	public static void createMethodTableIndex() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+		String sql = " select DISTINCT A.`patternInstanceID`, A.`roleName`, A.`methodName`,A.`className`,B.`Word`,B.`WordID` from `methodnames` A LEFT JOIN `commentstopattern` B ON A.`patternInstanceID` =B.`patternInstanceID` AND A.`className` = B.`className`";
+		ResultSet rs = createConnection(sql);
+		System.out.println(rs.wasNull());
+		
+		String[] column = {"patternInstanceID", "roleName", "methodName","className","Word","WordID"}; 
+		createIndex(rs, column);
+		closeConnection(rs);
+	}
+	
+	public static void createCommentTableIndex() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+		String sql = "select DISTINCT A.`patternInstanceID`,"+"Null"+" `roleName`,"+"Null"+" `methodName`,A.`className`,A.`Word`,A.`WordID` from `commentstopattern` A ";
+		
+		ResultSet rs = createConnection(sql);
+		String[] columns = {"patternInstanceID", "roleName", "methodName","className","Word","WordID"}; 
+		createIndex(rs, columns);
+		closeConnection(rs);
+	}
+
+	private static void closeConnection(ResultSet rs) throws SQLException {
+		stmt.close();
+		conn.close();
+		rs.close();
+	}
+	
+	private static ResultSet createConnection(String sql) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo", "root", "");
+		stmt = conn.createStatement();
+		return stmt.executeQuery(sql);
+	}
+
+	public static void createIndex(ResultSet inputRs, String[] columns)
+	{
+		System.out.println("-- Indexing --");
+		try
+		{
+			IndexWriter iWriter = luceneIndexing();
+			int resultCount = indexingResults(inputRs, columns, iWriter);
+			System.out.println(resultCount + " record indexed");
+			iWriter.commit();
+			iWriter.close();
+			inputRs.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createClassTableIndex() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+		String sql = " select DISTINCT A.`patternInstanceID`, A.`roleName`, B.`methodName`,A.`className`,C.`Word`,C.`WordID` from `classnames` A LEFT JOIN `methodnames` B ON A.`patternInstanceID` =B.`patternInstanceID` AND A.`className` = B.`className` LEFT JOIN `commentstopattern` C ON A.`patternInstanceID` =C.`patternInstanceID` AND A.`className` = C.`className`";
+		ResultSet rs = createConnection(sql);
+		String[] columns = {"patternInstanceID", "roleName", "methodName","className","Word","WordID"}; 
+		createIndex(rs, columns);
+		closeConnection(rs);
+	}
+	
+	private static int indexingResults(ResultSet inputRs, String[] columns, IndexWriter iWriter) throws SQLException, IOException {
+		int resultCount = 0;
+		resultCount = addToDocument(inputRs, columns, iWriter, resultCount);
+		return resultCount;
+	}
+	
+	private static int addToDocument(ResultSet inputRs, String[] columns, IndexWriter iWriter, int resultCount) throws SQLException, IOException {
+		Document doc;
+		Field field;
+		while (inputRs.next())
+		{
+			doc = new Document();
+			field = new IntField(columns[0], inputRs.getInt(columns[0]), Field.Store.YES);
+			doc.add(field);
+			System.out.println(inputRs.getInt(columns[0]));
+	
+			if (inputRs.getString(columns[2])!=null){
+			field = new StringField(columns[1], inputRs.getString(columns[1]).replace("()", ""), Field.Store.YES);
+			doc.add(field);
+			System.out.println(inputRs.getString(columns[1]));
+			}
+			else{
+				field = new StringField(columns[2], "no related role", Field.Store.YES);
+				doc.add(field);
+				System.out.println("no role");
+			}
+			if (inputRs.getString(columns[2])!=null){
+			field = new StringField(columns[2], inputRs.getString(columns[2]), Field.Store.YES);
+			doc.add(field);
+			System.out.println(inputRs.getString(columns[2]));
+			}
+			else{
+				field = new StringField(columns[2], "no related method", Field.Store.YES);
+				doc.add(field);
+				System.out.println("no method");
+				
+			}
+			if(inputRs.getString(columns[3])!=null){
+				field = new StringField(columns[3], inputRs.getString(columns[3]), Field.Store.YES);
+				doc.add(field);
+				System.out.println(inputRs.getString(columns[3]));
+			}
+			else
+			{
+				field = new StringField(columns[4], "no related class", Field.Store.YES);
+				doc.add(field);
+				System.out.println("no related class");
+				
+			}
+				
+			if (inputRs.getString(columns[4])!=null){
+				field = new StringField(columns[4], inputRs.getString(columns[4]), Field.Store.YES);
+				doc.add(field);
+				System.out.println(inputRs.getString(columns[4]));
+				
+				field = new IntField(columns[5], inputRs.getInt(columns[5]), Field.Store.YES);
+				doc.add(field);
+				System.out.println(inputRs.getInt(columns[5]));
+				}
+			else{
+				field = new StringField(columns[4], "no comments", Field.Store.YES);
+				doc.add(field);
+				System.out.println(inputRs.getString(columns[4]));
+					
+				field = new IntField(columns[5], 0, Field.Store.YES);
+				doc.add(field);
+				System.out.println(inputRs.getInt(columns[5]));
+			}
+			iWriter.addDocument(doc);
+			resultCount++;
+		}
+		return resultCount;
+	}
+
+	private static IndexWriter luceneIndexing() throws IOException {
+		Directory directory = FSDirectory.open(INDEX_DIRECTORY.toPath());
+		KeywordAnalyzer keywordAnalyzer = new KeywordAnalyzer();
+		IndexWriterConfig writerConfig = new IndexWriterConfig(keywordAnalyzer);
+		writerConfig.setOpenMode(OpenMode.CREATE);
+		/**
+		 * Optional: for better indexing performance, if you are indexing many documents,<BR>
+		 * increase the RAM buffer. But if you do this, increase the max heap size to the JVM (eg add -Xmx512m or -Xmx1g):
+		 */
+		writerConfig.setRAMBufferSizeMB(256.0);
+
+		IndexWriter iWriter = new IndexWriter(directory, writerConfig);
+		return iWriter;
+	}
+}
