@@ -196,31 +196,32 @@ public class javaTotext {
 	}
 
 	public static String cleanString(String s){
-		String str=s;
-		str=str.replace("(", "");
-		str=str.replace(")", "");
-		str=str.replace("{", "");
-		str=str.replace("}", "");
-		str=str.replace(";", "");
-		str=str.replace("*", "");
-		str=str.replace("\\*", "");
-		str=str.replace("\\", "");
-		str=str.replace("//", "");
-		str=str.replace("\n", " ");
-		str=str.replace("\r", " ");
-		str=str.replace("\"", " ");
-		str=str.replace("string", "");
-		str=str.replace("String", "");
-		str=str.replace("println", " ");
-		str=str.replace("equals", " ");
-		str=str.replace("equal", " ");
-		str=str.replace("exception", " ");
-		str=str.replace(".", " ");
-		str=str.replace("\\s", "");
-		str=str.replace("@Override", "");
-		str = spiltCamelCase(str);
-		return str;
-	}
+		  String str=s;
+		  str=str.replace("(", "");
+		  str=str.replace(")", "");
+		  str=str.replace("{", "");
+		  str=str.replace("}", "");
+		  str=str.replace(";", "");
+		  str=str.replace("*", "");
+		  str=str.replace("\\*", "");
+		  str=str.replace("\\", "");
+		  str=str.replace("//", "");
+		  str=str.replace("\n", " ");
+		  str=str.replace("\r", " ");
+		  str=str.replace("\"", " ");
+		  str=str.replace("string", "");
+		  str=str.replace("String", "");
+		  str=str.replace("println", " ");
+		  str=str.replace("equals", " ");
+		  str=str.replace("equal", " ");
+		  str=str.replace("class", " ");
+		  str=str.replace("exception", " ");
+		  str=str.replace(".", " ");
+		  str = spiltCamelCase(str);
+		  str=str.replaceAll("\\s{2,}"," ");
+		  str=str.replace("@Override", "");
+		  return str;
+		 }
 	
 	public static String spiltCamelCase(String input)
 	{
@@ -243,7 +244,6 @@ public class javaTotext {
 					if ((temp.substring(temp.lastIndexOf('.') + 1, temp.length()).toLowerCase()).equals("txt"))
 						System.out.println("File= " + folder.getAbsolutePath()+ "\\" + fileEntry.getName());
 				}
-
 			}
 		}
 	}

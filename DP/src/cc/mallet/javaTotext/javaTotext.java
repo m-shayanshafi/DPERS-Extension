@@ -197,9 +197,9 @@ public class javaTotext {
 		str=str.replace("class", " ");
 		str=str.replace("exception", " ");
 		str=str.replace(".", " ");
-		str=str.replace("\\s", "");
-		str=str.replace("@Override", "");
 		str = spiltCamelCase(str);
+		str=str.replaceAll("\\s{2,}"," ");
+		str=str.replace("@Override", "");
 		return str;
 	}
 	public static String spiltCamelCase(String input)
