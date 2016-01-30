@@ -34,7 +34,7 @@ public class DbConnection {
 	
 	 public void insertTopicData(String topics, String filePath) throws SQLException {
 		 String[] tokens = breakTopics(topics);
-		 List DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highes weightage
+		 List DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highest weightage
 		 List DomainWeightage =getDomaincolumn(tokens,3);//Get the weightage of the names of the clusters having the highes weightage
 		 List keywords= getDomainRow(tokens,true);
 		 List keywordsWeightage= getDomainRow(tokens,false);
