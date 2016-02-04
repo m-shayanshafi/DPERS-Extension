@@ -6,9 +6,6 @@ Pre-requisites:
 
 2. xampp
 
-This code requires a bin folder to be placed in DP folder.
-Currently it is not uploaded here because of ignore list setting to ignore bin folders. However, this is a special bin folder whose files are not auto-generated
-
 Instructions:
 
 1. Start xampp server
