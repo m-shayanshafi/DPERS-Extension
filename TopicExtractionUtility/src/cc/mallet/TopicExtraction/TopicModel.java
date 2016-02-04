@@ -47,7 +47,7 @@ public class TopicModel {
 
 		// Run the model for 50 iterations and stop (this is for testing only, 
 		//  for real applications, use 1000 to 2000 iterations)
-		model.setNumIterations(3000);
+		model.setNumIterations(1000);
 		model.estimate();
 
 		// Show the words and topics in the first instance
