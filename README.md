@@ -13,3 +13,7 @@ Instructions:
 3. Import the latest sql script to poulate the designpatternrepo database
 4. In eclipse, the MatrixFrame.java file in gr.uom.java.pattern.gui folder is the starting point which executes the design pattern detection utility and also the topic detection. Once competed all info is updated in the designpatternrepo database.
 
+
+The database for SEWordSIM is the 444MB SEWordSim-r1.db file. It is not uploaded on this Github repository because of the 100MB file size limitation. It needs to be placed in the TopicExtractionUtility folder. It can be downloaded from the following link
+https://drive.google.com/folderview?id=0B8cuz9Ureg2bdEZRTlhTU0FmNmM&usp=sharing#
+
