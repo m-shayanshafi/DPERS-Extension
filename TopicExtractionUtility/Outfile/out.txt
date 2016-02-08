@@ -1,11 +1,11 @@
-0	0.036	mode (8) pic (3) color (3) current (3) addnormal (2) 
-1	0.010	width (2) collision (2) setting (1) addquit (1) code (1) 
-2	0.019	delta (3) source (2) holder (2) key (2) gender (2) 
-3	0.001	health (1) 
-4	0.054	print (8) mertuygur (8) group (5) thread (5) start (4) 
-5	0.033	height (4) run (4) addgender (3) source (3) ambient (3) 
-6	0.026	addmusic (4) doga (3) night (2) handler (2) hallwayrage (2) 
-7	0.015	day (3) female (2) duration (2) addmusic (1) buttons (1) 
-8	0.061	action (9) ifkey (6) height (6) start (5) mod (4) 
-9	0.746	set (104) game (99) button (85) panel (64) main (54) 
-0	0.11819065240711533
+0	1.000	command (15) electronics (12) consumer (12) mute (11) list (9) 
+1	0.000	
+2	0.000	
+3	0.000	
+4	0.000	
+5	0.000	
+6	0.000	
+7	0.000	
+8	0.000	
+9	0.000	
+0	0.9999999149724571

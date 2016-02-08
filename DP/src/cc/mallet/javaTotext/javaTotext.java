@@ -80,11 +80,10 @@ public class javaTotext {
 			identifyTopic.IdentifyTopic();
 			List<String> list=getTopics();
 			db.insertTopicData(list.toString(), getProjectPath(file).getPath());
-			System.out.println("Topics are successfully saved in Database.");
 		}
-		
+		clean();
 		javaTotext.delete(new File("Outfile\\Output.txt"));
-
+		delete(new File(FILES_TO_INDEX_DIRECTORY));
 		// exteractTopic(file);
 	}
 	public static boolean isSrcFolder(File file){
@@ -191,7 +190,6 @@ public class javaTotext {
 		str=str.replace("\n", " ");
 		str=str.replace("\r", " ");
 		str=str.replace("\"", " ");
-		str=str.replace("'", " ");
 		str=str.replace(",", " ");
 		str=str.replace("string", "");
 		str=str.replace("String", "");

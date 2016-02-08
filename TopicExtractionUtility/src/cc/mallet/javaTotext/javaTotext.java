@@ -29,6 +29,8 @@ public class javaTotext {
 	public static void run(File directoryName) throws Throwable{
 		File directory = directoryName;
 		JackardSimilarityBags j1 = new JackardSimilarityBags();
+		clean();
+		delete(new File(FILES_TO_INDEX_DIRECTORY));
 		ArrayList<String> userVector = ExtractDomainTopic(directory);
 		j1.findRecommendations(userVector);
 	} 
@@ -74,6 +76,7 @@ public class javaTotext {
 		String[] tokens = breakTopics(list.toString());
 		DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highest weightage
 		System.out.print(DomainNames);
+		clean();
 		delete(new File(FILES_TO_INDEX_DIRECTORY));
 		return DomainNames;
 	}
@@ -209,7 +212,6 @@ public class javaTotext {
 		  str=str.replace("\n", " ");
 		  str=str.replace("\r", " ");
 		  str=str.replace("\"", " ");
-		  str=str.replace("'", " ");
 		  str=str.replace(",", " ");
 		  str=str.replace("string", "");
 		  str=str.replace("String", "");

@@ -1,11 +1,11 @@
-0	0.019	sequencer (6) pode (6) info (5) pulando (4) images (3) 
-1	0.018	abertura (7) fire (6) dying (5) decay (5) repaint (5) 
-2	0.030	nova (7) wav (6) estrelas (6) mixer (6) pressed (6) 
-3	0.013	lista (5) transfer (4) colidiu (3) estrelas (3) peda (3) 
-4	0.014	distance (6) gerencia (6) mixer (5) track (5) aplica (4) 
-5	0.020	fundo (8) tamanho (5) foi (5) anima (5) executando (5) 
-6	0.348	animation (205) player (146) mouse (142) game (125) action (91) 
-7	0.501	image (357) imagens (327) anim (305) sprite (205) koopa (150) 
-8	0.018	tiles (15) finalizado (8) ground (5) curr (5) finaliza (5) 
-9	0.019	detect (6) button (5) novo (5) running (5) speed (4) 
-0	0.29214833566869985
+0	1.000	command (15) electronics (12) consumer (12) mute (11) list (9) 
+1	0.000	
+2	0.000	
+3	0.000	
+4	0.000	
+5	0.000	
+6	0.000	
+7	0.000	
+8	0.000	
+9	0.000	
+0	0.9999999972102859
