@@ -1,6 +1,11 @@
 # ignore all bin directories
+
+
 # matches "bin" in any subfolder
 bin/
+
+# ignore hige database file TopicExtractionUtility\SEWordSim-r1.db
+SEWordSim-r1.db
 
 # ignore all target directories
 target/

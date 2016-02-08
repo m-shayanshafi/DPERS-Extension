@@ -209,6 +209,8 @@ public class javaTotext {
 		  str=str.replace("\n", " ");
 		  str=str.replace("\r", " ");
 		  str=str.replace("\"", " ");
+		  str=str.replace("'", " ");
+		  str=str.replace(",", " ");
 		  str=str.replace("string", "");
 		  str=str.replace("String", "");
 		  str=str.replace("println", " ");
