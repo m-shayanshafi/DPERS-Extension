@@ -47,7 +47,7 @@ public class TopicModel {
 
 		// Run the model for 50 iterations and stop (this is for testing only, 
 		//  for real applications, use 1000 to 2000 iterations)
-		model.setNumIterations(1000);
+		model.setNumIterations(15);
 		model.estimate();
 
 		// Show the words and topics in the first instance
@@ -78,7 +78,7 @@ public class TopicModel {
 			out = new Formatter(new StringBuilder(), Locale.US);
 			out.format("%d\t%.3f\t", topic, topicDistribution[topic]);
 			int rank = 0;
-			while (iterator.hasNext() && rank < 5) {
+			while (iterator.hasNext() && rank < 10) {
 				IDSorter idCountPair = iterator.next();
 				out.format("%s (%.0f) ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
 				rank++;

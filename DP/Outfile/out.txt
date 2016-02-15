@@ -1,11 +1,11 @@
-0	1.000	command (15) electronics (12) consumer (12) mute (11) list (9) 
-1	0.000	
-2	0.000	
-3	0.000	
-4	0.000	
-5	0.000	
-6	0.000	
-7	0.000	
-8	0.000	
-9	0.000	
-0	0.9999999972102859
+0	0.067	description (18) ray (7) geological (6) forward (6) flying (5) chain (5) installation (4) nby (3) analyze (3) launched (1) 
+1	0.121	method (17) observers (15) rems (15) required (14) left (13) status (10) detected (6) auto-generated (5) martian (3) navigation (3) 
+2	0.059	register (7) move (7) execute (7) landing (6) exploration (5) bwd (5) ultraviolet (4) ward (4) laser (4) surface (2) 
+3	0.192	analysis (64) observer (42) mars (20) update (15) sensor (13) backward (9) radiations (8) pressure (8) rand (5) override (4) 
+4	0.100	command (27) rover (26) direction (14) wind (7) comman (6) stub (5) register (3) working (2) navigating (2) recording (2) 
+5	0.127	rover (46) mars (30) camera (17) input (9) temperature (8) current (4) microscope (4) results (2) change (1) updated (1) 
+6	0.049	obstacle (14) control (8) samples (6) fwd (5) fine (2) surface (2) rotating (2) micro (2) context (1) med (1) 
+7	0.088	operations (16) rotate (14) click (13) sample (10) infrared (6) detection (5) hazcams (5) earth (5) sensors (4) ofobserver (2) 
+8	0.102	rover (26) software (9) move (7) specimen (7) speeds (6) humidity (6) analyzer (6) activity (5) subject (5) moving (5) 
+9	0.095	behavior (31) remote (16) picture (7) description (5) interrupted (4) examining (4) successfully (3) environmental (3) collecting (3) laboritory (3) 
+0	0.8500000000000004

@@ -35,6 +35,8 @@ public class DbConnection {
 
 	public void insertTopicData(String topics, String filePath) throws SQLException {
 		String[] tokens = breakTopics(topics);
+		double[] probs=getProbabilities(tokens);
+		int maxRow = getMaxIndex(probs);
 		List DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highes weightage
 		List DomainWeightage =getDomaincolumn(tokens,3);//Get the weightage of the names of the clusters having the highes weightage
 		List keywords= getDomainRow(tokens,true);
@@ -43,20 +45,38 @@ public class DbConnection {
 		int result;
 		int count=0;
 		for(Object name:DomainNames){
-			PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`) VALUES (?,?,?,?)");
+			if(maxRow == count){
+			PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`, `probability`) VALUES (?,?,?,?,?)");
 			String stemmedInputWord = stem.stemWord(name.toString());
 			statement.setInt(1,getProjectName(filePath));
 			statement.setString(2,filePath);
-			//statement.setString(3,name.toString());
 			statement.setString(3,stemmedInputWord);
 			statement.setInt(4,Integer.parseInt(DomainWeightage.get(count).toString()));
+			statement.setDouble(5,probs[maxRow]);
 			result=statement.executeUpdate();
-			insertKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getdomainID(stemmedInputWord, filePath));
-
+			insertDomainKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getProjectName(filePath), filePath, probs[maxRow]);
+			
+		}
 			count++;
 		}
 
 	}
+	public void insertDomainKeywords(String keywords, String KeywordWeightage, int projectId, String filePath, double prob) throws SQLException{
+		String[] words= keywords.split(" ");
+		String[] weights = KeywordWeightage.split(" ");
+		int result;
+		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`, `probability`) VALUES (?,?,?,?,?)");
+		for(int i=1;i<words.length;i++){
+			String stemmedInputWord = stem.stemWord(words[i]);
+			statement.setInt(1,projectId);
+			statement.setString(2,filePath);
+			statement.setString(3,stemmedInputWord);
+			statement.setInt(4,Integer.parseInt(weights[i]));
+			statement.setDouble(5,prob);
+			result=statement.executeUpdate();
+		}
+	}
+	
 	public void insertKeywords(String keywords, String KeywordWeightage, int topicId) throws SQLException{
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
@@ -65,7 +85,6 @@ public class DbConnection {
 		for(int i=1;i<words.length;i++){
 			String stemmedInputWord = stem.stemWord(words[i]);
 			statement.setInt(1,topicId);
-			//statement.setString(2,words[i]);
 			statement.setString(2,stemmedInputWord);
 			statement.setInt(3,Integer.parseInt(weights[i]));
 			result=statement.executeUpdate();
@@ -85,6 +104,37 @@ public class DbConnection {
 		String[] topicList = topics.split(",");
 		return topicList;
 	}
+	public double[] getProbabilities(String[] topicList){
+		double[] outputProbs = new double[topicList.length-1];
+		String[] prob=new String[topicList.length-1];
+		for(int i=0;i<=topicList.length-2;i++){
+			String[] temp =topicList[i].split(" ") ;
+			if(i>0){
+				prob = temp[1].split("\t");
+			}
+			else{
+			    prob = temp[0].split("\t");
+			}
+			outputProbs[i] = Double.parseDouble(prob[1].replace("]", "").toString()); 
+		}
+		
+		
+		return outputProbs;
+	}
+	
+	public int getMaxIndex(double[] outputProbs){
+		int maxIndex = 0;
+		double max=0;
+		for (int i = 0; i <= outputProbs.length-1; i++) {
+		   if (outputProbs[i] > max) {
+		        max = outputProbs[i];
+		        maxIndex = i;
+		    }
+		}
+		System.out.println(maxIndex);
+		return maxIndex;
+	}
+	
 	public List getDomainRow(String[] topicArray, boolean div){
 		List domainElement = new ArrayList();
 		int count =1;
