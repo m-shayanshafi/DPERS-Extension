@@ -32,28 +32,57 @@ public class DbConnection {
 				
 	}
 	
-	 public void insertTopicData(String topics, String filePath) throws SQLException {
-		 String[] tokens = breakTopics(topics);
-		 List DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highest weightage
-		 List DomainWeightage =getDomaincolumn(tokens,3);//Get the weightage of the names of the clusters having the highes weightage
-		 List keywords= getDomainRow(tokens,true);
-		 List keywordsWeightage= getDomainRow(tokens,false);
-		 
-		 int result;
-		 int count=0;
-		 for(Object name:DomainNames){
-		 PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`) VALUES (?,?,?,?)");
-	    	statement.setInt(1,getProjectName(filePath));
-	    	statement.setString(2,filePath);
-	    	statement.setString(3,name.toString());
-	    	statement.setInt(4,Integer.parseInt(DomainWeightage.get(count).toString()));
-	    	result=statement.executeUpdate();
-	    	insertKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getdomainID(name.toString(), filePath));
-	    	
-		count++;
-		 }
-		 
-	 }
+	public void insertTopicData(String topics, String filePath) throws SQLException {
+		String[] tokens = breakTopics(topics);
+		double[] probs=getProbabilities(tokens);
+		int maxRow = getMaxIndex(probs);
+		List DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highes weightage
+		List DomainWeightage =getDomaincolumn(tokens,3);//Get the weightage of the names of the clusters having the highes weightage
+		List keywords= getDomainRow(tokens,true);
+		List keywordsWeightage= getDomainRow(tokens,false);
+
+		int result;
+		int count=0;
+		for(Object name:DomainNames){
+			if(maxRow == count){
+				ArrayList domainElement = new ArrayList();
+				
+			}
+			count++;
+		}
+
+	}
+	
+	public double[] getProbabilities(String[] topicList){
+		double[] outputProbs = new double[topicList.length-1];
+		String[] prob=new String[topicList.length-1];
+		for(int i=0;i<=topicList.length-2;i++){
+			String[] temp =topicList[i].split(" ") ;
+			if(i>0){
+				prob = temp[1].split("\t");
+			}
+			else{
+			    prob = temp[0].split("\t");
+			}
+			outputProbs[i] = Double.parseDouble(prob[1].replace("]", "").toString()); 
+		}
+		
+		
+		return outputProbs;
+	}
+	
+	public int getMaxIndex(double[] outputProbs){
+		int maxIndex = 0;
+		double max=0;
+		for (int i = 0; i <= outputProbs.length-1; i++) {
+		   if (outputProbs[i] > max) {
+		        max = outputProbs[i];
+		        maxIndex = i;
+		    }
+		}
+		System.out.println(maxIndex);
+		return maxIndex;
+	}
 	 public void insertKeywords(String keywords, String KeywordWeightage, int topicId) throws SQLException{
 		 String[] words= keywords.split(" ");
 		 String[] weights = KeywordWeightage.split(" ");

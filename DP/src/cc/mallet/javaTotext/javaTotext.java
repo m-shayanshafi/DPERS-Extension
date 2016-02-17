@@ -69,6 +69,8 @@ public class javaTotext {
 	public static void folderWisetopicExtraction(File file) throws Exception {
 		// TODO Auto-generated method stub
 		clean();
+		javaTotext.delete(new File("Outfile\\Output.txt"));
+		delete(new File(FILES_TO_INDEX_DIRECTORY));
 		List<File> javaFilesDirectory= listf(file.getPath());
 		Iterator<File> javaFileIter = javaFilesDirectory.iterator();
 		db = DbConnection.getDBcon();
@@ -120,7 +122,7 @@ public class javaTotext {
 			Path p = Paths.get(outfile.getPath());
 			String outfileName = "Outfile\\" + p.getFileName();
 			Path path = Paths.get(outfileName);
-
+			System.gc();
 			if (Files.exists(path)) {
 				File outFile1 = new File(outfileName);
 				outFile1.delete();
@@ -148,6 +150,7 @@ public class javaTotext {
 		writer.write("");
 		writer.close();
 	}
+	
 	public static void read(final File folder) throws IOException{
 		File path = folder;     
 		String line="";
@@ -174,6 +177,7 @@ public class javaTotext {
 		BufferedWriter writer = new BufferedWriter(fileWritter);
 		writer.write(s);
 		writer.close();
+		System.gc();
 	}
 
 	public static String cleanString(String s){
@@ -182,6 +186,8 @@ public class javaTotext {
 		str=str.replace(")", "");
 		str=str.replace("{", "");
 		str=str.replace("}", "");
+		str=str.replace("[", "");
+		str=str.replace("]", "");
 		str=str.replace(";", "");
 		str=str.replace("*", "");
 		str=str.replace("\\*", "");
@@ -302,13 +308,26 @@ public class javaTotext {
 		str=str.replace("Array", " ");
 		str=str.replace("TODO", " ");
 		str=str.replace("args", " ");
+		str=str.replace("color", "");
+		str=str.replace("JFrame", " ");
+		str=str.replace("JPanel", "");
+		str=str.replace("JLabel", " ");
+		str=str.replace("JButton", "");
+		str=str.replace("Frame", " ");
+		str=str.replace("Panel", "");
+		str=str.replace("Label", " ");
+		str=str.replace("Text", " ");
+		str=str.replace("Ran", "");
+		str=str.replace("Menu", "");
+		str=str.replace("J", "");
+		str=str.replace("Override", "");
 		str=str.replace(".", " ");
 		str = spiltCamelCase(str);
 		str=str.replaceAll("\\s{2,}"," ");
 		str=str.replace("@Override", "");
 		return str;
 	}
-	
+
 	public static String spiltCamelCase(String input)
 	{
 		String  result="";
@@ -317,6 +336,7 @@ public class javaTotext {
 		}
 		return result;
 	}  
+
 	public static void listFilesForFolder(final File folder) {
 
 		for (final File fileEntry : folder.listFiles()) {
@@ -329,10 +349,7 @@ public class javaTotext {
 					if ((temp.substring(temp.lastIndexOf('.') + 1, temp.length()).toLowerCase()).equals("txt"))
 						System.out.println("File= " + folder.getAbsolutePath()+ "\\" + fileEntry.getName());
 				}
-
 			}
 		}
 	}
-
-
 }

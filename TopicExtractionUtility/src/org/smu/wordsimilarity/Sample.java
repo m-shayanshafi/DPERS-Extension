@@ -54,6 +54,7 @@ public class Sample {
 			String inputWord = userFeatureVector.get(i); // input word will be coming from user's feature vector
 			String stemmedInputWord = facade.stemWord(inputWord);
 			enhancedFeatureVector.add(stemmedInputWord);
+			/*
 			java.util.List<String> matchingWords = facade.findTopNWords(stemmedInputWord, 5);
 			if (matchingWords != null)
 			{
@@ -62,6 +63,7 @@ public class Sample {
 					enhancedFeatureVector.add(matchingWords.get(j));
 				}
 			}
+			*/
 		}
 		return enhancedFeatureVector;
 	}

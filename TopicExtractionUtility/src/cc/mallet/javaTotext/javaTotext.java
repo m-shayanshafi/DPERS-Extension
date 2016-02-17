@@ -37,7 +37,6 @@ public class javaTotext {
 
 	public static List<File> listf(String directoryName) {
 		File directory = new File(directoryName);
-
 		List<File> resultList = new ArrayList<File>();
 
 		File[] fList = directory.listFiles();
@@ -49,7 +48,6 @@ public class javaTotext {
 				System.out.println(file.getAbsolutePath());
 			} else if (file.isDirectory()) {
 				javaList.addAll(listf(file.getAbsolutePath()));
-
 			}
 		}
 		//System.out.println(fList);
@@ -65,6 +63,8 @@ public class javaTotext {
 
 	public static ArrayList ExtractDomainTopic(File file) throws Exception {
 		clean();
+		javaTotext.delete(new File("Outfile\\Output.txt"));
+		delete(new File(FILES_TO_INDEX_DIRECTORY));
 		ArrayList DomainNames = null;
 		List<File> javaFilesDirectory= listf(file.getPath());
 		Iterator<File> javaFileIter = javaFilesDirectory.iterator();
@@ -74,16 +74,80 @@ public class javaTotext {
 		identifyTopic.IdentifyTopic();
 		List<String> list=getTopics();
 		String[] tokens = breakTopics(list.toString());
-		DomainNames =getDomaincolumn(tokens,2);//Get the names of the clusters having the highest weightage
+		double[] probs=getProbabilities(tokens);
+		int max=getMaxIndex(probs);
+		DomainNames =getDomainRow(tokens, max);//Get the names of the clusters having the highest weightage
 		System.out.print(DomainNames);
 		clean();
+		javaTotext.delete(new File("Outfile\\Output.txt"));
 		delete(new File(FILES_TO_INDEX_DIRECTORY));
 		return DomainNames;
+	}
+
+	public static double[] getProbabilities(String[] topicList){
+		double[] outputProbs = new double[topicList.length-1];
+		String[] prob=new String[topicList.length-1];
+		for(int i=0;i<=topicList.length-2;i++){
+			String[] temp =topicList[i].split(" ") ;
+			if(i>0){
+				prob = temp[1].split("\t");
+			}
+			else{
+				prob = temp[0].split("\t");
+			}
+			outputProbs[i] = Double.parseDouble(prob[1].replace("]", "").toString()); 
+		}
+		return outputProbs;
+	}
+
+	public static int getMaxIndex(double[] outputProbs){
+		int maxIndex = 0;
+		double max=0;
+		for (int i = 0; i <= outputProbs.length-1; i++) {
+			if (outputProbs[i] > max) {
+				max = outputProbs[i];
+				maxIndex = i;
+			}
+		}
+		System.out.println(maxIndex);
+		return maxIndex;
 	}
 
 	public static String[] breakTopics(String topics){
 		String[] topicList = topics.split(",");
 		return topicList;
+	}
+
+	public static ArrayList getDomainRow(String[] topicArray, int temp){
+		ArrayList domainElement = new ArrayList();
+		boolean div=true;
+		int count=0;
+		boolean tempPos=true;
+		String element="";
+		int j=2;
+		for(String line:topicArray){
+			if(count==temp){
+				String[] clusterKeywords = line.replace("\t"," ").replace("\n"," ").split(" ");
+				if(line.startsWith(" ")){
+					tempPos=false;
+					j=3;
+				}
+				for(int i=j;i<clusterKeywords.length;i++){
+
+					if((i%2==0)==tempPos){
+						//element=element+" "+clusterKeywords[i];
+						element=clusterKeywords[i].replace("(", "").replace(")", "");
+						domainElement.add(element);
+					}
+				}
+				//element=element.replace("(", "").replace(")", "");
+				//domainElement.add(element);
+			}
+			element="";
+			tempPos=div;
+			count++;
+		}
+		return domainElement;
 	}
 
 	public static ArrayList getDomaincolumn(String[] topicArray, int position){
@@ -141,7 +205,7 @@ public class javaTotext {
 			Path p = Paths.get(outfile.getPath());
 			String outfileName = "Outfile\\" + p.getFileName();
 			Path path = Paths.get(outfileName);
-
+			System.gc();
 			if (Files.exists(path)) {
 				File outFile1 = new File(outfileName);
 				outFile1.delete();
@@ -169,7 +233,7 @@ public class javaTotext {
 		writer.write("");
 		writer.close();
 	}
-	
+
 	public static void read(final File folder) throws IOException{
 		File path = folder;     
 		String line="";
@@ -196,6 +260,7 @@ public class javaTotext {
 		BufferedWriter writer = new BufferedWriter(fileWritter);
 		writer.write(s);
 		writer.close();
+		System.gc();
 	}
 
 	public static String cleanString(String s){
@@ -204,6 +269,8 @@ public class javaTotext {
 		str=str.replace(")", "");
 		str=str.replace("{", "");
 		str=str.replace("}", "");
+		str=str.replace("[", "");
+		str=str.replace("]", "");
 		str=str.replace(";", "");
 		str=str.replace("*", "");
 		str=str.replace("\\*", "");
@@ -324,13 +391,26 @@ public class javaTotext {
 		str=str.replace("Array", " ");
 		str=str.replace("TODO", " ");
 		str=str.replace("args", " ");
+		str=str.replace("color", "");
+		str=str.replace("JFrame", " ");
+		str=str.replace("JPanel", "");
+		str=str.replace("JLabel", " ");
+		str=str.replace("JButton", "");
+		str=str.replace("Frame", " ");
+		str=str.replace("Panel", "");
+		str=str.replace("Label", " ");
+		str=str.replace("Text", " ");
+		str=str.replace("Ran", "");
+		str=str.replace("Menu", "");
+		str=str.replace("J", "");
+		str=str.replace("Override", "");
 		str=str.replace(".", " ");
 		str = spiltCamelCase(str);
 		str=str.replaceAll("\\s{2,}"," ");
 		str=str.replace("@Override", "");
 		return str;
 	}
-	
+
 	public static String spiltCamelCase(String input)
 	{
 		String  result="";
@@ -339,7 +419,7 @@ public class javaTotext {
 		}
 		return result;
 	}  
-	
+
 	public static void listFilesForFolder(final File folder) {
 
 		for (final File fileEntry : folder.listFiles()) {
@@ -355,5 +435,4 @@ public class javaTotext {
 			}
 		}
 	}
-
 }

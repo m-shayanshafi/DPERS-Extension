@@ -45,22 +45,25 @@ public class DbConnection {
 		int result;
 		int count=0;
 		for(Object name:DomainNames){
-			if(maxRow == count){
-			PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`, `probability`) VALUES (?,?,?,?,?)");
-			String stemmedInputWord = stem.stemWord(name.toString());
-			statement.setInt(1,getProjectName(filePath));
-			statement.setString(2,filePath);
-			statement.setString(3,stemmedInputWord);
-			statement.setInt(4,Integer.parseInt(DomainWeightage.get(count).toString()));
-			statement.setDouble(5,probs[maxRow]);
-			result=statement.executeUpdate();
-			insertDomainKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getProjectName(filePath), filePath, probs[maxRow]);
-			
-		}
+			if(maxRow == count)
+			{
+				/*
+				PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`, `probability`) VALUES (?,?,?,?,?)");
+				String stemmedInputWord = stem.stemWord(name.toString());
+				statement.setInt(1,getProjectName(filePath));
+				statement.setString(2,filePath);
+				statement.setString(3,stemmedInputWord);
+				statement.setInt(4,Integer.parseInt(DomainWeightage.get(count).toString()));
+				statement.setDouble(5,probs[maxRow]);
+				result=statement.executeUpdate();
+				*/
+				insertDomainKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getProjectName(filePath), filePath, probs[maxRow]);
+
+			}
 			count++;
 		}
-
 	}
+
 	public void insertDomainKeywords(String keywords, String KeywordWeightage, int projectId, String filePath, double prob) throws SQLException{
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
@@ -76,7 +79,7 @@ public class DbConnection {
 			result=statement.executeUpdate();
 		}
 	}
-	
+
 	public void insertKeywords(String keywords, String KeywordWeightage, int topicId) throws SQLException{
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
@@ -113,28 +116,28 @@ public class DbConnection {
 				prob = temp[1].split("\t");
 			}
 			else{
-			    prob = temp[0].split("\t");
+				prob = temp[0].split("\t");
 			}
 			outputProbs[i] = Double.parseDouble(prob[1].replace("]", "").toString()); 
 		}
-		
-		
+
+
 		return outputProbs;
 	}
-	
+
 	public int getMaxIndex(double[] outputProbs){
 		int maxIndex = 0;
 		double max=0;
 		for (int i = 0; i <= outputProbs.length-1; i++) {
-		   if (outputProbs[i] > max) {
-		        max = outputProbs[i];
-		        maxIndex = i;
-		    }
+			if (outputProbs[i] > max) {
+				max = outputProbs[i];
+				maxIndex = i;
+			}
 		}
 		System.out.println(maxIndex);
 		return maxIndex;
 	}
-	
+
 	public List getDomainRow(String[] topicArray, boolean div){
 		List domainElement = new ArrayList();
 		int count =1;

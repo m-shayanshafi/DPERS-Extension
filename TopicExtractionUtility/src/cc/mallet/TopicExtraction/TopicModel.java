@@ -78,7 +78,7 @@ public class TopicModel {
 			out = new Formatter(new StringBuilder(), Locale.US);
 			out.format("%d\t%.3f\t", topic, topicDistribution[topic]);
 			int rank = 0;
-			while (iterator.hasNext() && rank < 5) {
+			while (iterator.hasNext() && rank < 10) {
 				IDSorter idCountPair = iterator.next();
 				out.format("%s (%.0f) ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
 				rank++;
