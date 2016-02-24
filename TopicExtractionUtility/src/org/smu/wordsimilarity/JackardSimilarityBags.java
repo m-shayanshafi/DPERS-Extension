@@ -195,7 +195,7 @@ public class JackardSimilarityBags {
 			System.out.println("\nDetails of project are: ");
 			while(patternIDs.next()){
 				//System.out.println(patternIDs.getString(1));
-				System.out.println("For Design Pattern: " + patternIDs.getString(2));
+				System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
 				ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
 				while(patternIDsDetails.next()){
 					System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
