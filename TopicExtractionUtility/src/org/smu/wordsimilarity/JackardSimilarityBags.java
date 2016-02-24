@@ -45,7 +45,7 @@ public class JackardSimilarityBags {
 	public static void findRecommendations(ArrayList<String> userFeatureVector) throws Throwable
 	{
 		Sample s1 = new Sample();
-		userFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector);
+		userFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector); //stemmed user feature vector
 		featureVectors.clear();
 		featureProjectIDs.clear();
 		featureVectors.add(userFeatureVector);
@@ -60,9 +60,53 @@ public class JackardSimilarityBags {
 		double dist[][] = new double[totalMethods][totalMethods]; //Distance of each method with the rest 
 		int minDist [] = new int[totalMethods];				   //index of closest cluster
 		System.out.println("Total methods: "+ totalMethods);
+		
+		compareFeatureVectors();
 
 		/**** Jaccard Difference Matrix Creation *****/
 		createDistanceMatrix(dist, featureVectors, minDist);
+	}
+
+	private static void compareFeatureVectors() {
+		double similarityScores[][] = new double[10][10];
+		double projectSimilarityScore[] = new double[featureVectors.size()];
+		String projectIDs[] = new String[featureVectors.size()];
+		
+		List<String> userFV = featureVectors.get(0);
+		projectSimilarityScore[0] = 0;
+		projectIDs[0] = "0";
+		
+		for (int i=1; i<featureVectors.size(); i++)
+		{
+			List<String> repoFV = featureVectors.get(i);
+			for (int j = 0; j < userFV.size(); j++) {
+				String userTopic = userFV.get(j);
+				for (int k = 0; k < repoFV.size(); k++) {
+					String repoTopic = repoFV.get(k);
+					if (userTopic.equalsIgnoreCase(repoTopic))
+					{
+						similarityScores[j][k] = 10; // in order to boost our exactly matching keywords
+					}
+					else
+					{
+						similarityScores[j][k] = facade.computeSimilarity(userTopic, repoTopic);
+					}
+				}
+			}
+			System.out.println(similarityScores.length);
+			projectSimilarityScore[i] = 0;
+			projectIDs[i] = featureProjectIDs.get(i);
+			
+			for (int a=0; a<10; a++)
+			{
+				for (int b=0; b<10; b++)
+				{
+					projectSimilarityScore[i] = projectSimilarityScore[i] + similarityScores[a][b];
+				}
+			}
+			System.out.println(projectSimilarityScore[i]);
+			System.out.println(projectIDs[i]);
+		}
 	}
 
 	private static void addTemporary() {
@@ -146,11 +190,24 @@ public class JackardSimilarityBags {
 			while(patterns.next()){
 				System.out.println(patterns.getString(1));
 			}
+			
+			ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
+			System.out.println("\nDetails of project are: ");
+			while(patternIDs.next()){
+				//System.out.println(patternIDs.getString(1));
+				System.out.println("For Design Pattern: " + patternIDs.getString(2));
+				ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
+				while(patternIDsDetails.next()){
+					System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
+				}
+			}
+			/*
 			System.out.println("\nDetails of project are: ");
 			ResultSet details = dc.getProjectDetails(projectID);
 			while(details.next()){
 				System.out.println("Role Name: " + details.getString("roleName") + ", Method Name: " + details.getString("methodName") + ", Class Name: " + details.getString("className"));
 			}
+			*/
 			dc.closeConnection();
 		}
 		else

@@ -118,7 +118,8 @@ public class WordSimDBFacade {
 				System.exit(0);
 			}
 		} else {
-			similarity = -1;
+			//similarity = -1;
+			similarity = 0;
 		}
 		return similarity;
 	}

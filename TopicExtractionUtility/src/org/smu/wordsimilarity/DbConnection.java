@@ -172,5 +172,35 @@ public class DbConnection {
 			name = result.getString(1);
 		}
 		return name;
-	}  
+	}
+
+	
+	public ResultSet getPatternIDsOfProject(String projectID) throws SQLException {
+		PreparedStatement statement = this.con.prepareStatement("SELECT distinct a.patternID, name from patterninstance a join patterns b on a.patternID=b.patternID where a.projectID="+projectID);
+		ResultSet patterns = null;
+		try 
+		{
+			patterns = statement.executeQuery();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return patterns;
+	}
+
+	public ResultSet getPatternIDsDetail(String projectID, String patternID) throws SQLException {
+		PreparedStatement statement = this.con.prepareStatement("select * from methodnames where patternInstanceID in (SELECT distinct patternInstanceID from patterninstance where projectID="+projectID+" and patternID = "+patternID+")");
+		ResultSet patterns = null;
+		try 
+		{
+			patterns = statement.executeQuery();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return patterns;
+	}
+
 }
