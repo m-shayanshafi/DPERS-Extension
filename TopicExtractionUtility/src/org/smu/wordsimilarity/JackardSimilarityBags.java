@@ -61,13 +61,15 @@ public class JackardSimilarityBags {
 		int minDist [] = new int[totalMethods];				   //index of closest cluster
 		System.out.println("Total methods: "+ totalMethods);
 		
-		compareFeatureVectors();
-
-		/**** Jaccard Difference Matrix Creation *****/
+		/**** Jaccard Similarity Recommendations *****/
 		createDistanceMatrix(dist, featureVectors, minDist);
+		
+		/**** SEWordSim Recommendations *****/
+		compareFeatureVectorsUsingSEWordSim();
 	}
 
-	private static void compareFeatureVectors() {
+	private static void compareFeatureVectorsUsingSEWordSim() throws Throwable {
+		System.out.println("\n---------------- *** Top 3 Recommendations using SEWordSim *** ----------------");
 		double similarityScores[][] = new double[10][10];
 		double projectSimilarityScore[] = new double[featureVectors.size()];
 		String projectIDs[] = new String[featureVectors.size()];
@@ -93,7 +95,6 @@ public class JackardSimilarityBags {
 					}
 				}
 			}
-			System.out.println(similarityScores.length);
 			projectSimilarityScore[i] = 0;
 			projectIDs[i] = featureProjectIDs.get(i);
 			
@@ -104,9 +105,24 @@ public class JackardSimilarityBags {
 					projectSimilarityScore[i] = projectSimilarityScore[i] + similarityScores[a][b];
 				}
 			}
-			System.out.println(projectSimilarityScore[i]);
-			System.out.println(projectIDs[i]);
 		}
+		
+		for (int i=0; i<projectSimilarityScore.length; i++)
+		{
+			System.out.print(projectSimilarityScore[i] + "    ");
+		}
+		
+		String[] top3Projects = findMax(projectSimilarityScore, 3);
+		
+		System.out.println("\n--------------------------- Project No. 1 ---------------------------");
+		System.out.println("\nRecommended Project ID: " + top3Projects[0]);
+		recommendProject(top3Projects[0]);
+		System.out.println("\n--------------------------- Project No. 2 ---------------------------");
+		System.out.println("\nRecommended Project ID: " + top3Projects[1]);
+		recommendProject(top3Projects[1]);
+		System.out.println("\n--------------------------- Project No. 3 ---------------------------");
+		System.out.println("\nRecommended Project ID: " + top3Projects[2]);
+		recommendProject(top3Projects[2]);
 	}
 
 	private static void addTemporary() {
@@ -149,43 +165,110 @@ public class JackardSimilarityBags {
 	}
 
 	public static void createDistanceMatrix(double d[][], List<ArrayList<String>> methodsTags, int minD[] ) throws Throwable{
-		//for (int i=0; i<d.length; i++){
+		System.out.println("\n---------------- *** Top 3 Recommendations using Jaccard Similarity *** ----------------");
 		for (int j=0; j<d[0].length; j++){
 			if (0==j) d[0][j]=2.0;
-			//d[i][j] = Double.POSITIVE_INFINITY;
 			else {
 				d[0][j] = calculateJaccardDifference(methodsTags.get(0), methodsTags.get(j));
 			}
-			//Maintain minimum index of closest cluster
 			if (d[0][j]<d[0][minD[0]] && d[0][j]!=2)
 				minD[0] = j;
-			//}
 		}
 
 		System.out.println("\nDifference Matrix");
 		System.out.print("Node-0: ");
+		double differences[] = new double[d[0].length];
 		for(int j=0; j<d[0].length; j++){
-			//for (int j=0; j<i; j++){
 			System.out.print(Math.round(d[0][j]*100.0)/100.0 + "	");
+			differences[j] = (Math.round(d[0][j]*100.0)/100.0);
 		}
+		
+		String[] top3Projects = findMin(differences, d[0].length);
 
-		System.out.println();
-		System.out.println("min distant node of  node 0: "+ minD[0]);
-		System.out.println("\nRecommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
-		recommendProject(featureProjectIDs.get(minD[0]));
+		System.out.println("\nmin distant node of  node 0: "+ minD[0]);
+		System.out.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
+		//recommendProject(featureProjectIDs.get(minD[0]));
+		
+		System.out.println("\n--------------------------- Project No. 1 ---------------------------");
+		System.out.println("\nRecommended Project ID: " + top3Projects[0]);
+		recommendProject(top3Projects[0]);
+		System.out.println("\n--------------------------- Project No. 2 ---------------------------");
+		System.out.println("\nRecommended Project ID: " + top3Projects[1]);
+		recommendProject(top3Projects[1]);
+		System.out.println("\n--------------------------- Project No. 3 ---------------------------");
+		System.out.println("\nRecommended Project ID: " + top3Projects[2]);
+		recommendProject(top3Projects[2]);
 	}
+
+	private static String[] findMin(double[] array, int top_k) {
+		    double[] max = new double[top_k];
+		    int[] maxIndex = new int[top_k];
+		    String[] returnIndex = new String[3];
+		    
+		    Arrays.fill(max, Double.NEGATIVE_INFINITY);
+		    Arrays.fill(maxIndex, -1);
+
+		    top: for(int i = 0; i < array.length; i++) {
+		        for(int j = 0; j < top_k; j++) {
+		            if(array[i] > max[j]) {
+		                for(int x = top_k - 1; x > j; x--) {
+		                    maxIndex[x] = maxIndex[x-1]; max[x] = max[x-1];
+		                }
+		                maxIndex[j] = i; max[j] = array[i];
+		                continue top;
+		            }
+		        }
+		    }
+		    int x=0;
+		    for (int a=top_k; a>top_k-3; a--)
+		    {
+		    	System.out.println(max[a-1] + "at index " + maxIndex[a-1]);
+		    	returnIndex[x] = featureProjectIDs.get(maxIndex[a-1]);
+		    	x++;
+		    }
+		    return returnIndex;
+	}
+	
+	private static String[] findMax(double[] array, int top_k) {
+	    double[] max = new double[top_k];
+	    int[] maxIndex = new int[top_k];
+	    String[] returnIndex = new String[top_k];
+	    
+	    Arrays.fill(max, Double.NEGATIVE_INFINITY);
+	    Arrays.fill(maxIndex, -1);
+
+	    top: for(int i = 0; i < array.length; i++) {
+	        for(int j = 0; j < top_k; j++) {
+	            if(array[i] > max[j]) {
+	                for(int x = top_k - 1; x > j; x--) {
+	                    maxIndex[x] = maxIndex[x-1]; max[x] = max[x-1];
+	                }
+	                maxIndex[j] = i; max[j] = array[i];
+	                continue top;
+	            }
+	        }
+	    }
+	    int x=0;
+	    for (int a=0; a<3; a++)
+	    {
+	    	System.out.println(max[a] + "at index " + maxIndex[a]);
+	    	returnIndex[x] = featureProjectIDs.get(maxIndex[a]);
+	    	x++;
+	    }
+	    return returnIndex;
+}
 
 	private static void recommendProject(String projectID) throws Throwable {
 		if (projectID!=null && projectID!= "" && projectID!="0" && !projectID.isEmpty())
 		{
 			DbConnection dc = new DbConnection();
 			dc.openConnection();
-			System.out.println("\nRecommended project uri is: " + dc.getProjectName(projectID));
+			System.out.println("Recommended project uri is: " + dc.getProjectName(projectID));
 			String pn = dc.getProjectName(projectID);
 			String[] segments = pn.split("\\\\");
 			String idStr = segments[segments.length-1];
-			System.out.println("\nRecommended project name is: " + idStr);
-			System.out.println("\nPatterns implemented are: ");
+			System.out.println("Recommended project name is: " + idStr);
+			System.out.println("Patterns implemented are: ");
 			ResultSet patterns = dc.getPatternsOfProject(projectID);
 			while(patterns.next()){
 				System.out.println(patterns.getString(1));
@@ -194,7 +277,6 @@ public class JackardSimilarityBags {
 			ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
 			System.out.println("\nDetails of project are: ");
 			while(patternIDs.next()){
-				//System.out.println(patternIDs.getString(1));
 				System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
 				ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
 				while(patternIDsDetails.next()){
@@ -226,21 +308,24 @@ public class JackardSimilarityBags {
 		List<String> intersections = new ArrayList<String>();
 		double similarity;
 		unions = findUnion(list1, list2);
+		/*
 		System.out.print("Union: ");
 		for (int i=0; i<unions.size(); i++){
 			System.out.print(unions.get(i) + '\t');
 		}
 		System.out.println();
-
+		*/
 		// Intersection of 1st two methods	 
 		intersections = findIntersection(list1, list2);
+		/*
 		System.out.print("Intersection: ");
 		for (int i=0; i<intersections.size(); i++){
 			System.out.print(intersections.get(i) + '\t');
 		}
 		System.out.println();
+		*/
 		similarity = jaccardSimilarity(intersections, unions);
-		System.out.println("Similarity: " + similarity);
+		//System.out.println("Similarity: " + similarity);
 		return similarity;
 	}
 
