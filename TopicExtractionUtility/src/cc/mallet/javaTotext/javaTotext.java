@@ -77,7 +77,7 @@ public class javaTotext {
 		double[] probs=getProbabilities(tokens);
 		int max=getMaxIndex(probs);
 		DomainNames =getDomainRow(tokens, max);//Get the names of the clusters having the highest weightage
-		System.out.print(DomainNames);
+		//System.out.print(DomainNames);
 		clean();
 		javaTotext.delete(new File("Outfile\\Output.txt"));
 		delete(new File(FILES_TO_INDEX_DIRECTORY));

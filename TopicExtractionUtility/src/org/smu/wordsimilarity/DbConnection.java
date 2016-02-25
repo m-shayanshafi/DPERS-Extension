@@ -202,5 +202,19 @@ public class DbConnection {
 		}
 		return patterns;
 	}
+	
+	public ResultSet getPatternIDsInstances(String projectID, String patternID) throws SQLException {
+		PreparedStatement statement = this.con.prepareStatement("select instanceClass, patternInstanceID from patterninstance where projectID="+projectID+" and patternID = "+patternID+"");
+		ResultSet patterns = null;
+		try 
+		{
+			patterns = statement.executeQuery();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return patterns;
+	}
 
 }

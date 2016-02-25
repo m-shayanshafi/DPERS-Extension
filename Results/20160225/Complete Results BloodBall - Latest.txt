@@ -1,0 +1,677 @@
+0	0.015	border (9) bloodball (9) buffered (6) phase (6) rechts (5) row (4) recover (4) ged (4) failed (4) positionsquare (4) 
+
+1	0.680	player (1183) team (694) game (523) square (456) test (392) ball (317) turn (287) state (232) move (225) setup (210) 
+
+2	0.004	boundary (4) posession (4) maximum (3) truecontroller (3) dug (3) imagesquare (2) create (2) editor (2) save (2) hash (2) 
+
+3	0.010	true!player (10) stunned (8) frame (5) member (4) put (4) font (3) xposition (3) true!blocked (3) tear (3) enermouse (2) 
+
+4	0.156	position (410) home (89) suite (86) extents (66) prone (66) context (59) begin (47) type (42) mode (42) squares (40) 
+
+5	0.017	show (12) dices (10) ensuring (8) request (7) strength (6) ing (5) type (5) execute (5) drop (5) locale (5) 
+
+6	0.018	points (14) end (12) graphics (10) blocksquare (9) legalsquare (8) update (6) menuitem (5) playerposition (5) build (5) wnteams (4) 
+
+7	0.059	zone (140) event (38) handler (37) substitution (34) mode (30) thrower (28) small (19) choosensquare (19) squareplayer (17) roll (16) 
+
+8	0.021	score (17) initial (12) fourteen (10) guest (10) localized (8) phase (8) bound (7) main (6) ver (6) north (5) 
+
+9	0.019	result (15) number (13) positions (8) limit (8) zum (7) scatters (7) cancel (7) eventposition (7) opponent (6) possessing (6) 
+
+0	0.29915953800802325
+1
+[[player, team, game, squar, test, ball, turn, state, move, setup], [color, black, der, die, de, game, den, param, number, option], [player, team, game, posit, test, ball, turn, squar, home, state], [piec, board, col, side, add, puzzl, spot, row, piec, model], [piec, piec, de, po, board, imag, color, method, player, activ], [player, piec, constant, move, messag, tar, locat, param, game, process], [health, imag, dist, ing, damag, item, knight, bound, dungeon, attack], [battl, buf, server, result, time, count, team, prop, log, prop], [game, item, level, control, action, solut, button, add, number, layout], [player, action, player, spring, layout, button, left, bet, constraint, grid], [game, button, charact, action, ener, font, imag, kei, health, chest], [imag, imagen, anim, sprite, koopa, mou, player, sound, game, map], [coar, maze, direct, code, ghost, dasher, model, licen, xyc, size], [sprite, player, ubl, scale, map, game, kei, width, item, mou], [tag, input, connect, control, msg, output, add, font, side, box], [type, gnu, actor, licen, version, doc, terrain, ener, resourc, event]]
+[, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 17]
+Total methods: 16
+
+Topics extracted from user code:[player, team, game, square, test, ball, turn, state, move, setup]
+
+---------------- *** Top 3 Recommendations using Jaccard Similarity *** ----------------
+
+Difference Matrix
+Node-0: 2.0	0.95	0.33	1.0	0.94	0.82	1.0	0.94	0.95	0.94	0.95	0.89	1.0	0.89	1.0	1.0	0.33at index 2
+0.82at index 5
+0.89at index 13
+
+min distant node of  node 0: 2
+Recommended Project ID from 15 projects: 2
+
+--------------------------- Project No. 1 ---------------------------
+
+Recommended Project ID: 2
+Recommended project's uri is: C:\Users\Zohaa Qamar\Desktop\Projects for Repo Building\BloodBall
+Recommended project's name is: BloodBall
+Topics of this project are: [player, team, game, posit, test, ball, turn, squar, home, state]
+Patterns implemented are: 
+Factory Method
+Singleton
+(Object)Adapter-Command
+State-Strategy
+Template Method
+
+Details of project are: 
+
+For Design Pattern: Factory Method
+Class instance of pattern instance 62 is: 
+Creator: net.sf.bloodball.gameflow.test.ActionStateTest 
+ FactoryMethod(): net.sf.bloodball.gameflow.test.ActionStateTest::getActionState(net.sf.bloodball.gameflow.GameFlowController):net.sf.bloodball.gameflow.State 
+ 
+Class instance of pattern instance 63 is: 
+Creator: net.sf.bloodball.model.player.MoveMode 
+ FactoryMethod(): net.sf.bloodball.model.player.MoveMode::getSuccessor():net.sf.bloodball.model.player.MoveMode 
+ 
+Class instance of pattern instance 64 is: 
+Creator: net.sf.bloodball.ModelFacade 
+ FactoryMethod(): net.sf.bloodball.ModelFacade::getHomeTeam():net.sf.bloodball.model.player.Team 
+ FactoryMethod(): net.sf.bloodball.ModelFacade::getGuestTeam():net.sf.bloodball.model.player.Team 
+ 
+
+For Design Pattern: Singleton
+Class instance of pattern instance 65 is: 
+Singleton: net.sf.bloodball.gameflow.EndTurnOperation 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation END_TURN 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation FINISH_BALL_SETUP 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation FINISH_TEAM_SETUP 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation PICK_UP_BALL 
+ 
+Class instance of pattern instance 66 is: 
+Singleton: net.sf.bloodball.gameflow.InTurnOperation 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation BLOCK_AFTER_MOVE 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation MOVE 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation HAND_OFF 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SPRINT 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation EXTRA_MOVE 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SELECT_ACTIVE_PLAYER 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SET_UP_BALL 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SET_UP_TEAM 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SUBSTITUTE 
+ 
+Class instance of pattern instance 67 is: 
+Singleton: net.sf.bloodball.model.player.Health 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health OKAY 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health STUNNED 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health KO 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health INJURED 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health DEAD 
+ 
+Class instance of pattern instance 68 is: 
+Singleton: net.sf.bloodball.model.player.Player 
+ uniqueInstance: public static net.sf.bloodball.model.player.Player NO_PLAYER 
+ 
+Class instance of pattern instance 69 is: 
+Singleton: net.sf.bloodball.model.player.PlayerType 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType NO_TYPE 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType LINEMAN 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType BLITZER 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType BLOCKER 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType CATCHER 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType THROWER 
+ 
+Class instance of pattern instance 70 is: 
+Singleton: net.sf.bloodball.model.player.Team 
+ uniqueInstance: public static net.sf.bloodball.model.player.Team NO_TEAM 
+ 
+Class instance of pattern instance 71 is: 
+Singleton: net.sf.bloodball.view.AboutDialog 
+ uniqueInstance: private static net.sf.bloodball.view.AboutDialog instance 
+ 
+
+For Design Pattern: (Object)Adapter-Command
+Class instance of pattern instance 72 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.gameflow.GameFlowController 
+ Request()/Execute(): net.sf.bloodball.GameController::endTurnOperationChanged():void 
+ Request()/Execute(): net.sf.bloodball.GameController::inTurnOperationChanged():void 
+ 
+Class instance of pattern instance 73 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.view.GameBoard 
+ Request()/Execute(): net.sf.bloodball.GameController::touchdownScored():void 
+ Request()/Execute(): net.sf.bloodball.GameController::dugOutPositionActivated(net.sf.bloodball.model.player.Team, int):void 
+ Request()/Execute(): net.sf.bloodball.GameController::dugOutPositionDeactivated(net.sf.bloodball.model.player.Team, int):void 
+ Request()/Execute(): net.sf.bloodball.GameController::squareContentChanged(java.awt.Point):void 
+ Request()/Execute(): net.sf.bloodball.GameController::dugOutContentChanged(net.sf.bloodball.model.player.Team, int):void 
+ 
+Class instance of pattern instance 74 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.view.MainFrame 
+ Request()/Execute(): net.sf.bloodball.GameController::touchdownScored():void 
+ Request()/Execute(): net.sf.bloodball.GameController::endTurnOperationChanged():void 
+ Request()/Execute(): net.sf.bloodball.GameController::inTurnOperationChanged():void 
+ 
+Class instance of pattern instance 75 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Request()/Execute(): net.sf.bloodball.GameController::endTurnOperationChanged():void 
+ Request()/Execute(): net.sf.bloodball.GameController::inTurnOperationChanged():void 
+ 
+Class instance of pattern instance 76 is: 
+Adaptee/Receiver: net.sf.bloodball.model.actions.Setup 
+ Adapter/ConcreteCommand: net.sf.bloodball.gameflow.SetupBallState 
+ Request()/Execute(): net.sf.bloodball.gameflow.SetupBallState::squareChoosen(java.awt.Point):void 
+ 
+Class instance of pattern instance 77 is: 
+Adaptee/Receiver: net.sf.bloodball.model.actions.Substitution 
+ Adapter/ConcreteCommand: net.sf.bloodball.gameflow.SubstitutionState 
+ Request()/Execute(): net.sf.bloodball.gameflow.SubstitutionState::squareChoosen(java.awt.Point):void 
+ 
+Class instance of pattern instance 78 is: 
+Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Adapter/ConcreteCommand: net.sf.bloodball.OperationMessages$1 
+ Request()/Execute(): net.sf.bloodball.OperationMessages$1::buildMessage(net.sf.bloodball.model.Game):java.lang.String 
+ 
+Class instance of pattern instance 79 is: 
+Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Adapter/ConcreteCommand: net.sf.bloodball.OperationMessages$3 
+ Request()/Execute(): net.sf.bloodball.OperationMessages$3::buildMessage(net.sf.bloodball.model.Game):java.lang.String 
+ 
+Class instance of pattern instance 80 is: 
+Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Adapter/ConcreteCommand: net.sf.bloodball.OperationMessages$4 
+ Request()/Execute(): net.sf.bloodball.OperationMessages$4::buildMessage(net.sf.bloodball.model.Game):java.lang.String 
+ 
+Class instance of pattern instance 81 is: 
+Adaptee/Receiver: net.sf.bloodball.gameflow.GameFlowController 
+ Adapter/ConcreteCommand: net.sf.bloodball.ModelFacadeImplementation 
+ Request()/Execute(): net.sf.bloodball.ModelFacadeImplementation::isPlayerActiveAt(java.awt.Point):boolean 
+ Request()/Execute(): net.sf.bloodball.ModelFacadeImplementation::isPlayerActive(net.sf.bloodball.model.player.Player):boolean 
+ 
+Class instance of pattern instance 82 is: 
+Adaptee/Receiver: net.sf.bloodball.gameflow.GameFlowController 
+ Adapter/ConcreteCommand: net.sf.bloodball.GameBoardController 
+ Request()/Execute(): net.sf.bloodball.GameBoardController::rightClick():void 
+ Request()/Execute(): net.sf.bloodball.GameBoardController::leftClick(java.awt.Point):void 
+ Request()/Execute(): net.sf.bloodball.GameBoardController::dugOutClicked(net.sf.bloodball.model.player.Team, int):void 
+ 
+
+For Design Pattern: State-Strategy
+Class instance of pattern instance 83 is: 
+Context: net.sf.bloodball.gameflow.GameFlowController 
+ State/Strategy: net.sf.bloodball.gameflow.State 
+ 
+Class instance of pattern instance 84 is: 
+Context: net.sf.bloodball.model.Notifier 
+ State/Strategy: net.sf.bloodball.model.ModelListener 
+ 
+Class instance of pattern instance 85 is: 
+Context: net.sf.bloodball.OperationMessages 
+ State/Strategy: net.sf.bloodball.MessageBuilder 
+ 
+Class instance of pattern instance 86 is: 
+Context: net.sf.bloodball.view.GameBoard 
+ State/Strategy: net.sf.bloodball.ModelFacade 
+ 
+Class instance of pattern instance 87 is: 
+Context: net.sf.bloodball.gameflow.MoveActionState 
+ State/Strategy: net.sf.bloodball.gameflow.State 
+ 
+Class instance of pattern instance 88 is: 
+Context: net.sf.bloodball.gameflow.MoveActionState 
+ State/Strategy: net.sf.bloodball.model.actions.MoveAction 
+ 
+
+For Design Pattern: Template Method
+Class instance of pattern instance 89 is: 
+AbstractClass: net.sf.bloodball.gameflow.test.ActionStateTest 
+ TemplateMethod(): net.sf.bloodball.gameflow.test.ActionStateTest::setUp():void 
+ 
+Class instance of pattern instance 90 is: 
+AbstractClass: net.sf.bloodball.model.actions.MoveAction 
+ TemplateMethod(): net.sf.bloodball.model.actions.MoveAction::ensureLegalPosition(java.awt.Point, java.awt.Point, java.lang.String):void 
+ 
+Class instance of pattern instance 91 is: 
+AbstractClass: net.sf.bloodball.model.player.CountPlayerMethod 
+ TemplateMethod(): net.sf.bloodball.model.player.CountPlayerMethod::doWithPlayer(net.sf.bloodball.model.player.Player):void 
+ 
+Class instance of pattern instance 92 is: 
+AbstractClass: net.sf.bloodball.model.player.MoveMode 
+ TemplateMethod(): net.sf.bloodball.model.player.MoveMode::getSquaresToGo():int 
+ TemplateMethod(): net.sf.bloodball.model.player.MoveMode::move():void 
+ 
+
+--------------------------- Project No. 2 ---------------------------
+
+Recommended Project ID: 5
+Recommended project's uri is: C:\Users\Zohaa Qamar\Desktop\Projects for Repo Building\DragonChess
+Recommended project's name is: DragonChess
+Topics of this project are: [player, piec, constant, move, messag, tar, locat, param, game, process]
+Patterns implemented are: 
+Prototype
+(Object)Adapter-Command
+State-Strategy
+Proxy
+
+Details of project are: 
+
+For Design Pattern: Prototype
+Class instance of pattern instance 98 is: 
+Client: backend.DCLocalGameEnv 
+ Prototype: backend.DCGameBoard 
+ Operation(): backend.DCLocalGameEnv::putsKingInCheck(main.DCMove):boolean 
+ Operation(): backend.DCLocalGameEnv::isMate(int):boolean 
+ 
+
+For Design Pattern: (Object)Adapter-Command
+Class instance of pattern instance 99 is: 
+Adaptee/Receiver: connectivity.DCMessageableList 
+ Adapter/ConcreteCommand: connectivity.DCGame 
+ Request()/Execute(): connectivity.DCGame::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 100 is: 
+Adapter/ConcreteCommand: connectivity.DCLocalConnection 
+ Adaptee/Receiver: main.DCFrontEnd 
+ Request()/Execute(): connectivity.DCLocalConnection::sendMessage(connectivity.DCMessage):void 
+ 
+
+For Design Pattern: State-Strategy
+Class instance of pattern instance 101 is: 
+Context: connectivity.DCLocalConnection 
+ State/Strategy: main.DCFrontEnd 
+ 
+
+For Design Pattern: Proxy
+Class instance of pattern instance 102 is: 
+Proxy: connectivity.DCLocalConnection 
+ RealSubject: connectivity.DCGame 
+ Request(): connectivity.DCLocalConnection::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 103 is: 
+Proxy: connectivity.DCNetworkConnection 
+ RealSubject: connectivity.DCGame 
+ Request(): connectivity.DCNetworkConnection::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 104 is: 
+Proxy: connectivity.DCGame 
+ RealSubject: backend.DCGameEnv 
+ Request(): connectivity.DCGame::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 105 is: 
+Proxy: backend.DCLocalGameEnv 
+ RealSubject: backend.DCBackEndDecoder 
+ Request(): backend.DCLocalGameEnv::sendMessage(connectivity.DCMessage):void 
+ 
+
+--------------------------- Project No. 3 ---------------------------
+
+Recommended Project ID: 15
+Recommended project's uri is: C:\Users\Zohaa Qamar\Desktop\Projects for Repo Building\RPG-master
+Recommended project's name is: RPG-master
+Topics of this project are: [sprite, player, ubl, scale, map, game, kei, width, item, mou]
+Patterns implemented are: 
+Singleton
+
+Details of project are: 
+
+For Design Pattern: Singleton
+Class instance of pattern instance 365 is: 
+Singleton: com.otabi.firestar.rpg.GameState 
+ uniqueInstance: public static com.otabi.firestar.rpg.GameState MENU 
+ uniqueInstance: public static com.otabi.firestar.rpg.GameState PLAY 
+ 
+
+---------------- *** Top 3 Recommendations using SEWordSim *** ----------------
+0.0    19.260285186108298    90.43805220805127    11.150969014983568    23.139298506837484    42.23821805406383    6.601986850221907    21.325612500038567    26.790864302044426    30.970738953323625    21.267029728633727    29.880228917577885    7.563162984359999    30.52707652003168    15.630014833349614    8.03483940100462    90.43805220805127at index 2
+42.23821805406383at index 5
+30.970738953323625at index 9
+
+--------------------------- Project No. 1 ---------------------------
+
+Recommended Project ID: 2
+Recommended project's uri is: C:\Users\Zohaa Qamar\Desktop\Projects for Repo Building\BloodBall
+Recommended project's name is: BloodBall
+Topics of this project are: [player, team, game, posit, test, ball, turn, squar, home, state]
+Patterns implemented are: 
+Factory Method
+Singleton
+(Object)Adapter-Command
+State-Strategy
+Template Method
+
+Details of project are: 
+
+For Design Pattern: Factory Method
+Class instance of pattern instance 62 is: 
+Creator: net.sf.bloodball.gameflow.test.ActionStateTest 
+ FactoryMethod(): net.sf.bloodball.gameflow.test.ActionStateTest::getActionState(net.sf.bloodball.gameflow.GameFlowController):net.sf.bloodball.gameflow.State 
+ 
+Class instance of pattern instance 63 is: 
+Creator: net.sf.bloodball.model.player.MoveMode 
+ FactoryMethod(): net.sf.bloodball.model.player.MoveMode::getSuccessor():net.sf.bloodball.model.player.MoveMode 
+ 
+Class instance of pattern instance 64 is: 
+Creator: net.sf.bloodball.ModelFacade 
+ FactoryMethod(): net.sf.bloodball.ModelFacade::getHomeTeam():net.sf.bloodball.model.player.Team 
+ FactoryMethod(): net.sf.bloodball.ModelFacade::getGuestTeam():net.sf.bloodball.model.player.Team 
+ 
+
+For Design Pattern: Singleton
+Class instance of pattern instance 65 is: 
+Singleton: net.sf.bloodball.gameflow.EndTurnOperation 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation END_TURN 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation FINISH_BALL_SETUP 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation FINISH_TEAM_SETUP 
+ uniqueInstance: public static net.sf.bloodball.gameflow.EndTurnOperation PICK_UP_BALL 
+ 
+Class instance of pattern instance 66 is: 
+Singleton: net.sf.bloodball.gameflow.InTurnOperation 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation BLOCK_AFTER_MOVE 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation MOVE 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation HAND_OFF 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SPRINT 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation EXTRA_MOVE 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SELECT_ACTIVE_PLAYER 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SET_UP_BALL 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SET_UP_TEAM 
+ uniqueInstance: public static net.sf.bloodball.gameflow.InTurnOperation SUBSTITUTE 
+ 
+Class instance of pattern instance 67 is: 
+Singleton: net.sf.bloodball.model.player.Health 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health OKAY 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health STUNNED 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health KO 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health INJURED 
+ uniqueInstance: public static net.sf.bloodball.model.player.Health DEAD 
+ 
+Class instance of pattern instance 68 is: 
+Singleton: net.sf.bloodball.model.player.Player 
+ uniqueInstance: public static net.sf.bloodball.model.player.Player NO_PLAYER 
+ 
+Class instance of pattern instance 69 is: 
+Singleton: net.sf.bloodball.model.player.PlayerType 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType NO_TYPE 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType LINEMAN 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType BLITZER 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType BLOCKER 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType CATCHER 
+ uniqueInstance: public static net.sf.bloodball.model.player.PlayerType THROWER 
+ 
+Class instance of pattern instance 70 is: 
+Singleton: net.sf.bloodball.model.player.Team 
+ uniqueInstance: public static net.sf.bloodball.model.player.Team NO_TEAM 
+ 
+Class instance of pattern instance 71 is: 
+Singleton: net.sf.bloodball.view.AboutDialog 
+ uniqueInstance: private static net.sf.bloodball.view.AboutDialog instance 
+ 
+
+For Design Pattern: (Object)Adapter-Command
+Class instance of pattern instance 72 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.gameflow.GameFlowController 
+ Request()/Execute(): net.sf.bloodball.GameController::endTurnOperationChanged():void 
+ Request()/Execute(): net.sf.bloodball.GameController::inTurnOperationChanged():void 
+ 
+Class instance of pattern instance 73 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.view.GameBoard 
+ Request()/Execute(): net.sf.bloodball.GameController::touchdownScored():void 
+ Request()/Execute(): net.sf.bloodball.GameController::dugOutPositionActivated(net.sf.bloodball.model.player.Team, int):void 
+ Request()/Execute(): net.sf.bloodball.GameController::dugOutPositionDeactivated(net.sf.bloodball.model.player.Team, int):void 
+ Request()/Execute(): net.sf.bloodball.GameController::squareContentChanged(java.awt.Point):void 
+ Request()/Execute(): net.sf.bloodball.GameController::dugOutContentChanged(net.sf.bloodball.model.player.Team, int):void 
+ 
+Class instance of pattern instance 74 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.view.MainFrame 
+ Request()/Execute(): net.sf.bloodball.GameController::touchdownScored():void 
+ Request()/Execute(): net.sf.bloodball.GameController::endTurnOperationChanged():void 
+ Request()/Execute(): net.sf.bloodball.GameController::inTurnOperationChanged():void 
+ 
+Class instance of pattern instance 75 is: 
+Adapter/ConcreteCommand: net.sf.bloodball.GameController 
+ Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Request()/Execute(): net.sf.bloodball.GameController::endTurnOperationChanged():void 
+ Request()/Execute(): net.sf.bloodball.GameController::inTurnOperationChanged():void 
+ 
+Class instance of pattern instance 76 is: 
+Adaptee/Receiver: net.sf.bloodball.model.actions.Setup 
+ Adapter/ConcreteCommand: net.sf.bloodball.gameflow.SetupBallState 
+ Request()/Execute(): net.sf.bloodball.gameflow.SetupBallState::squareChoosen(java.awt.Point):void 
+ 
+Class instance of pattern instance 77 is: 
+Adaptee/Receiver: net.sf.bloodball.model.actions.Substitution 
+ Adapter/ConcreteCommand: net.sf.bloodball.gameflow.SubstitutionState 
+ Request()/Execute(): net.sf.bloodball.gameflow.SubstitutionState::squareChoosen(java.awt.Point):void 
+ 
+Class instance of pattern instance 78 is: 
+Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Adapter/ConcreteCommand: net.sf.bloodball.OperationMessages$1 
+ Request()/Execute(): net.sf.bloodball.OperationMessages$1::buildMessage(net.sf.bloodball.model.Game):java.lang.String 
+ 
+Class instance of pattern instance 79 is: 
+Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Adapter/ConcreteCommand: net.sf.bloodball.OperationMessages$3 
+ Request()/Execute(): net.sf.bloodball.OperationMessages$3::buildMessage(net.sf.bloodball.model.Game):java.lang.String 
+ 
+Class instance of pattern instance 80 is: 
+Adaptee/Receiver: net.sf.bloodball.OperationMessages 
+ Adapter/ConcreteCommand: net.sf.bloodball.OperationMessages$4 
+ Request()/Execute(): net.sf.bloodball.OperationMessages$4::buildMessage(net.sf.bloodball.model.Game):java.lang.String 
+ 
+Class instance of pattern instance 81 is: 
+Adaptee/Receiver: net.sf.bloodball.gameflow.GameFlowController 
+ Adapter/ConcreteCommand: net.sf.bloodball.ModelFacadeImplementation 
+ Request()/Execute(): net.sf.bloodball.ModelFacadeImplementation::isPlayerActiveAt(java.awt.Point):boolean 
+ Request()/Execute(): net.sf.bloodball.ModelFacadeImplementation::isPlayerActive(net.sf.bloodball.model.player.Player):boolean 
+ 
+Class instance of pattern instance 82 is: 
+Adaptee/Receiver: net.sf.bloodball.gameflow.GameFlowController 
+ Adapter/ConcreteCommand: net.sf.bloodball.GameBoardController 
+ Request()/Execute(): net.sf.bloodball.GameBoardController::rightClick():void 
+ Request()/Execute(): net.sf.bloodball.GameBoardController::leftClick(java.awt.Point):void 
+ Request()/Execute(): net.sf.bloodball.GameBoardController::dugOutClicked(net.sf.bloodball.model.player.Team, int):void 
+ 
+
+For Design Pattern: State-Strategy
+Class instance of pattern instance 83 is: 
+Context: net.sf.bloodball.gameflow.GameFlowController 
+ State/Strategy: net.sf.bloodball.gameflow.State 
+ 
+Class instance of pattern instance 84 is: 
+Context: net.sf.bloodball.model.Notifier 
+ State/Strategy: net.sf.bloodball.model.ModelListener 
+ 
+Class instance of pattern instance 85 is: 
+Context: net.sf.bloodball.OperationMessages 
+ State/Strategy: net.sf.bloodball.MessageBuilder 
+ 
+Class instance of pattern instance 86 is: 
+Context: net.sf.bloodball.view.GameBoard 
+ State/Strategy: net.sf.bloodball.ModelFacade 
+ 
+Class instance of pattern instance 87 is: 
+Context: net.sf.bloodball.gameflow.MoveActionState 
+ State/Strategy: net.sf.bloodball.gameflow.State 
+ 
+Class instance of pattern instance 88 is: 
+Context: net.sf.bloodball.gameflow.MoveActionState 
+ State/Strategy: net.sf.bloodball.model.actions.MoveAction 
+ 
+
+For Design Pattern: Template Method
+Class instance of pattern instance 89 is: 
+AbstractClass: net.sf.bloodball.gameflow.test.ActionStateTest 
+ TemplateMethod(): net.sf.bloodball.gameflow.test.ActionStateTest::setUp():void 
+ 
+Class instance of pattern instance 90 is: 
+AbstractClass: net.sf.bloodball.model.actions.MoveAction 
+ TemplateMethod(): net.sf.bloodball.model.actions.MoveAction::ensureLegalPosition(java.awt.Point, java.awt.Point, java.lang.String):void 
+ 
+Class instance of pattern instance 91 is: 
+AbstractClass: net.sf.bloodball.model.player.CountPlayerMethod 
+ TemplateMethod(): net.sf.bloodball.model.player.CountPlayerMethod::doWithPlayer(net.sf.bloodball.model.player.Player):void 
+ 
+Class instance of pattern instance 92 is: 
+AbstractClass: net.sf.bloodball.model.player.MoveMode 
+ TemplateMethod(): net.sf.bloodball.model.player.MoveMode::getSquaresToGo():int 
+ TemplateMethod(): net.sf.bloodball.model.player.MoveMode::move():void 
+ 
+
+--------------------------- Project No. 2 ---------------------------
+
+Recommended Project ID: 5
+Recommended project's uri is: C:\Users\Zohaa Qamar\Desktop\Projects for Repo Building\DragonChess
+Recommended project's name is: DragonChess
+Topics of this project are: [player, piec, constant, move, messag, tar, locat, param, game, process]
+Patterns implemented are: 
+Prototype
+(Object)Adapter-Command
+State-Strategy
+Proxy
+
+Details of project are: 
+
+For Design Pattern: Prototype
+Class instance of pattern instance 98 is: 
+Client: backend.DCLocalGameEnv 
+ Prototype: backend.DCGameBoard 
+ Operation(): backend.DCLocalGameEnv::putsKingInCheck(main.DCMove):boolean 
+ Operation(): backend.DCLocalGameEnv::isMate(int):boolean 
+ 
+
+For Design Pattern: (Object)Adapter-Command
+Class instance of pattern instance 99 is: 
+Adaptee/Receiver: connectivity.DCMessageableList 
+ Adapter/ConcreteCommand: connectivity.DCGame 
+ Request()/Execute(): connectivity.DCGame::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 100 is: 
+Adapter/ConcreteCommand: connectivity.DCLocalConnection 
+ Adaptee/Receiver: main.DCFrontEnd 
+ Request()/Execute(): connectivity.DCLocalConnection::sendMessage(connectivity.DCMessage):void 
+ 
+
+For Design Pattern: State-Strategy
+Class instance of pattern instance 101 is: 
+Context: connectivity.DCLocalConnection 
+ State/Strategy: main.DCFrontEnd 
+ 
+
+For Design Pattern: Proxy
+Class instance of pattern instance 102 is: 
+Proxy: connectivity.DCLocalConnection 
+ RealSubject: connectivity.DCGame 
+ Request(): connectivity.DCLocalConnection::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 103 is: 
+Proxy: connectivity.DCNetworkConnection 
+ RealSubject: connectivity.DCGame 
+ Request(): connectivity.DCNetworkConnection::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 104 is: 
+Proxy: connectivity.DCGame 
+ RealSubject: backend.DCGameEnv 
+ Request(): connectivity.DCGame::sendMessage(connectivity.DCMessage):void 
+ 
+Class instance of pattern instance 105 is: 
+Proxy: backend.DCLocalGameEnv 
+ RealSubject: backend.DCBackEndDecoder 
+ Request(): backend.DCLocalGameEnv::sendMessage(connectivity.DCMessage):void 
+ 
+
+--------------------------- Project No. 3 ---------------------------
+
+Recommended Project ID: 9
+Recommended project's uri is: C:\Users\Zohaa Qamar\Desktop\Projects for Repo Building\Games-master\TexasHoldemPro
+Recommended project's name is: TexasHoldemPro
+Topics of this project are: [player, action, player, spring, layout, button, left, bet, constraint, grid]
+Patterns implemented are: 
+Singleton
+(Object)Adapter-Command
+State-Strategy
+
+Details of project are: 
+
+For Design Pattern: Singleton
+Class instance of pattern instance 117 is: 
+Singleton: kw.texasholdem.config.Action 
+ uniqueInstance: public static kw.texasholdem.config.Action SMALL_BLIND 
+ uniqueInstance: public static kw.texasholdem.config.Action BIG_BLIND 
+ uniqueInstance: public static kw.texasholdem.config.Action CHECK 
+ uniqueInstance: public static kw.texasholdem.config.Action CALL 
+ uniqueInstance: public static kw.texasholdem.config.Action BET 
+ uniqueInstance: public static kw.texasholdem.config.Action RAISE 
+ uniqueInstance: public static kw.texasholdem.config.Action ALL_IN 
+ uniqueInstance: public static kw.texasholdem.config.Action FOLD 
+ uniqueInstance: public static kw.texasholdem.config.Action CONTINUE 
+ uniqueInstance: public static kw.texasholdem.config.Action ALLOW_SAVE 
+ uniqueInstance: public static kw.texasholdem.config.Action DISALLOW_SAVE 
+ uniqueInstance: public static kw.texasholdem.config.Action SAVE 
+ uniqueInstance: public static kw.texasholdem.config.Action CLOSE_IF_NEEDED 
+ uniqueInstance: public static kw.texasholdem.config.Action HIDE_PROFILE_LEFT_PANEL 
+ uniqueInstance: public static kw.texasholdem.config.Action RESET_ALL_PROFILE_LEFT_PANEL 
+ uniqueInstance: public static kw.texasholdem.config.Action UPDATE_LEFT_PLAYER_PANEL 
+ 
+Class instance of pattern instance 118 is: 
+Singleton: kw.texasholdem.tool.HandValueType 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType ROYAL_FLUSH 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType STRAIGHT_FLUSH 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType FOUR_OF_A_KIND 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType FULL_HOUSE 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType FLUSH 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType STRAIGHT 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType THREE_OF_A_KIND 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType TWO_PAIRS 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType ONE_PAIR 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType HIGH_CARD 
+ 
+Class instance of pattern instance 119 is: 
+Singleton: kw.texasholdem.config.Action 
+ uniqueInstance: public static kw.texasholdem.config.Action SMALL_BLIND 
+ uniqueInstance: public static kw.texasholdem.config.Action BIG_BLIND 
+ uniqueInstance: public static kw.texasholdem.config.Action CHECK 
+ uniqueInstance: public static kw.texasholdem.config.Action CALL 
+ uniqueInstance: public static kw.texasholdem.config.Action BET 
+ uniqueInstance: public static kw.texasholdem.config.Action RAISE 
+ uniqueInstance: public static kw.texasholdem.config.Action ALL_IN 
+ uniqueInstance: public static kw.texasholdem.config.Action FOLD 
+ uniqueInstance: public static kw.texasholdem.config.Action CONTINUE 
+ uniqueInstance: public static kw.texasholdem.config.Action ALLOW_SAVE 
+ uniqueInstance: public static kw.texasholdem.config.Action DISALLOW_SAVE 
+ uniqueInstance: public static kw.texasholdem.config.Action SAVE 
+ uniqueInstance: public static kw.texasholdem.config.Action CLOSE_IF_NEEDED 
+ uniqueInstance: public static kw.texasholdem.config.Action HIDE_PROFILE_LEFT_PANEL 
+ uniqueInstance: public static kw.texasholdem.config.Action RESET_ALL_PROFILE_LEFT_PANEL 
+ uniqueInstance: public static kw.texasholdem.config.Action UPDATE_LEFT_PLAYER_PANEL 
+ 
+Class instance of pattern instance 120 is: 
+Singleton: kw.texasholdem.tool.HandValueType 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType ROYAL_FLUSH 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType STRAIGHT_FLUSH 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType FOUR_OF_A_KIND 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType FULL_HOUSE 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType FLUSH 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType STRAIGHT 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType THREE_OF_A_KIND 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType TWO_PAIRS 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType ONE_PAIR 
+ uniqueInstance: public static kw.texasholdem.tool.HandValueType HIGH_CARD 
+ 
+
+For Design Pattern: (Object)Adapter-Command
+Class instance of pattern instance 121 is: 
+Adaptee/Receiver: kw.texasholdem.view.ControlPanel 
+ Adapter/ConcreteCommand: kw.texasholdem.ai.impl.HumanClient 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::act(java.util.Set):kw.texasholdem.config.Action 
+ 
+Class instance of pattern instance 122 is: 
+Adaptee/Receiver: kw.texasholdem.view.BoardPanel 
+ Adapter/ConcreteCommand: kw.texasholdem.ai.impl.HumanClient 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::playerActed(kw.texasholdem.ai.impl.Player):void 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::boardUpdated(java.util.List, int, int):void 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::messageReceived(java.lang.String):void 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::act(java.util.Set):kw.texasholdem.config.Action 
+ 
+Class instance of pattern instance 123 is: 
+Adaptee/Receiver: kw.texasholdem.view.TexasHoldemMainPanel 
+ Adapter/ConcreteCommand: kw.texasholdem.ai.impl.HumanClient 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::handStarted(kw.texasholdem.ai.impl.Player):void 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::handResumed(kw.texasholdem.ai.impl.Player):void 
+ Request()/Execute(): kw.texasholdem.ai.impl.HumanClient::actorRotated(kw.texasholdem.ai.impl.Player):void 
+ 
+
+For Design Pattern: State-Strategy
+Class instance of pattern instance 124 is: 
+State/Strategy: kw.texasholdem.ai.Client 
+ Context: kw.texasholdem.ai.impl.Player 
+ 

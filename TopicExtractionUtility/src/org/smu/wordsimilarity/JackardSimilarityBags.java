@@ -45,10 +45,10 @@ public class JackardSimilarityBags {
 	public static void findRecommendations(ArrayList<String> userFeatureVector) throws Throwable
 	{
 		Sample s1 = new Sample();
-		userFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector); //stemmed user feature vector
+		ArrayList<String> stemmedUserFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector); //stemmed user feature vector
 		featureVectors.clear();
 		featureProjectIDs.clear();
-		featureVectors.add(userFeatureVector);
+		featureVectors.add(stemmedUserFeatureVector);
 		featureProjectIDs.add("");
 
 		getFeatureVectorsFromDB(); //get all the feature vectors from db based on project ids
@@ -60,6 +60,8 @@ public class JackardSimilarityBags {
 		double dist[][] = new double[totalMethods][totalMethods]; //Distance of each method with the rest 
 		int minDist [] = new int[totalMethods];				   //index of closest cluster
 		System.out.println("Total methods: "+ totalMethods);
+		
+		System.out.println("\nTopics extracted from user code:" + userFeatureVector);
 		
 		/**** Jaccard Similarity Recommendations *****/
 		createDistanceMatrix(dist, featureVectors, minDist);
@@ -263,11 +265,12 @@ public class JackardSimilarityBags {
 		{
 			DbConnection dc = new DbConnection();
 			dc.openConnection();
-			System.out.println("Recommended project uri is: " + dc.getProjectName(projectID));
+			System.out.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			String pn = dc.getProjectName(projectID);
 			String[] segments = pn.split("\\\\");
 			String idStr = segments[segments.length-1];
-			System.out.println("Recommended project name is: " + idStr);
+			System.out.println("Recommended project's name is: " + idStr);
+			System.out.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
 			System.out.println("Patterns implemented are: ");
 			ResultSet patterns = dc.getPatternsOfProject(projectID);
 			while(patterns.next()){
@@ -278,9 +281,14 @@ public class JackardSimilarityBags {
 			System.out.println("\nDetails of project are: ");
 			while(patternIDs.next()){
 				System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
-				ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
+				//ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
+				ResultSet patternIDsDetails = dc.getPatternIDsInstances(projectID,patternIDs.getString(1));
+				
 				while(patternIDsDetails.next()){
-					System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
+					String detail = patternIDsDetails.getString(1);
+					detail = detail.replace('|', '\n');
+					System.out.println("Class instance of pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail);
+					//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
 				}
 			}
 			/*
