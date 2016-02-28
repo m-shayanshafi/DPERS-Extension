@@ -7,13 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import cc.mallet.util.Constants;
+
 public class DbConnection {
 
 	public static Connection con;
 
 	void openConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
-		this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");	
+		this.con = DriverManager.getConnection(Constants.dbConnectionString,Constants.uname,Constants.passwd);	
 	}
 
 	void closeConnection() throws Throwable{
