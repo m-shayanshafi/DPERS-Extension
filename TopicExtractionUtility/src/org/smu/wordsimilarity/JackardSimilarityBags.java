@@ -74,7 +74,8 @@ public class JackardSimilarityBags {
 		writer = new PrintWriter(Constants.recommendationsOutputPath, "UTF-8");
 		
 		System.out.println("\nTopics extracted from your code:" + userFeatureVector);
-		writer.println("\n\nTopics extracted from your code:" + userFeatureVector);
+		
+		writer.println("\r\nTopics extracted from your code:" + userFeatureVector);
 		//int size = resultsDisplay.size();
 		//for(int i=0;i<resultsDisplay.size();i++){
 		//    writer.println(resultsDisplay.get(i));
@@ -192,7 +193,9 @@ public class JackardSimilarityBags {
 
 	public static void createDistanceMatrix(double d[][], List<ArrayList<String>> methodsTags, int minD[] ) throws Throwable{
 		System.out.println("\n---------------- *** Top 3 Recommendations using Jaccard Similarity *** ----------------");
-		writer.println("\n\n---------------- *** Top 3 Recommendations using Jaccard Similarity *** ----------------");
+		//writer = new PrintWriter(Constants.recommendationsOutputPath, "UTF-8");
+		 
+		writer.println("\r\n---------------- *** Top 3 Recommendations *** ----------------");
 		
 		for (int j=0; j<d[0].length; j++){
 			if (0==j) d[0][j]=2.0;
@@ -215,29 +218,36 @@ public class JackardSimilarityBags {
 
 		//System.out.println("\nmin distant node of  node 0: "+ minD[0]);
 		System.out.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
+		 
 		writer.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
 		//recommendProject(featureProjectIDs.get(minD[0]));
 		
 		System.out.println("\n--------------------------- Project No. 1 ---------------------------");
 		System.out.println("\nRecommended Project ID: " + top3Projects[0]);
 		
-		writer.println("\n\n--------------------------- Project No. 1 ---------------------------");
-		writer.println("\n\nRecommended Project ID: " + top3Projects[0]);
+		 
+		writer.println("\r\n--------------------------- Project No. 1 ---------------------------");
+		 
+		writer.println("\r\nRecommended Project ID: " + top3Projects[0]);
 		
 		
 		recommendProject(top3Projects[0]);
 		System.out.println("\n--------------------------- Project No. 2 ---------------------------");
 		System.out.println("\nRecommended Project ID: " + top3Projects[1]);
 		
-		writer.println("\n\n--------------------------- Project No. 2 ---------------------------");
-		writer.println("\n\nRecommended Project ID: " + top3Projects[1]);
+		 
+		writer.println("\r\n--------------------------- Project No. 2 ---------------------------");
+		 
+		writer.println("\r\nRecommended Project ID: " + top3Projects[1]);
 		
 		recommendProject(top3Projects[1]);
 		System.out.println("\n--------------------------- Project No. 3 ---------------------------");
 		System.out.println("\nRecommended Project ID: " + top3Projects[2]);
 		
-		writer.println("\n\n--------------------------- Project No. 3 ---------------------------");
-		writer.println("\n\nRecommended Project ID: " + top3Projects[2]);
+		 
+		writer.println("\r\n--------------------------- Project No. 3 ---------------------------");
+		 
+		writer.println("\r\nRecommended Project ID: " + top3Projects[2]);
 		
 		
 		recommendProject(top3Projects[2]);
@@ -307,6 +317,7 @@ public class JackardSimilarityBags {
 			DbConnection dc = new DbConnection();
 			dc.openConnection();
 			System.out.println("Recommended project's uri is: " + dc.getProjectName(projectID));
+			 
 			writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
 			String pn = dc.getProjectName(projectID);
@@ -316,31 +327,43 @@ public class JackardSimilarityBags {
 			System.out.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
 			System.out.println("Patterns implemented are: ");
 			
+			 
 			writer.println("Recommended project's name is: " + idStr);
+			 
 			writer.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
+			 
 			writer.println("Patterns implemented are: ");
 			
 			ResultSet patterns = dc.getPatternsOfProject(projectID);
 			while(patterns.next()){
 				System.out.println(patterns.getString(1));
+				 
 				writer.println(patterns.getString(1));
 			}
 			
 			ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
 			System.out.println("\nDetails of project are: ");
-			writer.println("\n\nDetails of project are: ");
+			 
+			writer.println("\r\nDetails of project are: ");
 			while(patternIDs.next()){
 				System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
-				writer.println("\n\nFor Design Pattern: " + patternIDs.getString(2));
+				 
+				writer.println("\r\nFor Design Pattern: " + patternIDs.getString(2));
 				
 				//ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
 				ResultSet patternIDsDetails = dc.getPatternIDsInstances(projectID,patternIDs.getString(1));
 				
 				while(patternIDsDetails.next()){
 					String detail = patternIDsDetails.getString(1);
-					detail = detail.replace('|', '\n');
-					System.out.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail);
-					writer.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail);
+					String detail1 = detail.replace('|', '\n');
+					System.out.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail1);
+				
+					String[] detail2 = patternIDsDetails.getString(1).split("\\|"); 
+					writer.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \r\n");
+					for (String s: detail2) {           
+				        //Do your stuff here
+						writer.println(s); 
+				    }
 					
 					//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
 				}
@@ -357,6 +380,7 @@ public class JackardSimilarityBags {
 		else
 		{
 			System.out.println("No useful recommendation found...");
+			 
 			writer.println("No useful recommendation found...");
 		}
 	}
