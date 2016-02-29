@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import cc.mallet.util.Constants;
+
 public class DbConnection {
 	public static DbConnection db;
 	public static Connection con;
@@ -26,12 +28,17 @@ public class DbConnection {
 
 	public static void main(String[] args) throws Exception{
 	}
-
 	public static void openConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");	
+		con = DriverManager.getConnection(Constants.dbConnectionString,Constants.uname,Constants.passwd);	
+		
+}
 
-	}
+//	public static void openConnection() throws ClassNotFoundException, SQLException {
+//		Class.forName("com.mysql.jdbc.Driver");
+//		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");	
+//
+//	}
 
 	public void insertTopicData(String topics, String filePath) throws SQLException {
 		String[] tokens = breakTopics(topics);

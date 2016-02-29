@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="lib/openjgraph.jar"/>
 	<classpathentry kind="lib" path="lib/trove-2.0.2.jar"/>
 	<classpathentry kind="lib" path="dist/mallet.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

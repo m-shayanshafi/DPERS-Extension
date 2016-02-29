@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import cc.mallet.util.Constants;
 import gr.uom.java.comments.LuceneForComments;
 import gr.uom.java.pattern.PatternInstance;
 import gr.uom.java.comments.*;
@@ -31,8 +32,11 @@ public class PopulateDBWithPatterns {
     public PopulateDBWithPatterns() throws ClassNotFoundException, SQLException, FileNotFoundException, UnsupportedEncodingException
     {
     	Class.forName("com.mysql.jdbc.Driver");
-    	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");
+		con = DriverManager.getConnection(Constants.dbConnectionString,Constants.uname,Constants.passwd);	
+//    	Class.forName("com.mysql.jdbc.Driver");
+//    	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");
     }
+ 
     public static void closeConnection() throws Throwable{
     	con.close();
     }
@@ -69,20 +73,18 @@ public class PopulateDBWithPatterns {
     	this.patternInstanceVector=DBobj.patternInstanceVector;
     	getPattternID(patternName);
     	for(PatternInstance instance:patternInstanceVector){
-    	if (!patternInstanceVector.isEmpty()){
+
     		PreparedStatement statement =con.prepareStatement("INSERT INTO `patterninstance` (`patternID`, `instanceClass`,`projectName`,`projectID`) VALUES (?,?,?,?);");
     		statement.setInt(1, this.patternID);
         	statement.setString(2, instance.toString());
           	statement.setString(3, this.getFileDir(DBobj.con));
           	statement.setInt(4, this.projectID);
-          	getPattternInstanceID(this.fileDirectory);
-          //	this.CommentsExtractObj.extractComments(this.fileDirectory,this.patternInstanceID);
-             
+          	getPattternInstanceID(this.fileDirectory);    
         	int result = statement.executeUpdate();
         	
         	 	index.createindex();
     	}
-    	}
+    	
     }
     
    
