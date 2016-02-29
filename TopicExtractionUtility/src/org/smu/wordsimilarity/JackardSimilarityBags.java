@@ -21,6 +21,7 @@ public class JackardSimilarityBags {
 	static WordSimDBFacade facade = new WordSimDBFacade(inputFile);
 	static ArrayList<String> resultsDisplay = new ArrayList<String>();
 	static PrintWriter writer;
+	static int noOfRecommendations = 5;
 	
 	public static void main (String args[]) throws Throwable { //input from user's code i.e. feature vector
 		ArrayList<String> userFeatureVector = new ArrayList<String>(); //input from user's code i.e. feature vector
@@ -81,16 +82,14 @@ public class JackardSimilarityBags {
 		//    writer.println(resultsDisplay.get(i));
 		//} 
 		
-		
-		
 		/**** Jaccard Similarity Recommendations *****/
 		createDistanceMatrix(dist, featureVectors, minDist);
-		
 		
 		writer.println("==END==");
 		writer.close();
 		System.out.println("==Done==");
 		DemoJFileChooser.setStatusLabel("Done!");
+		
 		/**** SEWordSim Recommendations *****/
 		//compareFeatureVectorsUsingSEWordSim();
 	}
@@ -112,13 +111,20 @@ public class JackardSimilarityBags {
 				String userTopic = userFV.get(j);
 				for (int k = 0; k < repoFV.size(); k++) {
 					String repoTopic = repoFV.get(k);
+					try{
+					
 					if (userTopic.equalsIgnoreCase(repoTopic))
 					{
-						similarityScores[j][k] = 1; // in order to boost our exactly matching keywords
+						similarityScores[j][k] = 10; // in order to boost our exactly matching keywords
 					}
 					else
 					{
 						similarityScores[j][k] = facade.computeSimilarity(userTopic, repoTopic);
+					}
+					}
+					catch(Exception ex)
+					{
+						System.out.println("i: " + i + " j: " + j + " k: " + k + userTopic + repoTopic);
 					}
 				}
 			}
@@ -136,20 +142,19 @@ public class JackardSimilarityBags {
 		
 		for (int i=0; i<projectSimilarityScore.length; i++)
 		{
-			//System.out.print(projectSimilarityScore[i] + "    ");
+			System.out.print(projectSimilarityScore[i] + "    ");
 		}
 		
-		String[] top3Projects = findMax(projectSimilarityScore, 3);
+		String[] topProjects = findMax(projectSimilarityScore, noOfRecommendations);
 		
-		System.out.println("\n--------------------------- Project No. 1 ---------------------------");
-		System.out.println("\nRecommended Project ID: " + top3Projects[0]);
-		recommendProject(top3Projects[0]);
-		System.out.println("\n--------------------------- Project No. 2 ---------------------------");
-		System.out.println("\nRecommended Project ID: " + top3Projects[1]);
-		recommendProject(top3Projects[1]);
-		System.out.println("\n--------------------------- Project No. 3 ---------------------------");
-		System.out.println("\nRecommended Project ID: " + top3Projects[2]);
-		recommendProject(top3Projects[2]);
+		for (int x=0; x<noOfRecommendations; x++)
+		{
+			System.out.println("\n--------------------------- Project No. "+ (x+1) +"---------------------------");
+			System.out.println("\nRecommended Project ID: " + topProjects[x]);
+			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
+			writer.println("\r\nRecommended Project ID: " + topProjects[x]);
+			recommendProject(topProjects[x]);
+		}
 	}
 
 	private static void addTemporary() {
@@ -192,10 +197,10 @@ public class JackardSimilarityBags {
 	}
 
 	public static void createDistanceMatrix(double d[][], List<ArrayList<String>> methodsTags, int minD[] ) throws Throwable{
-		System.out.println("\n---------------- *** Top 3 Recommendations using Jaccard Similarity *** ----------------");
+		System.out.println("\n---------------- *** Top " + noOfRecommendations + " Recommendations using Jaccard Similarity *** ----------------");
 		//writer = new PrintWriter(Constants.recommendationsOutputPath, "UTF-8");
 		 
-		writer.println("\r\n---------------- *** Top 3 Recommendations *** ----------------");
+		writer.println("\r\n---------------- *** Top " + noOfRecommendations + " Recommendations *** ----------------");
 		
 		for (int j=0; j<d[0].length; j++){
 			if (0==j) d[0][j]=2.0;
@@ -210,11 +215,11 @@ public class JackardSimilarityBags {
 		//System.out.print("Node-0: ");
 		double differences[] = new double[d[0].length];
 		for(int j=0; j<d[0].length; j++){
-		//	System.out.print(Math.round(d[0][j]*100.0)/100.0 + "	");
+			System.out.print(Math.round(d[0][j]*100.0)/100.0 + "	");
 			differences[j] = (Math.round(d[0][j]*100.0)/100.0);
 		}
 		
-		String[] top3Projects = findMin(differences, d[0].length);
+		String[] topProjects = findMin(differences, d[0].length);
 
 		//System.out.println("\nmin distant node of  node 0: "+ minD[0]);
 		System.out.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
@@ -222,41 +227,20 @@ public class JackardSimilarityBags {
 		writer.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
 		//recommendProject(featureProjectIDs.get(minD[0]));
 		
-		System.out.println("\n--------------------------- Project No. 1 ---------------------------");
-		System.out.println("\nRecommended Project ID: " + top3Projects[0]);
-		
-		 
-		writer.println("\r\n--------------------------- Project No. 1 ---------------------------");
-		 
-		writer.println("\r\nRecommended Project ID: " + top3Projects[0]);
-		
-		
-		recommendProject(top3Projects[0]);
-		System.out.println("\n--------------------------- Project No. 2 ---------------------------");
-		System.out.println("\nRecommended Project ID: " + top3Projects[1]);
-		
-		 
-		writer.println("\r\n--------------------------- Project No. 2 ---------------------------");
-		 
-		writer.println("\r\nRecommended Project ID: " + top3Projects[1]);
-		
-		recommendProject(top3Projects[1]);
-		System.out.println("\n--------------------------- Project No. 3 ---------------------------");
-		System.out.println("\nRecommended Project ID: " + top3Projects[2]);
-		
-		 
-		writer.println("\r\n--------------------------- Project No. 3 ---------------------------");
-		 
-		writer.println("\r\nRecommended Project ID: " + top3Projects[2]);
-		
-		
-		recommendProject(top3Projects[2]);
+		for (int x=0; x<noOfRecommendations; x++)
+		{
+			System.out.println("\n--------------------------- Project No. "+ (x+1) +"---------------------------");
+			System.out.println("\nRecommended Project ID: " + topProjects[x]);
+			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
+			writer.println("\r\nRecommended Project ID: " + topProjects[x]);
+			recommendProject(topProjects[x]);
+		}
 	}
 
 	private static String[] findMin(double[] array, int top_k) {
 		    double[] max = new double[top_k];
 		    int[] maxIndex = new int[top_k];
-		    String[] returnIndex = new String[3];
+		    String[] returnIndex = new String[noOfRecommendations];
 		    
 		    Arrays.fill(max, Double.NEGATIVE_INFINITY);
 		    Arrays.fill(maxIndex, -1);
@@ -273,7 +257,7 @@ public class JackardSimilarityBags {
 		        }
 		    }
 		    int x=0;
-		    for (int a=top_k; a>top_k-3; a--)
+		    for (int a=top_k; a>top_k-noOfRecommendations; a--)
 		    {
 		    	//System.out.println(max[a-1] + "at index " + maxIndex[a-1]);
 		    	returnIndex[x] = featureProjectIDs.get(maxIndex[a-1]);
@@ -324,6 +308,9 @@ public class JackardSimilarityBags {
 			String[] segments = pn.split("\\\\");
 			String idStr = segments[segments.length-1];
 			System.out.println("Recommended project's name is: " + idStr);
+			System.out.println("Recommended project's category is: " + dc.getCategoryProject(projectID));
+			System.out.println("Recommended project's description is: " + dc.getDescProject(projectID));
+			
 			System.out.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
 			System.out.println("Patterns implemented are: ");
 			
@@ -337,7 +324,7 @@ public class JackardSimilarityBags {
 			ResultSet patterns = dc.getPatternsOfProject(projectID);
 			while(patterns.next()){
 				System.out.println(patterns.getString(1));
-				 
+				//System.out.println(patterns.getString(1) + ": " + patterns.getString(2));
 				writer.println(patterns.getString(1));
 			}
 			

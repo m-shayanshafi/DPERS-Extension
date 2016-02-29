@@ -140,7 +140,7 @@ public class DbConnection {
 	
 	ResultSet getPatternsOfProject(String projectID) throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("SELECT distinct name from patterninstance a join patterns b on a.patternID=b.patternID where a.projectID="+projectID);
+		PreparedStatement statement = this.con.prepareStatement("SELECT distinct name, Description from patterninstance a join patterns b on a.patternID=b.patternID where a.projectID="+projectID);
 		ResultSet patterns = null;
 		try 
 		{
@@ -217,6 +217,37 @@ public class DbConnection {
 			e.printStackTrace();
 		}
 		return patterns;
+	}
+
+	
+	public String getDescProject(String projectID) throws SQLException {
+		PreparedStatement statement = this.con.prepareStatement("SELECT Description FROM file_directory where ID="+projectID);
+		String projectDesc = null;
+		try 
+		{
+			ResultSet name = statement.executeQuery();
+			projectDesc = getRecord(name);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return projectDesc;
+	}
+
+	public String getCategoryProject(String projectID) throws SQLException {
+		PreparedStatement statement = this.con.prepareStatement("select projectcategories.Description from file_directory left join projectcategories on file_directory.categoryID = projectcategories.ID where file_directory.ID="+projectID);
+		String projectCat = null;
+		try 
+		{
+			ResultSet name = statement.executeQuery();
+			projectCat = getRecord(name);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return projectCat;
 	}
 
 }
