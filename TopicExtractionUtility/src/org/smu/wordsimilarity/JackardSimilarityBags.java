@@ -336,6 +336,10 @@ public class JackardSimilarityBags {
 	}
 
 	private static void writeRecommendationsInfo(String projectID, DbConnection dc, String idStr, String idStr2, double score) throws SQLException {
+		String target = "Projects for Repo Building";
+		String replacement = "Design Patterns Repository";
+		if(idStr2.equalsIgnoreCase(target))
+			idStr2 = idStr2.replace(target, replacement);
 		writer.println("\r\nRecommended project's name is: " + idStr);
 		writer.println("\r\nRecommended project's score is: " + (Math.round((1.0-score)*100.0)/100.0));
 		writer.println("\r\nRecommended project's location is: \\\\sus\\Software\\Freeware\\WorkSpace\\" + idStr2 + "\\" + idStr);
