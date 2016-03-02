@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import cc.mallet.util.*;
 
+import cc.mallet.util.*;
 import cc.mallet.javaTotext.DemoJFileChooser;
 
 
@@ -95,7 +95,7 @@ public class JackardSimilarityBags {
 	}
 
 	private static void compareFeatureVectorsUsingSEWordSim() throws Throwable {
-		System.out.println("\n---------------- *** Top 3 Recommendations using SEWordSim *** ----------------");
+		System.out.println("\n---------------- *** Top " + noOfRecommendations + " Recommendations using SEWordSim *** ----------------");
 		double similarityScores[][] = new double[10][10];
 		double projectSimilarityScore[] = new double[featureVectors.size()];
 		String projectIDs[] = new String[featureVectors.size()];
@@ -152,7 +152,7 @@ public class JackardSimilarityBags {
 			System.out.println("\n--------------------------- Project No. "+ (x+1) +"---------------------------");
 			System.out.println("\nRecommended Project ID: " + topProjects[x]);
 			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
-			writer.println("\r\nRecommended Project ID: " + topProjects[x]);
+			//writer.println("\r\nRecommended Project ID: " + topProjects[x]);
 			recommendProject(topProjects[x]);
 		}
 	}
@@ -224,7 +224,7 @@ public class JackardSimilarityBags {
 		//System.out.println("\nmin distant node of  node 0: "+ minD[0]);
 		System.out.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
 		 
-		writer.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
+		//writer.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
 		//recommendProject(featureProjectIDs.get(minD[0]));
 		
 		for (int x=0; x<noOfRecommendations; x++)
@@ -232,7 +232,7 @@ public class JackardSimilarityBags {
 			System.out.println("\n--------------------------- Project No. "+ (x+1) +"---------------------------");
 			System.out.println("\nRecommended Project ID: " + topProjects[x]);
 			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
-			writer.println("\r\nRecommended Project ID: " + topProjects[x]);
+			//writer.println("\r\nRecommended Project ID: " + topProjects[x]);
 			recommendProject(topProjects[x]);
 		}
 	}
@@ -301,8 +301,7 @@ public class JackardSimilarityBags {
 			DbConnection dc = new DbConnection();
 			dc.openConnection();
 			System.out.println("Recommended project's uri is: " + dc.getProjectName(projectID));
-			 
-			writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
+			//writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
 			String pn = dc.getProjectName(projectID);
 			String[] segments = pn.split("\\\\");
@@ -310,16 +309,10 @@ public class JackardSimilarityBags {
 			System.out.println("Recommended project's name is: " + idStr);
 			System.out.println("Recommended project's category is: " + dc.getCategoryProject(projectID));
 			System.out.println("Recommended project's description is: " + dc.getDescProject(projectID));
-			
 			System.out.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
 			System.out.println("Patterns implemented are: ");
 			
-			 
-			writer.println("Recommended project's name is: " + idStr);
-			 
-			writer.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
-			 
-			writer.println("Patterns implemented are: ");
+			writeRecommendationsInfo(projectID, dc, idStr);
 			
 			ResultSet patterns = dc.getPatternsOfProject(projectID);
 			while(patterns.next()){
@@ -328,47 +321,69 @@ public class JackardSimilarityBags {
 				writer.println(patterns.getString(1));
 			}
 			
-			ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
-			System.out.println("\nDetails of project are: ");
-			 
-			writer.println("\r\nDetails of project are: ");
-			while(patternIDs.next()){
-				System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
-				 
-				writer.println("\r\nFor Design Pattern: " + patternIDs.getString(2));
-				
-				//ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
-				ResultSet patternIDsDetails = dc.getPatternIDsInstances(projectID,patternIDs.getString(1));
-				
-				while(patternIDsDetails.next()){
-					String detail = patternIDsDetails.getString(1);
-					String detail1 = detail.replace('|', '\n');
-					System.out.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail1);
-				
-					String[] detail2 = patternIDsDetails.getString(1).split("\\|"); 
-					writer.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \r\n");
-					for (String s: detail2) {           
-				        //Do your stuff here
-						writer.println(s); 
-				    }
-					
-					//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
-				}
-			}
-			/*
-			System.out.println("\nDetails of project are: ");
-			ResultSet details = dc.getProjectDetails(projectID);
-			while(details.next()){
-				System.out.println("Role Name: " + details.getString("roleName") + ", Method Name: " + details.getString("methodName") + ", Class Name: " + details.getString("className"));
-			}
-			*/
+			showPatternInstances(projectID, dc);
 			dc.closeConnection();
 		}
 		else
 		{
 			System.out.println("No useful recommendation found...");
-			 
 			writer.println("No useful recommendation found...");
+		}
+	}
+
+	private static void writeRecommendationsInfo(String projectID, DbConnection dc, String idStr) throws SQLException {
+		writer.println("\r\nRecommended project's name is: " + idStr);
+		writer.println("\r\nRecommended project's category is: " + dc.getCategoryProject(projectID));
+		writer.println("\r\nRecommended project's description is: " + dc.getDescProject(projectID));
+		writer.println("\r\nTopics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
+		writer.println("\r\nPatterns implemented are: \n\r");
+		writer.println("\n\r");
+	}
+
+	private static void showPatternInstances(String projectID, DbConnection dc) throws SQLException {
+		ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
+		System.out.println("\nDetails of project are: ");
+		while(patternIDs.next()){
+			System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
+			//ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
+			ResultSet patternIDsDetails = dc.getPatternIDsInstances(projectID,patternIDs.getString(1));
+			
+			while(patternIDsDetails.next()){
+				String detail = patternIDsDetails.getString(1);
+				String detail1 = detail.replace('|', '\n');
+				System.out.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail1);
+				String[] detail2 = patternIDsDetails.getString(1).split("\\|"); 
+				//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
+			}
+		}
+		//writeResultsToFile(projectID, dc);
+		
+		/*
+		System.out.println("\nDetails of project are: ");
+		ResultSet details = dc.getProjectDetails(projectID);
+		while(details.next()){
+			System.out.println("Role Name: " + details.getString("roleName") + ", Method Name: " + details.getString("methodName") + ", Class Name: " + details.getString("className"));
+		}
+		*/
+	}
+
+	private static void writeResultsToFile(String projectID, DbConnection dc) throws SQLException {
+		ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
+		writer.println("\r\nDetails of project are: ");
+		while(patternIDs.next()){
+			writer.println("\r\nFor Design Pattern: " + patternIDs.getString(2));
+			ResultSet patternIDsDetails = dc.getPatternIDsInstances(projectID,patternIDs.getString(1));
+			
+			while(patternIDsDetails.next()){
+				String detail = patternIDsDetails.getString(1);
+				String detail1 = detail.replace('|', '\n');
+				String[] detail2 = patternIDsDetails.getString(1).split("\\|"); 
+				writer.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \r\n");
+				for (String s: detail2) {
+					writer.println(s); 
+			    }
+				//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
+			}
 		}
 	}
 
