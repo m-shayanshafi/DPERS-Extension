@@ -12,6 +12,7 @@ public class Constants {
 	//public static String uname = "shamsa";
 	//public static String passwd = "Sham@123";
 	
+
 	public static String SEWordSimPath = System.getProperty("user.dir")+"/SEWordSim-r1.db";
 	public static String recommendationsOutputPath = "E:\\Recommendations.txt";
 
