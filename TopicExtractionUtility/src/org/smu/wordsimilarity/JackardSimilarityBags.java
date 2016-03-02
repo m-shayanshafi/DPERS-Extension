@@ -151,8 +151,8 @@ public class JackardSimilarityBags {
 		{
 			System.out.println("\n--------------------------- Project No. "+ (x+1) +"---------------------------");
 			System.out.println("\nRecommended Project ID: " + topProjects[x]);
-			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"-------------------------------------------------");
-			//writer.println("\r\nRecommended Project ID: " + topProjects[x]);
+			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
+			writer.println("\r\nRecommended Project ID: " + topProjects[x]);
 			recommendProject(topProjects[x]);
 		}
 	}
@@ -224,15 +224,15 @@ public class JackardSimilarityBags {
 		//System.out.println("\nmin distant node of  node 0: "+ minD[0]);
 		System.out.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
 		 
-		//writer.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
+		writer.println("Recommended Project ID from "+ (minD.length-1) + " projects: " + featureProjectIDs.get(minD[0]));
 		//recommendProject(featureProjectIDs.get(minD[0]));
 		
 		for (int x=0; x<noOfRecommendations; x++)
 		{
 			System.out.println("\n--------------------------- Project No. "+ (x+1) +"---------------------------");
 			System.out.println("\nRecommended Project ID: " + topProjects[x]);
-			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"-----------------------------------------------");
-			//writer.println("\r\nRecommended Project ID: " + topProjects[x]);
+			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
+			writer.println("\r\nRecommended Project ID: " + topProjects[x]);
 			recommendProject(topProjects[x]);
 		}
 	}
@@ -302,7 +302,7 @@ public class JackardSimilarityBags {
 			dc.openConnection();
 			System.out.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			 
-			//writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
+			writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
 			String pn = dc.getProjectName(projectID);
 			String[] segments = pn.split("\\\\");
@@ -315,13 +315,11 @@ public class JackardSimilarityBags {
 			System.out.println("Patterns implemented are: ");
 			
 			 
-			writer.println("\r\nRecommended project's name is: " + idStr);
-			writer.println("\r\nRecommended project's category is: " + dc.getCategoryProject(projectID));
-			writer.println("\r\nRecommended project's description is: " + dc.getDescProject(projectID));			
+			writer.println("Recommended project's name is: " + idStr);
 			 
-			writer.println("\r\nTopics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
+			writer.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
 			 
-			writer.println("\r\nPatterns implemented are: ");
+			writer.println("Patterns implemented are: ");
 			
 			ResultSet patterns = dc.getPatternsOfProject(projectID);
 			while(patterns.next()){
