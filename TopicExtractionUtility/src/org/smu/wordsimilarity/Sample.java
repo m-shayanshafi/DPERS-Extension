@@ -74,11 +74,13 @@ public class Sample {
 		return dc.getDomainTopicsFromDb();
 	}
 
+	/**Function related to domaintokeywords table
 	private static ResultSet getKeywordsFromDb() throws ClassNotFoundException, SQLException {
 		DbConnection dc = new DbConnection();
 		dc.openConnection();
 		return dc.getDomainToKeywordsFromDb();
 	}
+	*/
 
 	private static void matchingDomain() throws ClassNotFoundException, SQLException
 	{
@@ -90,18 +92,18 @@ public class Sample {
 		System.out.print("here ");
 
 		ResultSet domain = getDomainTopicsFromDb();
-		ResultSet keywords = getKeywordsFromDb();
+		//ResultSet keywords = getKeywordsFromDb();
 		double similarityScore = 0;
 		int TopicId = 0;
 		int ProjectId = 0;
 
 		while (domain.next() && facade.isInDatabase(stemmedInputWord)) // let it be domain of user here
 		{
-			int projectId = domain.getInt("projectID");
-			int topicID = domain.getInt("topicID");
-			String topic = domain.getString("topics");
+			int projectId = domain.getInt("ProjectID");
+			int topicID = domain.getInt("KeywordID");
+			String topic = domain.getString("Name");
 			String stemmedComparedWord = facade.stemWord(topic);
-			int topicWeight = domain.getInt("topicWeightage");
+			int topicWeight = domain.getInt("Proportion");
 			double computedSimilarityScore = facade.computeSimilarity(stemmedInputWord, stemmedComparedWord);
 
 			if (computedSimilarityScore > similarityScore)

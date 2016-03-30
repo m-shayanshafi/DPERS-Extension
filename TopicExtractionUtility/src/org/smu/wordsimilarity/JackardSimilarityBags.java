@@ -183,15 +183,15 @@ public class JackardSimilarityBags {
 		ResultSet projectIDs = dc.getProjectIDOfDomainTopics();
 		while (projectIDs.next())
 		{
-			ResultSet projectWiseDomainTopics = dc.getDomainTopicsofProjectID(projectIDs.getInt("projectID"));
+			ResultSet projectWiseDomainTopics = dc.getDomainTopicsofProjectID(projectIDs.getInt("ProjectID"));
 			ArrayList<String> domainTopics = new ArrayList<String>(); 
 			while (projectWiseDomainTopics.next())
 			{
-				String stemmedInputWord = facade.stemWord(projectWiseDomainTopics.getString("topics")); // stemmed words should already be in db 
+				String stemmedInputWord = facade.stemWord(projectWiseDomainTopics.getString("Name")); // stemmed words should already be in db 
 				domainTopics.add(stemmedInputWord);
 			}
 			featureVectors.add(domainTopics);
-			featureProjectIDs.add(projectIDs.getString("projectID"));
+			featureProjectIDs.add(projectIDs.getString("ProjectID"));
 		}
 		dc.closeConnection();
 	}

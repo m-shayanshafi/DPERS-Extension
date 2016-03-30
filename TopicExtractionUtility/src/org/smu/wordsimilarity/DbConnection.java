@@ -19,12 +19,12 @@ public class DbConnection {
 	}
 
 	void closeConnection() throws Throwable{
-    	con.close();
-    }
-	
+		con.close();
+	}
+
 	ResultSet getProjectIDOfDomainTopics() throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("SELECT distinct projectID FROM domaintopics");
+		PreparedStatement statement = this.con.prepareStatement("SELECT distinct ProjectID FROM project_domain_keywords");
 		ResultSet result = null;
 		try 
 		{
@@ -37,6 +37,7 @@ public class DbConnection {
 		return result;
 	}
 
+	/** Functions regarding lookupwords table
 	ResultSet getData() throws SQLException
 	{
 		//Here we are creating a query
@@ -69,10 +70,17 @@ public class DbConnection {
 		return result;
 	}
 
+	void insertData(String word) throws SQLException
+	{
+		java.sql.Statement statement = this.con.createStatement();
+		statement.executeUpdate("INSERT INTO `lookupwords`(`Word`) VALUES ('"+word+"')");
+	}
+	 */
+	
 	ResultSet getDomainTopicsFromDb() throws SQLException
 	{
 		//Here we are creating a query
-		PreparedStatement statement = this.con.prepareStatement("select * from domaintopics");
+		PreparedStatement statement = this.con.prepareStatement("select * from project_domain_keywords");
 
 		//here we are executing a query 
 		ResultSet result = null;
@@ -85,6 +93,7 @@ public class DbConnection {
 		return result;
 	}
 
+	/**Function related to domaintokeywords table
 	ResultSet getDomainToKeywordsFromDb() throws SQLException
 	{
 		//Here we are creating a query
@@ -100,16 +109,11 @@ public class DbConnection {
 		}
 		return result;
 	}
-
-	void insertData(String word) throws SQLException
-	{
-		java.sql.Statement statement = this.con.createStatement();
-		statement.executeUpdate("INSERT INTO `lookupwords`(`Word`) VALUES ('"+word+"')");
-	}
+	*/
 
 	ResultSet getDomainTopicsofProjectID(int projectID) throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("select * from domaintopics where projectID = " +projectID);
+		PreparedStatement statement = this.con.prepareStatement("select * from project_domain_keywords where ProjectID = " +projectID);
 		ResultSet result = null;
 		try 
 		{
@@ -124,7 +128,7 @@ public class DbConnection {
 
 	String getProjectName(String projectID) throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("SELECT Directory FROM file_directory where ID="+projectID);
+		PreparedStatement statement = this.con.prepareStatement("SELECT Path FROM project where ProjectID="+projectID);
 		String projectName = null;
 		try 
 		{
@@ -137,10 +141,10 @@ public class DbConnection {
 		}
 		return projectName;
 	}
-	
+
 	ResultSet getPatternsOfProject(String projectID) throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("SELECT distinct name, Description from patterninstance a join patterns b on a.patternID=b.patternID where a.projectID="+projectID);
+		PreparedStatement statement = this.con.prepareStatement("SELECT distinct Name, Definition from pattern_instance a join design_pattern b on a.PatternID=b.PatternID where a.ProjectID="+projectID);
 		ResultSet patterns = null;
 		try 
 		{
@@ -152,10 +156,10 @@ public class DbConnection {
 		}
 		return patterns;
 	}
-	
+
 	ResultSet getProjectDetails(String projectID) throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("select * from methodnames where patternInstanceID in (SELECT distinct patternInstanceID from patterninstance where projectID="+projectID+")");
+		PreparedStatement statement = this.con.prepareStatement("select * from pattern_instance_method where PatternInstanceID in (SELECT distinct PatternInstanceID from pattern_instance where ProjectID="+projectID+")");
 		ResultSet patterns = null;
 		try 
 		{
@@ -167,7 +171,7 @@ public class DbConnection {
 		}
 		return patterns;
 	}
-	
+
 	public String getRecord(ResultSet result) throws SQLException{
 		String name = null;
 		while(result.next()){
@@ -176,9 +180,9 @@ public class DbConnection {
 		return name;
 	}
 
-	
+
 	public ResultSet getPatternIDsOfProject(String projectID) throws SQLException {
-		PreparedStatement statement = this.con.prepareStatement("SELECT distinct a.patternID, name from patterninstance a join patterns b on a.patternID=b.patternID where a.projectID="+projectID);
+		PreparedStatement statement = this.con.prepareStatement("SELECT distinct a.PatternID, Name from pattern_instance a join design_pattern b on a.PatternID=b.PatternID where a.ProjectID="+projectID);
 		ResultSet patterns = null;
 		try 
 		{
@@ -192,21 +196,7 @@ public class DbConnection {
 	}
 
 	public ResultSet getPatternIDsDetail(String projectID, String patternID) throws SQLException {
-		PreparedStatement statement = this.con.prepareStatement("select * from methodnames where patternInstanceID in (SELECT distinct patternInstanceID from patterninstance where projectID="+projectID+" and patternID = "+patternID+")");
-		ResultSet patterns = null;
-		try 
-		{
-			patterns = statement.executeQuery();
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		return patterns;
-	}
-	
-	public ResultSet getPatternIDsInstances(String projectID, String patternID) throws SQLException {
-		PreparedStatement statement = this.con.prepareStatement("select instanceClass, patternInstanceID from patterninstance where projectID="+projectID+" and patternID = "+patternID+"");
+		PreparedStatement statement = this.con.prepareStatement("select * from pattern_instance_method where PatternInstanceID in (SELECT distinct PatternInstanceID from pattern_instance where ProjectID="+projectID+" and patternID = "+patternID+")");
 		ResultSet patterns = null;
 		try 
 		{
@@ -219,9 +209,23 @@ public class DbConnection {
 		return patterns;
 	}
 
-	
+	public ResultSet getPatternIDsInstances(String projectID, String patternID) throws SQLException {
+		PreparedStatement statement = this.con.prepareStatement("Select MetaData, PatternInstanceID from pattern_instance where ProjectID="+projectID+" and PatternID = "+patternID+"");
+		ResultSet patterns = null;
+		try 
+		{
+			patterns = statement.executeQuery();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return patterns;
+	}
+
+
 	public String getDescProject(String projectID) throws SQLException {
-		PreparedStatement statement = this.con.prepareStatement("SELECT Description FROM file_directory where ID="+projectID);
+		PreparedStatement statement = this.con.prepareStatement("SELECT Description FROM project where ProjectID="+projectID);
 		String projectDesc = null;
 		try 
 		{
@@ -236,7 +240,7 @@ public class DbConnection {
 	}
 
 	public String getCategoryProject(String projectID) throws SQLException {
-		PreparedStatement statement = this.con.prepareStatement("select projectcategories.Description from file_directory left join projectcategories on file_directory.categoryID = projectcategories.ID where file_directory.ID="+projectID);
+		PreparedStatement statement = this.con.prepareStatement("select project_category.Name from project left join project_category on project.CategoryID = project_category.CategoryID where project.ProjectID="+projectID);
 		String projectCat = null;
 		try 
 		{
