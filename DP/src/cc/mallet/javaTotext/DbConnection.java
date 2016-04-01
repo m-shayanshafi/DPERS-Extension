@@ -36,7 +36,7 @@ public class DbConnection {
 
 //	public static void openConnection() throws ClassNotFoundException, SQLException {
 //		Class.forName("com.mysql.jdbc.Driver");
-//		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");	
+//		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dprs_fact_repository","root","");	
 //
 //	}
 
@@ -75,7 +75,7 @@ public class DbConnection {
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
 		int result;
-		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`, `probability`) VALUES (?,?,?,?,?)");
+		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_keywords`(`ProjectID`,`Path`,`Name`,`Proportion`, `Probability`) VALUES (?,?,?,?,?)");
 		for(int i=1;i<words.length;i++){
 			String stemmedInputWord = stem.stemWord(words[i]);
 			statement.setInt(1,projectId);
@@ -209,7 +209,7 @@ public class DbConnection {
 	public int getProjectName(String projectName){
 		int ID=0;
 		try {
-			PreparedStatement getPatternID=con.prepareStatement("select ID from file_directory where Directory = ?");
+			PreparedStatement getPatternID=con.prepareStatement("select ProjectID from project where Path = ?");
 			getPatternID.setString(1, projectName);
 			ResultSet result=getPatternID.executeQuery();
 			ID = getPatternInstanceID(result);
@@ -223,7 +223,7 @@ public class DbConnection {
 	public int getdomainID(String domain, String filePath){
 		int ID=0;
 		try {
-			PreparedStatement getDomainID=con.prepareStatement("select topicID from domaintopics where topics = ? and filePath = ?");
+			PreparedStatement getDomainID=con.prepareStatement("select KeywordID from `project_domain_keywords` where Name = ? and Path = ?");
 			getDomainID.setString(1, domain);
 			getDomainID.setString(2, filePath);
 			ResultSet result=getDomainID.executeQuery();

@@ -34,7 +34,7 @@ public class PopulateDBWithPatterns {
     	Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection(Constants.dbConnectionString,Constants.uname,Constants.passwd);	
 //    	Class.forName("com.mysql.jdbc.Driver");
-//    	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");
+//    	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dprs_fact_repository","root","");
     }
  
     public static void closeConnection() throws Throwable{
@@ -42,7 +42,7 @@ public class PopulateDBWithPatterns {
     }
     public int getPattternID(String patternName){
     	try {
-    		PreparedStatement getPatternID=con.prepareStatement("select patternID from patterns where name = ?");
+    		PreparedStatement getPatternID=con.prepareStatement("select PatternID from design_pattern where name = ?");
     		getPatternID.setString(1, patternName);
     		ResultSet result=getPatternID.executeQuery();
     		setPatternID(result);
@@ -56,7 +56,7 @@ public class PopulateDBWithPatterns {
     
     public int getPattternInstanceID(String projectName){
     	try {
-    		PreparedStatement getPatternID=con.prepareStatement("select patternInstanceID from patterninstance where projectName = ?");
+    		PreparedStatement getPatternID=con.prepareStatement("select PatternInstanceID from pattern_instance where ProjectPath = ?");
     		getPatternID.setString(1, projectName);
     		ResultSet result=getPatternID.executeQuery();
     		setPatternInstanceID(result);
@@ -74,16 +74,15 @@ public class PopulateDBWithPatterns {
     	getPattternID(patternName);
     	for(PatternInstance instance:patternInstanceVector){
 
-    		PreparedStatement statement =con.prepareStatement("INSERT INTO `patterninstance` (`patternID`, `instanceClass`,`projectName`,`projectID`) VALUES (?,?,?,?);");
+    		PreparedStatement statement =con.prepareStatement("INSERT INTO `pattern_instance` (`PatternID`, `ProjectID`,`ProjectPath`,`MetaData`) VALUES (?,?,?,?);");
     		statement.setInt(1, this.patternID);
-        	statement.setString(2, instance.toString());
+        	statement.setString(4, instance.toString());
           	statement.setString(3, this.getFileDir(DBobj.con));
-          	statement.setInt(4, this.projectID);
+          	statement.setInt(2, this.projectID);
           	getPattternInstanceID(this.fileDirectory);    
         	int result = statement.executeUpdate();
         	
-        	 	index.createindex();
-    	}
+        }
     	
     }
     
@@ -104,7 +103,7 @@ public class PopulateDBWithPatterns {
     public void setFileDir(String dir) {
     	PreparedStatement statement;
 		try {
-			statement = con.prepareStatement("INSERT INTO `file_directory` (`ID`, `Directory`) VALUES (NULL, ?);");
+			statement = con.prepareStatement("INSERT INTO `project` (`ProjectID`, `Path`) VALUES (NULL, ?);");
 			statement.setString(1, dir);
 	    	statement.execute();
 		} catch (SQLException e) {
@@ -117,7 +116,7 @@ public class PopulateDBWithPatterns {
     	return this.fileID;
     }
     public String getFileDir(Connection con) throws IOException, SQLException{
-    	PreparedStatement getPatternID=con.prepareStatement("select * from file_directory");
+    	PreparedStatement getPatternID=con.prepareStatement("select * from project");
 		ResultSet result=getPatternID.executeQuery();
 		while(result.next()){
 			if(result.last()){

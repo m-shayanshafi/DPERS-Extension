@@ -8,7 +8,7 @@ public class Constants {
 	
 	
 	//for online hosted mysql db
-	public static String dbConnectionString = "jdbc:mysql://localhost:3306/designpatternrepo";
+	public static String dbConnectionString = "jdbc:mysql://localhost:3306/dprs_fact_repository";
 	public static String uname = "root";
 	public static String passwd = "";
 	

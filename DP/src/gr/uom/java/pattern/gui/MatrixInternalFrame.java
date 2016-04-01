@@ -93,15 +93,15 @@ public class MatrixInternalFrame extends JInternalFrame {
     	int patternInstanceID = 0;
     	PreparedStatement insertStatement;
     	Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/designpatternrepo","root","");
-    	PreparedStatement getStatement1 = con.prepareStatement("select * from patterns where name = ?");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dprs_fact_repository","root","");
+    	PreparedStatement getStatement1 = con.prepareStatement("select * from design_pattern where Name = ?");
     	getStatement1.setString(1, patternName);
     	ResultSet result1 = getStatement1.executeQuery();
     	while(result1.next()){
     		patternID=result1.getInt(2);
     	}
     	
-    	PreparedStatement getStatement2 = con.prepareStatement("select patternInstanceID from patterninstance where patternID = ?");
+    	PreparedStatement getStatement2 = con.prepareStatement("select PatternInstanceID from pattern_instance where patternID = ?");
     	getStatement2.setInt(1, patternID);
     	ResultSet result2 = getStatement2.executeQuery();
     	while(result2.next()){
@@ -111,17 +111,17 @@ public class MatrixInternalFrame extends JInternalFrame {
     	if(roleName.contains("()")){
     	roleName.replace("()", "");
     	String element[] = elementName.split(":");
-    	insertStatement =con.prepareStatement("INSERT INTO `methodnames` (`patternInstanceID`, `roleName`, `methodName`, `className`) VALUES (?,?,?,?);");
+    	insertStatement =con.prepareStatement("INSERT INTO `pattern_instance_method` (`PatternInstanceID`, `Name`) VALUES (?,?,?,?);");
     	insertStatement.setInt(1, patternInstanceID);
-    	insertStatement.setString(2, roleName.replace("()", ""));
+    	//insertStatement.setString(2, roleName.replace("()", ""));
     	insertStatement.setString(3, element[2].replace("()", ""));
-    	insertStatement.setString(4, element[0]);
+    	//insertStatement.setString(4, element[0]);
     	}
     	else{
-    		insertStatement =con.prepareStatement("INSERT INTO `classnames` (`patternInstanceID`, `roleName`, `className`) VALUES (?,?,?);");
+    		insertStatement =con.prepareStatement("INSERT INTO `pattern_instance_class` (`PatternInstanceID`, `Name`, `Role`) VALUES (?,?,?);");
     		insertStatement.setInt(1, patternInstanceID);
-        	insertStatement.setString(2, roleName);
-        	insertStatement.setString(3, elementName);
+        	insertStatement.setString(3, roleName);
+        	insertStatement.setString(2, elementName);
     	}
     	
     	
