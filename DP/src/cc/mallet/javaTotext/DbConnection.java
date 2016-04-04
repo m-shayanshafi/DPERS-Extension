@@ -52,8 +52,8 @@ public class DbConnection {
 		int result;
 		int count=0;
 		for(Object name:DomainNames){
-			if(maxRow == count)
-			{
+			//if(maxRow == count)
+			//{
 				/*
 				PreparedStatement statement = this.con.prepareStatement("INSERT INTO `domaintopics`(`projectID`,`filePath`,`topics`,`topicWeightage`, `probability`) VALUES (?,?,?,?,?)");
 				String stemmedInputWord = stem.stemWord(name.toString());
@@ -64,29 +64,61 @@ public class DbConnection {
 				statement.setDouble(5,probs[maxRow]);
 				result=statement.executeUpdate();
 				*/
-				insertDomainKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getProjectName(filePath), filePath, probs[maxRow]);
+				int topicId = insertDomainTopics(getProjectName(filePath), probs[count]);
+				insertDomainKeywords(keywords.get(count).toString(), keywordsWeightage.get(count).toString(),getProjectName(filePath), filePath, probs[count],topicId);
 
-			}
+			//}
 			count++;
 		}
 	}
-
-	public void insertDomainKeywords(String keywords, String KeywordWeightage, int projectId, String filePath, double prob) throws SQLException{
+	public int insertDomainTopics(int projectId, double prob) throws SQLException{
+		int result;
+		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_topics` (`ProjectID`, `Contribution`) VALUES (?,?)");
+		statement.setInt(1,projectId);
+		statement.setDouble(2,prob);
+		result = statement.executeUpdate();
+		
+		PreparedStatement statement1 = this.con.prepareStatement("SELECT `TopicID` FROM `project_domain_topics` WHERE `ProjectID` = ? ");
+		statement1.setInt(1,projectId);
+		ResultSet result1 = statement1.executeQuery();
+		int topicId = getPatternInstanceID(result1);
+		return topicId;
+	}
+	public void insertDomainKeywords(String keywords, String KeywordWeightage, int projectId, String filePath, double prob, int topicId) throws SQLException{
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
 		int result;
-		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_keywords`(`ProjectID`,`Path`,`Name`,`Proportion`, `Probability`) VALUES (?,?,?,?,?)");
+		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_keywords`(`ProjectID`,`Path`,`StemmedName`,`Name`,`Proportion`) VALUES (?,?,?,?,?)");
 		for(int i=1;i<words.length;i++){
 			String stemmedInputWord = stem.stemWord(words[i]);
 			statement.setInt(1,projectId);
 			statement.setString(2,filePath);
 			statement.setString(3,stemmedInputWord);
-			statement.setInt(4,Integer.parseInt(weights[i]));
-			statement.setDouble(5,prob);
+			statement.setString(4,words[i]);
+			statement.setInt(5,Integer.parseInt(weights[i]));
+			//statement.setDouble(6,prob);
 			result=statement.executeUpdate();
+			
+			int key = getKeywordId(projectId, words[i]);
+			insertKeywordTopicIds(topicId,key);
 		}
 	}
-
+	public void insertKeywordTopicIds(int topicsId, int keywordID) throws SQLException{
+		int result;
+		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `topic_keywords`(`TopicID`, `KeywordID`) VALUES (?,?)");
+		statement.setInt(1,topicsId);
+		statement.setInt(2,keywordID);
+		result = statement.executeUpdate();
+	}
+	
+	public int getKeywordId(int projectId, String keyword) throws SQLException{
+		PreparedStatement statement1 = this.con.prepareStatement("SELECT `KeywordID` FROM `project_domain_keywords` WHERE `ProjectID` = ? AND `Name` = ? ");
+		statement1.setInt(1,projectId);
+		statement1.setString(2,keyword);
+		ResultSet result1 = statement1.executeQuery();
+		int  keywordId = getPatternInstanceID(result1);
+		return keywordId;
+	}
 	public void insertKeywords(String keywords, String KeywordWeightage, int topicId) throws SQLException{
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
