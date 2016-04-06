@@ -99,12 +99,23 @@ public class PopulateDBWithPatterns {
     		this.patternInstanceID=result.getInt(1);
     	}
 	}   
+	
+	public String getName(String path) throws SQLException
+	{
+		String pn = path;
+		String[] segments = pn.split("\\\\");
+		String idStr = segments[segments.length-1];
+		String idStr2 = segments[segments.length-2];
+		return idStr;
+	}
     
     public void setFileDir(String dir) {
     	PreparedStatement statement;
 		try {
-			statement = con.prepareStatement("INSERT INTO `project` (`ProjectID`, `Path`) VALUES (NULL, ?);");
+			statement = con.prepareStatement("INSERT INTO `project` (`ProjectID`, `Path`, `Name`) VALUES (NULL, ?, ?);");
+			String name = getName(dir);
 			statement.setString(1, dir);
+			statement.setString(2, name);
 	    	statement.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

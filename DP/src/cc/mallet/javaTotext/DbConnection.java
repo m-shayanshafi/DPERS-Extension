@@ -275,5 +275,6 @@ public class DbConnection {
 			ID=result.getInt(1);
 		}
 		return ID;
-	}   
+	}
+
 }

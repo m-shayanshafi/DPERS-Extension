@@ -24,7 +24,7 @@ public class DbConnection {
 
 	ResultSet getProjectIDOfDomainTopics() throws SQLException
 	{
-		PreparedStatement statement = this.con.prepareStatement("SELECT distinct ProjectID FROM project_domain_keywords");
+		PreparedStatement statement = this.con.prepareStatement("SELECT distinct ProjectID FROM project_domain_topics");
 		ResultSet result = null;
 		try 
 		{
@@ -76,7 +76,7 @@ public class DbConnection {
 		statement.executeUpdate("INSERT INTO `lookupwords`(`Word`) VALUES ('"+word+"')");
 	}
 	 */
-	
+
 	ResultSet getDomainTopicsFromDb() throws SQLException
 	{
 		//Here we are creating a query
@@ -109,7 +109,7 @@ public class DbConnection {
 		}
 		return result;
 	}
-	*/
+	 */
 
 	ResultSet getDomainTopicsofProjectID(int projectID) throws SQLException
 	{
@@ -252,6 +252,25 @@ public class DbConnection {
 			e.printStackTrace();
 		}
 		return projectCat;
+	}
+
+	//New method for association tables
+	ResultSet getKeywordsForProjectIDs(int projectID) throws SQLException
+	{
+		PreparedStatement topicID = this.con.prepareStatement("select TopicID from project_domain_topics where ProjectID = " +projectID+ " order by Contribution DESC LIMIT 1");
+		ResultSet rsKeywords = null;
+		try
+		{
+			ResultSet rsTopicID = topicID.executeQuery();
+			String topID = getRecord(rsTopicID);
+			PreparedStatement keywords = this.con.prepareStatement("Select * from project_domain_keywords where KeywordID in (Select KeywordID from topic_keywords where TopicID = " + topID + ") and ProjectID = " +projectID);
+			rsKeywords = keywords.executeQuery();
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return rsKeywords;
 	}
 
 }

@@ -183,11 +183,13 @@ public class JackardSimilarityBags {
 		ResultSet projectIDs = dc.getProjectIDOfDomainTopics();
 		while (projectIDs.next())
 		{
-			ResultSet projectWiseDomainTopics = dc.getDomainTopicsofProjectID(projectIDs.getInt("ProjectID"));
+			//ResultSet projectWiseDomainTopics = dc.getDomainTopicsofProjectID(projectIDs.getInt("ProjectID"));
+			ResultSet projectWiseDomainTopics = dc.getKeywordsForProjectIDs(projectIDs.getInt("ProjectID"));
 			ArrayList<String> domainTopics = new ArrayList<String>(); 
 			while (projectWiseDomainTopics.next())
 			{
-				String stemmedInputWord = facade.stemWord(projectWiseDomainTopics.getString("Name")); // stemmed words should already be in db 
+				//String stemmedInputWord = facade.stemWord(projectWiseDomainTopics.getString("Name")); // stemmed words should already be in db 
+				String stemmedInputWord = projectWiseDomainTopics.getString("StemmedName"); // stemmed words should already be in db 
 				domainTopics.add(stemmedInputWord);
 			}
 			featureVectors.add(domainTopics);
@@ -257,6 +259,10 @@ public class JackardSimilarityBags {
 		        }
 		    }
 		    int x=0;
+		    if (!(top_k > noOfRecommendations))
+		    {
+		    	noOfRecommendations = top_k-1;
+		    }
 		    for (int a=top_k; a>top_k-noOfRecommendations; a--)
 		    {
 		    	//System.out.println(max[a-1] + "at index " + maxIndex[a-1]);
@@ -303,28 +309,8 @@ public class JackardSimilarityBags {
 			System.out.println("Recommended project's location is: " + dc.getProjectName(projectID));
 			//writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
-			String pn = dc.getProjectName(projectID);
-			String[] segments = pn.split("\\\\");
-			String idStr = segments[segments.length-1];
-			String idStr2 = segments[segments.length-2];
-			double score = differences[featureProjectIDs.indexOf(projectID)];
-			System.out.println("Recommended project's name is: " + idStr);
-			System.out.println("Recommended project's score is: " + score);
-			System.out.println("Recommended project's location is: " + idStr2 + "\\" + idStr);
-			System.out.println("Recommended project's category is: " + dc.getCategoryProject(projectID));
-			System.out.println("Recommended project's description is: " + dc.getDescProject(projectID));
-			System.out.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
-			System.out.println("Patterns implemented are: ");
-			
-			writeRecommendationsInfo(projectID, dc, idStr, idStr2, score);
-			
-			ResultSet patterns = dc.getPatternsOfProject(projectID);
-			while(patterns.next()){
-				System.out.println(patterns.getString(1));
-				//System.out.println(patterns.getString(1) + ": " + patterns.getString(2));
-				//writer.println(patterns.getString(1));
-			}
-			
+			showProjectInfo(projectID, differences, dc);
+			showPatterns(projectID, dc);
 			showPatternInstances(projectID, dc);
 			dc.closeConnection();
 		}
@@ -335,7 +321,22 @@ public class JackardSimilarityBags {
 		}
 	}
 
-	private static void writeRecommendationsInfo(String projectID, DbConnection dc, String idStr, String idStr2, double score) throws SQLException {
+	private static void showProjectInfo(String projectID, double[] differences, DbConnection dc) throws SQLException {
+		String pn = dc.getProjectName(projectID);
+		String[] segments = pn.split("\\\\");
+		String idStr = segments[segments.length-1];
+		String idStr2 = segments[segments.length-2];
+		double score = differences[featureProjectIDs.indexOf(projectID)];
+		System.out.println("Recommended project's name is: " + idStr);
+		System.out.println("Recommended project's score is: " + score);
+		System.out.println("Recommended project's location is: " + idStr2 + "\\" + idStr);
+		System.out.println("Recommended project's category is: " + dc.getCategoryProject(projectID));
+		System.out.println("Recommended project's description is: " + dc.getDescProject(projectID));
+		//System.out.println("Topics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
+		writeProjectInfo(projectID, dc, idStr, idStr2, score);
+	}
+
+	private static void writeProjectInfo(String projectID, DbConnection dc, String idStr, String idStr2, double score) throws SQLException {
 		String target = "Projects for Repo Building";
 		String replacement = "Design Patterns Repository";
 		if(idStr2.equalsIgnoreCase(target))
@@ -345,9 +346,38 @@ public class JackardSimilarityBags {
 		writer.println("\r\nRecommended project's location is: \\\\sus\\Software\\Freeware\\WorkSpace\\" + idStr2 + "\\" + idStr);
 		writer.println("\r\nRecommended project's category is: " + dc.getCategoryProject(projectID));
 		writer.println("\r\nRecommended project's description is: " + dc.getDescProject(projectID));
-		writer.println("\r\nTopics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
+		//writer.println("\r\nTopics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
+		ResultSet projectWiseDomainTopics = dc.getKeywordsForProjectIDs(Integer.parseInt(projectID));
+		writer.println("\r\nTopics of this project are: ");
+		System.out.println("\r\nTopics of this project are: ");
+		while (projectWiseDomainTopics.next())
+		{
+			writer.append(projectWiseDomainTopics.getString("Name") + " ");
+			System.out.print(projectWiseDomainTopics.getString("Name") + " ");
+		}
+		System.out.println("\n");
+		writer.println("\r\n");
 		//writer.println("\r\nPatterns implemented are: \n\r");
 		//writer.println("\n\r");
+	}
+	
+	private static void showPatterns(String projectID, DbConnection dc) throws SQLException {
+		System.out.println("Patterns implemented are: ");
+		ResultSet patterns = dc.getPatternsOfProject(projectID);
+		while(patterns.next()){
+			System.out.println(patterns.getString(1));
+			//System.out.println(patterns.getString(1) + ": " + patterns.getString(2));
+			//writer.println(patterns.getString(1));
+		}
+		patterns.first();
+		//writePatterns(patterns);
+	}
+
+	private static void writePatterns(ResultSet patterns) throws SQLException {
+		writer.println("Patterns implemented are: ");
+		while(patterns.next()){
+			writer.println(patterns.getString(1));
+		}
 	}
 
 	private static void showPatternInstances(String projectID, DbConnection dc) throws SQLException {
@@ -366,7 +396,7 @@ public class JackardSimilarityBags {
 				//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
 			}
 		}
-		//writeResultsToFile(projectID, dc);
+		//writePatternInstances(projectID, dc);
 		
 		/*
 		System.out.println("\nDetails of project are: ");
@@ -377,7 +407,7 @@ public class JackardSimilarityBags {
 		*/
 	}
 
-	private static void writeResultsToFile(String projectID, DbConnection dc) throws SQLException {
+	private static void writePatternInstances(String projectID, DbConnection dc) throws SQLException {
 		ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
 		writer.println("\r\nDetails of project are: ");
 		while(patternIDs.next()){
@@ -450,6 +480,5 @@ public class JackardSimilarityBags {
 		float unionCount = list2.size();
 		return intersectionCount/unionCount;
 	}
-	
 	
 }
