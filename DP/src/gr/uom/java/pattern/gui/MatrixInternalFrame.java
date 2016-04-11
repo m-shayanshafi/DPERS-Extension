@@ -111,11 +111,18 @@ public class MatrixInternalFrame extends JInternalFrame {
     	if(roleName.contains("()")){
     	roleName.replace("()", "");
     	String element[] = elementName.split(":");
-    	insertStatement =con.prepareStatement("INSERT INTO `pattern_instance_method` (`PatternInstanceID`, `Name`) VALUES (?,?,?,?);");
+    	insertStatement =con.prepareStatement("INSERT INTO `pattern_instance_method` (`PatternInstanceID`,`PatternInstanceClassID`,`Name`) VALUES (?,?,?);");
     	insertStatement.setInt(1, patternInstanceID);
     	//insertStatement.setString(2, roleName.replace("()", ""));
     	insertStatement.setString(3, element[2].replace("()", ""));
     	//insertStatement.setString(4, element[0]);
+    	PreparedStatement getStatement3 = con.prepareStatement("select PatternInstanceClassID from pattern_instance_class where Name = ?");
+    	getStatement3.setString(1, element[0]);
+    	ResultSet result3 = getStatement3.executeQuery();
+    	while(result3.next()){
+    		insertStatement.setInt(2,result3.getInt(1));
+    	}
+    	
     	}
     	else{
     		insertStatement =con.prepareStatement("INSERT INTO `pattern_instance_class` (`PatternInstanceID`, `Name`, `Role`) VALUES (?,?,?);");
