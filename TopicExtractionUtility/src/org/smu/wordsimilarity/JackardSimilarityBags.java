@@ -4,8 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import cc.mallet.util.*;
@@ -92,7 +94,29 @@ public class JackardSimilarityBags {
 		
 		/**** SEWordSim Recommendations *****/
 		//compareFeatureVectorsUsingSEWordSim();
+		
+		//calculateShannonEntropy(featureVectors.get(0));
 	}
+	
+	public static Double calculateShannonEntropy(List<String> values) {
+		  Map<String, Integer> map = new HashMap<String, Integer>();
+		  // count the occurrences of each value
+		  for (String sequence : values) {
+		    if (!map.containsKey(sequence)) {
+		      map.put(sequence, 0);
+		    }
+		    map.put(sequence, map.get(sequence) + 1);
+		  }
+		 
+		  // calculate the entropy
+		  Double result = 0.0;
+		  for (String sequence : map.keySet()) {
+		    Double frequency = (double) map.get(sequence) / values.size();
+		    result -= frequency * (Math.log(frequency) / Math.log(2));
+		  }
+		 
+		  return result;
+		}
 
 	private static void compareFeatureVectorsUsingSEWordSim() throws Throwable {
 		System.out.println("\n---------------- *** Top " + noOfRecommendations + " Recommendations using SEWordSim *** ----------------");
@@ -384,15 +408,32 @@ public class JackardSimilarityBags {
 		ResultSet patternIDs = dc.getPatternIDsOfProject(projectID);
 		System.out.println("\nDetails of project are: ");
 		while(patternIDs.next()){
-			System.out.println("\nFor Design Pattern: " + patternIDs.getString(2));
+			System.out.println("\nPattern Name: " + patternIDs.getString(2));
 			//ResultSet patternIDsDetails = dc.getPatternIDsDetail(projectID,patternIDs.getString(1));
 			ResultSet patternIDsDetails = dc.getPatternIDsInstances(projectID,patternIDs.getString(1));
 			
+			
 			while(patternIDsDetails.next()){
 				String detail = patternIDsDetails.getString(1);
-				String detail1 = detail.replace('|', '\n');
-				System.out.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail1);
-				String[] detail2 = patternIDsDetails.getString(1).split("\\|"); 
+				
+				System.out.println("\nPattern instance "+patternIDsDetails.getString(2)+" is:");
+				
+				String[] metaData = detail.split("\\|");
+				for (int i=0; i<metaData.length-1; i++)
+				{
+					if (!(metaData[i].contains("()")))
+					{
+						System.out.println("Class Name/Role Name: " + (metaData[i].split(":"))[1] + "/ " + (metaData[i].split(":"))[0]);
+					}
+					else
+					{
+						System.out.println("Method Name: " + (metaData[i].split(":"))[3]);
+					}
+				}
+				
+				//String detail1 = detail.replace('|', '\n');
+				//System.out.println("Pattern instance "+patternIDsDetails.getString(2)+" is: \n"+ detail1);
+				//String[] detail2 = patternIDsDetails.getString(1).split("\\|"); 
 				//System.out.println("Role Name: " + patternIDsDetails.getString("roleName") + ", Method Name: " + patternIDsDetails.getString("methodName") + ", Class Name: " + patternIDsDetails.getString("className"));
 			}
 		}
