@@ -1,5 +1,6 @@
 package gr.uom.java.pattern.gui;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,60 +19,10 @@ import gr.uom.java.pattern.PatternInstance;
 public class MatrixInternalFrame extends JInternalFrame {
     //private DefaultTableModel model;
 	private JTree patternInstanceTree;
-
+	public int instanceCount = 0;
     public MatrixInternalFrame(String title) {
 		super(title,true,true,true,true);
-		/*
-        String[] columnNames = {"Pattern", "Instances", "Classes"};
-        model = new DefaultTableModel(columnNames, 0) {
-            public boolean isCellEditable(int row, int col) {
-                return col == 2;
-            }
-        };
-        JTable table = new JTable(model) {
-            public TableCellRenderer getCellRenderer(int row, int column) {
-				TableColumn tableColumn = getColumnModel().getColumn(column);
-				TableCellRenderer renderer = tableColumn.getCellRenderer();
-				if (renderer == null) {
-					Class c = getColumnClass(column);
-					if( c.equals(Object.class) ) {
-						Object o = getValueAt(row,column);
-						if( o != null )
-							c = getValueAt(row,column).getClass();
-					}
-					renderer = getDefaultRenderer(c);
-				}
-				return renderer;
-			}
-
-            public TableCellEditor getCellEditor(int row, int column) {
-				TableColumn tableColumn = getColumnModel().getColumn(column);
-				TableCellEditor editor = tableColumn.getCellEditor();
-				if (editor == null) {
-					Class c = getColumnClass(column);
-					if( c.equals(Object.class) ) {
-						Object o = getValueAt(row,column);
-						if( o != null )
-							c = getValueAt(row,column).getClass();
-					}
-					editor = getDefaultEditor(c);
-				}
-				return editor;
-			}
-        };
-        table.setDefaultEditor(JComponent.class, new JComponentCellEditor());
-        table.setDefaultRenderer(JComponent.class, new TableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value,
-			boolean isSelected, boolean hasFocus, int row, int column) {
-			    return (JComponent)value;
-		    }
-	    });
-        table.getColumnModel().getColumn(0).setMinWidth(160);
-        table.getColumnModel().getColumn(0).setMaxWidth(160);
-        table.getColumnModel().getColumn(1).setMinWidth(60);
-        table.getColumnModel().getColumn(1).setMaxWidth(60);
-        JScrollPane scrollPane = new JScrollPane(table);
- 		*/
+		
 		this.patternInstanceTree = new JTree(new DefaultMutableTreeNode());
 		
 		JScrollPane scrollPane = new JScrollPane(patternInstanceTree);
@@ -100,22 +51,40 @@ public class MatrixInternalFrame extends JInternalFrame {
     	while(result1.next()){
     		patternID=result1.getInt(2);
     	}
-    	
-    	PreparedStatement getStatement2 = con.prepareStatement("select PatternInstanceID from pattern_instance where patternID = ?");
-    	getStatement2.setInt(1, patternID);
-    	ResultSet result2 = getStatement2.executeQuery();
-    	while(result2.next()){
-    		patternInstanceID=result2.getInt(1);
+    	String project_path = "";
+    	PreparedStatement getStatement = con.prepareStatement("SELECT Path FROM `project` ORDER BY `ProjectID`");
+    	ResultSet result_path = getStatement.executeQuery();
+    	while(result_path.next()){
+    		project_path=result_path.getString(1);
+    	}
+    	int highest_instance_id=0;
+    	PreparedStatement getPatternInstanceID = con.prepareStatement("SELECT `PatternInstanceID` FROM `pattern_instance_class` ORDER BY `pattern_instance_class`.`PatternInstanceID` ASC");
+    	ResultSet result_instance_id = getPatternInstanceID.executeQuery();
+    	while(result_instance_id.next()){
+    		highest_instance_id=result_instance_id.getInt(1);
     	}
     	
+    	PreparedStatement getStatement2 = con.prepareStatement("select PatternInstanceID, MetaData from pattern_instance where PatternID = ? AND ProjectPath =?");
+    	getStatement2.setInt(1, patternID);
+    	getStatement2.setString(2, project_path);
+    	ResultSet result2 = getStatement2.executeQuery();
+    	
+    	int temp_Id;
+    	String instanceMD;
+    	while(result2.next()){
+    		temp_Id=result2.getInt(1);
+    		instanceMD = result2.getString(2);
+    	
+    		if(instanceMD.contains(elementName+" ")){
+    			patternInstanceID=temp_Id;
+    		}
+    	}
     	if(roleName.contains("()")){
     	roleName.replace("()", "");
     	String element[] = elementName.split(":");
     	insertStatement =con.prepareStatement("INSERT INTO `pattern_instance_method` (`PatternInstanceID`,`PatternInstanceClassID`,`Name`) VALUES (?,?,?);");
     	insertStatement.setInt(1, patternInstanceID);
-    	//insertStatement.setString(2, roleName.replace("()", ""));
     	insertStatement.setString(3, element[2].replace("()", ""));
-    	//insertStatement.setString(4, element[0]);
     	PreparedStatement getStatement3 = con.prepareStatement("select PatternInstanceClassID from pattern_instance_class where Name = ?");
     	getStatement3.setString(1, element[0]);
     	ResultSet result3 = getStatement3.executeQuery();

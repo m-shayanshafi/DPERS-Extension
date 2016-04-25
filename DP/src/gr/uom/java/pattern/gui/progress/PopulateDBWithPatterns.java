@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import cc.mallet.util.Constants;
@@ -72,15 +73,21 @@ public class PopulateDBWithPatterns {
     	this.con=DBobj.con;
     	this.patternInstanceVector=DBobj.patternInstanceVector;
     	getPattternID(patternName);
+    	int instanceCount  = 0;
     	for(PatternInstance instance:patternInstanceVector){
 
     		PreparedStatement statement =con.prepareStatement("INSERT INTO `pattern_instance` (`PatternID`, `ProjectID`,`ProjectPath`,`MetaData`) VALUES (?,?,?,?);");
     		statement.setInt(1, this.patternID);
+    		String[] instances = instance.toString().split(",");
+    		if(instances.length > 1 && instanceCount == 0 ){
+    			instanceCount = instances.length-1;
+    		}
         	statement.setString(4, instance.toString());
           	statement.setString(3, this.getFileDir(DBobj.con));
           	statement.setInt(2, this.projectID);
           	getPattternInstanceID(this.fileDirectory);    
         	int result = statement.executeUpdate();
+        	instanceCount--;
         	
         }
     	
