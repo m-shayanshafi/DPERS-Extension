@@ -28,5 +28,8 @@
 	<classpathentry kind="lib" path="lib/trove-2.0.2.jar"/>
 	<classpathentry kind="lib" path="dist/mallet.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="jawjaw-1.0.2.jar"/>
+	<classpathentry kind="lib" path="jaws-bin.jar"/>
+	<classpathentry kind="lib" path="ws4j-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

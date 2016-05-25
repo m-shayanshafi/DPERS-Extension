@@ -15,6 +15,7 @@ public class DbConnection {
 	public static DbConnection db;
 	public static Connection con;
 	Stemmer stem = new Stemmer();
+	InflectionalMorphology morph = new InflectionalMorphology();
 	private DbConnection(){}
 	public static DbConnection getDBcon() throws ClassNotFoundException, SQLException{
 		if(db == null){
@@ -88,14 +89,18 @@ public class DbConnection {
 		String[] words= keywords.split(" ");
 		String[] weights = KeywordWeightage.split(" ");
 		int result;
-		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_keywords`(`ProjectID`,`Path`,`StemmedName`,`Name`,`Proportion`) VALUES (?,?,?,?,?)");
+		//PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_keywords`(`ProjectID`,`Path`,`StemmedName`,`Name`,`Proportion`) VALUES (?,?,?,?,?)");
+		PreparedStatement statement = this.con.prepareStatement("INSERT INTO `project_domain_keywords`(`ProjectID`,`Path`,`StemmedName`,`Name`,`Proportion`,`RootWord`) VALUES (?,?,?,?,?,?)");
+		
 		for(int i=1;i<words.length;i++){
 			String stemmedInputWord = stem.stemWord(words[i]);
+			String rootWord = morph.rootWord(words[i]);
 			statement.setInt(1,projectId);
 			statement.setString(2,filePath);
 			statement.setString(3,stemmedInputWord);
 			statement.setString(4,words[i]);
 			statement.setInt(5,Integer.parseInt(weights[i]));
+			statement.setString(6,rootWord);
 			//statement.setDouble(6,prob);
 			result=statement.executeUpdate();
 			
