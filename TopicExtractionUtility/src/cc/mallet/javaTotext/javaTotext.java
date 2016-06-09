@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -19,6 +20,7 @@ import org.smu.wordsimilarity.JackardSimilarityBags;
 import org.smu.wordsimilarity.Sample;
 
 import cc.mallet.TopicExtraction.TopicModel;
+import cc.mallet.util.Constants;
 public class javaTotext {
 	public static TopicModel identifyTopic;
 	public static DbConnection db;
@@ -234,8 +236,8 @@ public class javaTotext {
 		writer.close();
 	}
 
-	public static void read(final File folder) throws IOException{
-		File path = folder;     
+	public static void read(final File file) throws IOException{
+		/*File path = folder;     
 		String line="";
 		FileReader fr = new FileReader(path);
 		BufferedReader br = new BufferedReader(fr);
@@ -252,7 +254,36 @@ public class javaTotext {
 			}
 		}
 		write(s,true);
-		br.close();
+		br.close();*/
+		
+		try 
+		{
+			Path consolidatedFilePath = Paths.get("Outfile\\Output.txt");				
+			if (!Files.exists(consolidatedFilePath)) 
+			{				  
+				Files.createFile(consolidatedFilePath);
+			}				
+		
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String preprocessedFile = "";
+			String line = "";
+			while ((line = br.readLine()) != null) {					
+				line = line.trim();
+				if(line.startsWith("private")||line.startsWith("public"))
+				{
+					preprocessedFile += cleanString(line)+ "\n";
+					//System.out.println(line);					
+				}
+			}
+			br.close();
+			Files.write(consolidatedFilePath,  " \n".getBytes(), StandardOpenOption.APPEND);
+			Files.write(consolidatedFilePath,  preprocessedFile.getBytes(), StandardOpenOption.APPEND);
+			
+		}
+		catch (IOException e) 
+		{			
+			  e.printStackTrace();
+		}
 	}
 
 	public static void write(String s, boolean overwrite) throws IOException{
