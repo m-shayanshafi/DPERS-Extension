@@ -14,5 +14,7 @@ public class Constants {
 	
 	public static String SEWordSimPath = System.getProperty("user.dir")+"/SEWordSim-r1.db";
 	public static String recommendationsOutputPath = "E:\\Recommendations.txt";
+	public static double threshold = 0.0;
+	public static int noOfRecommendations = 5;
 
 }
