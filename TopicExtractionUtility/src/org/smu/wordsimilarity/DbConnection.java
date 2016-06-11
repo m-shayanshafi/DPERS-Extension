@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import cc.mallet.util.Constants;
 
@@ -22,19 +23,24 @@ public class DbConnection {
 		con.close();
 	}
 
-	ResultSet getProjectIDOfDomainTopics() throws SQLException
+	ArrayList<Integer> getProjectIDOfDomainTopics() throws SQLException
 	{
 		PreparedStatement statement = this.con.prepareStatement("SELECT distinct ProjectID FROM project_domain_topics");
 		ResultSet result = null;
+		ArrayList<Integer> projectIDs = new ArrayList<Integer>();
 		try 
 		{
 			result = statement.executeQuery();
+			while(result.next())
+			{
+				projectIDs.add(result.getInt(1));
+			}
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		return result;
+		return projectIDs;
 	}
 
 	/** Functions regarding lookupwords table
@@ -255,22 +261,25 @@ public class DbConnection {
 	}
 
 	//New method for association tables
-	ResultSet getKeywordsForProjectIDs(int projectID) throws SQLException
+	ArrayList <String> getKeywordsForProjectIDs(int projectID) throws SQLException
 	{
-		PreparedStatement topicID = this.con.prepareStatement("select TopicID from project_domain_topics where ProjectID = " +projectID+ " order by Contribution DESC LIMIT 1");
-		ResultSet rsKeywords = null;
+		ResultSet rsKeywords;
+		ArrayList <String> resultKeywords = new ArrayList<String>();
+	
 		try
-		{
-			ResultSet rsTopicID = topicID.executeQuery();
-			String topID = getRecord(rsTopicID);
-			PreparedStatement keywords = this.con.prepareStatement("Select * from project_domain_keywords where KeywordID in (Select KeywordID from topic_keywords where TopicID = " + topID + ") and ProjectID = " +projectID);
+		{			
+			PreparedStatement keywords = this.con.prepareStatement("Select StemmedName from project_domain_keywords where ProjectID = " +projectID + " LIMIT 10");
 			rsKeywords = keywords.executeQuery();
+			while(rsKeywords.next()){
+				resultKeywords.add(rsKeywords.getString(1));
+			}
+			
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
-		return rsKeywords;
+		return resultKeywords;
 	}
 
 }

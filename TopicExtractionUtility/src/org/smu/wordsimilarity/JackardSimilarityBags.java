@@ -208,20 +208,14 @@ public class JackardSimilarityBags {
 	private static void getFeatureVectorsFromDB() throws Throwable {
 		DbConnection dc = new DbConnection();
 		dc.openConnection();
-		ResultSet projectIDs = dc.getProjectIDOfDomainTopics();
-		while (projectIDs.next())
+		ArrayList<Integer> projectIDs = dc.getProjectIDOfDomainTopics();
+		for(Integer pID: projectIDs )
 		{
 			//ResultSet projectWiseDomainTopics = dc.getDomainTopicsofProjectID(projectIDs.getInt("ProjectID"));
-			ResultSet projectWiseDomainTopics = dc.getKeywordsForProjectIDs(projectIDs.getInt("ProjectID"));
-			ArrayList<String> domainTopics = new ArrayList<String>(); 
-			while (projectWiseDomainTopics.next())
-			{
-				//String stemmedInputWord = facade.stemWord(projectWiseDomainTopics.getString("Name")); // stemmed words should already be in db 
-				String stemmedInputWord = projectWiseDomainTopics.getString("StemmedName"); // stemmed words should already be in db 
-				domainTopics.add(stemmedInputWord);
-			}
-			projectsKeywordsCollection.add(domainTopics);
-			featureProjectIDs.add(projectIDs.getString("ProjectID"));
+			ArrayList <String> projectDomainKeywords = dc.getKeywordsForProjectIDs(pID);
+			
+			projectsKeywordsCollection.add(projectDomainKeywords);
+			featureProjectIDs.add(pID.toString());
 		}
 		dc.closeConnection();
 	}
@@ -295,7 +289,7 @@ public class JackardSimilarityBags {
 		
 		for (int i=0; i < featureProjectIDs.size(); i++){
 			double projectScore = 1-roundedProjectDistances[i]; 
-			if(projectScore > Constants.threshold )
+			if(projectScore >= Constants.threshold )
 				numberOfProjectsAboveThreshold+=1;
 				
 			
@@ -369,8 +363,8 @@ public class JackardSimilarityBags {
 			//writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
 			showProjectInfo(projectID, differences, dc);
-			showPatterns(projectID, dc);
-			showPatternInstances(projectID, dc);
+			//showPatterns(projectID, dc);
+			//showPatternInstances(projectID, dc);
 			dc.closeConnection();
 		}
 		else
@@ -406,13 +400,13 @@ public class JackardSimilarityBags {
 		writer.println("\r\nRecommended project's category is: " + dc.getCategoryProject(projectID));
 		writer.println("\r\nRecommended project's description is: " + dc.getDescProject(projectID));
 		//writer.println("\r\nTopics of this project are: " +featureVectors.get(featureProjectIDs.indexOf(projectID)));
-		ResultSet projectWiseDomainTopics = dc.getKeywordsForProjectIDs(Integer.parseInt(projectID));
+		ArrayList <String> projectWiseDomainTopics = dc.getKeywordsForProjectIDs(Integer.parseInt(projectID));
 		writer.println("\r\nTopics of this project are: ");
 		System.out.println("\r\nTopics of this project are: ");
-		while (projectWiseDomainTopics.next())
+		for (String keyword: projectWiseDomainTopics)
 		{
-			writer.append(projectWiseDomainTopics.getString("Name") + " ");
-			System.out.print(projectWiseDomainTopics.getString("Name") + " ");
+			writer.append(keyword + " ");
+			System.out.print(keyword + " ");
 		}
 		System.out.println("\n");
 		writer.println("\r\n");
