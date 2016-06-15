@@ -216,7 +216,7 @@ public class DbConnection {
 	}
 
 	public ResultSet getPatternIDsInstances(String projectID, String patternID) throws SQLException {
-		PreparedStatement statement = this.con.prepareStatement("Select MetaData, PatternInstanceID from pattern_instance where ProjectID="+projectID+" and PatternID = "+patternID+"");
+		PreparedStatement statement = this.con.prepareStatement("Select MetaData, PatternInstanceID, ProjectPath from pattern_instance where ProjectID="+projectID+" and PatternID = "+patternID+"");
 		ResultSet patterns = null;
 		try 
 		{

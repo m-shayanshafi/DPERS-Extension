@@ -1,5 +1,6 @@
 
 package org.smu.wordsimilarity;
+import java.io.File;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,37 +29,37 @@ public class JackardSimilarityBags {
 	static ArrayList<String> resultsDisplay = new ArrayList<String>();
 	static PrintWriter writer;
 
-	
-	public static void main (String args[]) throws Throwable { //input from user's code i.e. feature vector
-		ArrayList<String> userFeatureVector = new ArrayList<String>(); //input from user's code i.e. feature vector
-		userFeatureVector.add("translator");
-		userFeatureVector.add("system");
-		userFeatureVector.add("editor");
-		userFeatureVector.add("font");
-		userFeatureVector.add("spellcheck");
 
-		Sample s1 = new Sample();
-		userFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector);
-		projectsKeywordsCollection.add(userFeatureVector);
-		featureProjectIDs.add("");
+//	public static void main (String args[]) throws Throwable { //input from user's code i.e. feature vector
+//		ArrayList<String> userFeatureVector = new ArrayList<String>(); //input from user's code i.e. feature vector
+//		userFeatureVector.add("translator");
+//		userFeatureVector.add("system");
+//		userFeatureVector.add("editor");
+//		userFeatureVector.add("font");
+//		userFeatureVector.add("spellcheck");
+//
+//		Sample s1 = new Sample();
+//		userFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector);
+//		projectsKeywordsCollection.add(userFeatureVector);
+//		featureProjectIDs.add("");
+//
+//		getFeatureVectorsFromDB(); //get all the feature vectors from db based on project ids
+//		//addTemporary();
+//
+//		System.out.println(projectsKeywordsCollection);
+//		System.out.println(featureProjectIDs);
+//		int totalMethods = projectsKeywordsCollection.size();
+//		double dist[][] = new double[totalMethods][totalMethods]; //Distance of each method with the rest 
+//		int minDist [] = new int[totalMethods];				   //index of closest cluster
+//		System.out.println("Total methods: "+ totalMethods);
+//
+//		/**** Jaccard Difference Matrix Creation *****/
+//		createDistanceMatrix(projectsKeywordsCollection);
+//		
+//		
+//	}
 
-		getFeatureVectorsFromDB(); //get all the feature vectors from db based on project ids
-		//addTemporary();
-
-		System.out.println(projectsKeywordsCollection);
-		System.out.println(featureProjectIDs);
-		int totalMethods = projectsKeywordsCollection.size();
-		double dist[][] = new double[totalMethods][totalMethods]; //Distance of each method with the rest 
-		int minDist [] = new int[totalMethods];				   //index of closest cluster
-		System.out.println("Total methods: "+ totalMethods);
-
-		/**** Jaccard Difference Matrix Creation *****/
-		createDistanceMatrix(projectsKeywordsCollection);
-		
-		
-	}
-
-	public static void findRecommendations(ArrayList<String> userFeatureVector) throws Throwable
+	public void findRecommendations(ArrayList<String> userFeatureVector) throws Throwable
 	{
 		
 		Sample s1 = new Sample();
@@ -120,9 +121,9 @@ public class JackardSimilarityBags {
 		  }
 		 
 		  return result;
-		}
+	}
 
-	private static void compareFeatureVectorsUsingSEWordSim() throws Throwable {
+	private void compareFeatureVectorsUsingSEWordSim() throws Throwable {
 		System.out.println("\n---------------- *** Top " + Constants.noOfRecommendations + " Recommendations using SEWordSim *** ----------------");
 		double similarityScores[][] = new double[10][10];
 		double projectSimilarityScore[] = new double[projectsKeywordsCollection.size()];
@@ -181,7 +182,7 @@ public class JackardSimilarityBags {
 			System.out.println("\nRecommended Project ID: " + topProjects[x]);
 			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
 			//writer.println("\r\nRecommended Project ID: " + topProjects[x]);
-			recommendProject(topProjects[x], null);
+			this.recommendProject(topProjects[x], null);
 		}
 	}
 
@@ -363,8 +364,8 @@ public class JackardSimilarityBags {
 			//writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
 			showProjectInfo(projectID, differences, dc);
-			//showPatterns(projectID, dc);
-			//showPatternInstances(projectID, dc);
+			showPatterns(projectID, dc);
+			showPatternInstances(projectID, dc);
 			dc.closeConnection();
 		}
 		else
@@ -448,11 +449,23 @@ public class JackardSimilarityBags {
 				System.out.println("\nPattern instance "+patternIDsDetails.getString(2)+" is:");
 				
 				String[] metaData = detail.split("\\|");
+				String packageName = "";
+				String className = "";
+				String designPatternPath = "";
+				String directory = patternIDsDetails.getString(3);
+				String[] splitPackageName;
 				for (int i=0; i<metaData.length-1; i++)
 				{
 					if (!(metaData[i].contains("()")))
 					{
+						packageName = (metaData[i].split(":"))[1];
+						splitPackageName = packageName.split("\\.");
+						className = splitPackageName[splitPackageName.length - 1];
+						className = (className.split("\\$"))[0];
+						designPatternPath = DesignPatternPathExtractor.findPath(className.trim(),directory);
+						// filePathExtractor(directory,className)
 						System.out.println("Class Name/Role Name: " + (metaData[i].split(":"))[1] + "/ " + (metaData[i].split(":"))[0]);
+						System.out.println("DesignPatternPath: " + designPatternPath);
 					}
 					else
 					{

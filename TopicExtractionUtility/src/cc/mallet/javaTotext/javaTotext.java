@@ -47,7 +47,7 @@ public class javaTotext {
 		for (File file : fList) {
 			if (file.isFile() && file.getAbsolutePath().endsWith("java")) {
 				javaList.add(file);
-				System.out.println(file.getAbsolutePath());
+//				System.out.println(file.getAbsolutePath());
 			} else if (file.isDirectory()) {
 				javaList.addAll(listf(file.getAbsolutePath()));
 			}

@@ -33,10 +33,7 @@ implements ActionListener {
 		go.addActionListener(this);	
 		statusLabel= new JLabel();
 		add(statusLabel);
-		add(go);
-		
-		
-       
+		add(go);       
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -79,12 +76,10 @@ implements ActionListener {
 		JFrame frame = new JFrame("");
 		DemoJFileChooser panel = new DemoJFileChooser();
 		File file = new File("");
-
 		frame.addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {System.exit(0);}});
 		frame.getContentPane().add(panel,"Center");
 		frame.setSize(panel.getPreferredSize());
 		frame.setVisible(true);
-		setStatusLabel("Welcome!");
-     
+		setStatusLabel("Welcome!");     
 	}
 }

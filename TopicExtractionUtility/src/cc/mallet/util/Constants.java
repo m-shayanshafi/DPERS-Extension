@@ -13,8 +13,8 @@ public class Constants {
 	//public static String passwd = "Sham@123";
 	
 	public static String SEWordSimPath = System.getProperty("user.dir")+"/SEWordSim-r1.db";
-	public static String recommendationsOutputPath = "E:\\Recommendations.txt";
+	public static String recommendationsOutputPath = "F:\\Recommendations.txt";
 	public static double threshold = 0.0; //threshold includes this value and greater ones
-	public static int noOfRecommendations = 0;
+	public static int noOfRecommendations = 10;
 
 }
