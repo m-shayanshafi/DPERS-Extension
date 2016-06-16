@@ -275,14 +275,35 @@ public class javaTotext {
 			}				
 		
 			BufferedReader br = new BufferedReader(new FileReader(file));
-			String preprocessedFile = "";
+			String preprocessedFile = "0 " + "0 ";
 			String line = "";
+			boolean isMultilineComment = false;
+			boolean isCopyrightComment = false;			
+			
 			while ((line = br.readLine()) != null) {					
 				line = line.trim();
-				if(line.startsWith("private")||line.startsWith("public"))
+				if(line.startsWith("/*"))
 				{
-					preprocessedFile += cleanString(line)+ "\n";
+					isMultilineComment = true;
+					if(line.contains("Copyright"))
+					{
+						isCopyrightComment = true;							
+					}
+					else
+						isCopyrightComment = false;
+					
+				}
+				
+				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")||(isMultilineComment && !isCopyrightComment))
+				{
+					preprocessedFile += cleanString(line)+ " ";
 					//System.out.println(line);					
+				}
+				if(line.endsWith("*/"))
+				{
+					isMultilineComment = false;
+					isCopyrightComment = false;
+					
 				}
 			}
 			br.close();
@@ -306,6 +327,7 @@ public class javaTotext {
 
 	public static String cleanString(String s){
 		String str=s;
+		str=str.replace("public", " ");		
 		str=str.replace("(", "");
 		str=str.replace(")", "");
 		str=str.replace("{", "");
@@ -342,8 +364,7 @@ public class javaTotext {
 		str=str.replace("file", " ");
 		str=str.replace("while", " ");
 		str=str.replace("equals", " ");
-		str=str.replace("equal", " ");
-		str=str.replace("class", " ");
+		str=str.replace("equal", " ");		
 		str=str.replace("directory", " ");
 		str=str.replace("comment", " ");
 		str=str.replace("indexof", " ");
@@ -373,18 +394,18 @@ public class javaTotext {
 		str=str.replace("zero", " ");
 		str=str.replace("abstract", " ");
 		str=str.replace("default", " ");
-		str=str.replace("if", " ");
+		str=str.replace(" if", " ");
 		str=str.replace("private", " ");
 		str=str.replace("this ", " ");
 		str=str.replace("assert", " ");
+		str=str.replace("double", " ");
 		str=str.replace("do", " ");
 		str=str.replace("implements", " ");
 		str=str.replace("protected", " ");
 		str=str.replace("throw ", " ");
-		str=str.replace("Boolean", " ");
-		str=str.replace("double", " ");
+		str=str.replace("Boolean", " ");		
 		str=str.replace("import", " ");
-		str=str.replace("public", " ");
+		
 		str=str.replace("throws ", " ");
 		str=str.replace("break", " ");
 		str=str.replace("else", " ");
@@ -410,8 +431,7 @@ public class javaTotext {
 		str=str.replace("finally", " ");
 		str=str.replace("native", " ");
 		str=str.replace("super", " ");
-		str=str.replace("while", " ");
-		str=str.replace("class", " ");
+		str=str.replace("while", " ");		
 		str=str.replace("float", " ");
 		str=str.replace("new", " ");
 		str=str.replace("switch", " ");
@@ -446,11 +466,52 @@ public class javaTotext {
 		str=str.replace("J", "");
 		str=str.replace("Override", "");
 		str=str.replace(".", " ");
-		str = spiltCamelCase(str);
+		str=str.replace(" to", " ");
+		
 		str=str.replaceAll("\\s{2,}"," ");
 		str=str.replace("@Override", "");
+		String className="";
+	
+		if(str.contains("class"))
+		{
+			str = str.replace("class", " ");
+			str = str.trim();
+			int index = str.indexOf(" ");
+			
+			if (index >= 0){
+				className = str.substring(0,str.indexOf(" "));
+				className = spiltCamelCase(className);
+			}
+		}
+		str = spiltCamelCase(str);
+//		if (!(str == " ")){
+			str = deDuplicate(str);
+//		}
+		if(!className.contentEquals(""))
+		{
+			str = str + " " + className + " " + className + " " + className + " " + className
+					+ " " + className+ " " + className+ " " + className+ " " + className+ " " + className;//boost class name by 10 times
+		}
+		
+		str=str.replaceAll("\\s{2,}"," ");
 		return str;
 	}
+	
+	public static String deDuplicate(String line) {//does not maintain word order
+		String[] arr = (line.toLowerCase()).split(" ");
+        Arrays.sort(arr);
+        String finalStr = "";
+        if (arr.length > 0) {
+	        finalStr = arr[0];
+	        for(int i=1; i<arr.length; i++){
+	            if(arr[i].equalsIgnoreCase(arr[i-1])==false){
+	                finalStr = finalStr + " " + arr[i];
+	            }
+	        }
+        }
+        return finalStr;
+	}
+
 
 	public static String spiltCamelCase(String input)
 	{
