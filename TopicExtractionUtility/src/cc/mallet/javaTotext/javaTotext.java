@@ -63,11 +63,11 @@ public class javaTotext {
 		else{return f;}
 	}
 
-	public static ArrayList ExtractDomainTopic(File file) throws Exception {
+	public static ArrayList<String> ExtractDomainTopic(File file) throws Exception {
 		clean();
 		javaTotext.delete(new File("Outfile\\Output.txt"));
 		delete(new File(FILES_TO_INDEX_DIRECTORY));
-		ArrayList DomainNames = null;
+		ArrayList<String> DomainNames = new ArrayList<String>();
 		List<File> javaFilesDirectory= listf(file.getPath());
 		Iterator<File> javaFileIter = javaFilesDirectory.iterator();
 		while(javaFileIter.hasNext()){
@@ -77,8 +77,18 @@ public class javaTotext {
 		List<String> list=getTopics();
 		String[] tokens = breakTopics(list.toString());
 		double[] probs=getProbabilities(tokens);
-		int max=getMaxIndex(probs);
-		DomainNames =getDomainRow(tokens, max);//Get the names of the clusters having the highest weightage
+		int noTopicsInserted = 0; 
+		// while(DomainNames.length ) {
+		while ( (DomainNames.size() < Constants.numberKeywordsThresh) || noTopicsInserted > 10) {
+			int max=getMaxIndex(probs);
+			DomainNames.addAll(getDomainRow(tokens, max));//Get the names of the clusters having the highest weightage
+			probs[max] = -1; // remove the index so that doesnt interfere in next calculation		
+			while(DomainNames.size() > Constants.numberKeywordsThresh) {
+				DomainNames.remove(DomainNames.size() - 1);
+			}			
+			noTopicsInserted++;
+		}
+		
 		//System.out.print(DomainNames);
 		clean();
 		javaTotext.delete(new File("Outfile\\Output.txt"));
@@ -120,8 +130,8 @@ public class javaTotext {
 		return topicList;
 	}
 
-	public static ArrayList getDomainRow(String[] topicArray, int temp){
-		ArrayList domainElement = new ArrayList();
+	public static ArrayList<String> getDomainRow(String[] topicArray, int temp){
+		ArrayList<String> domainElement = new ArrayList<String>();
 		boolean div=true;
 		int count=0;
 		boolean tempPos=true;

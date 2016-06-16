@@ -265,10 +265,17 @@ public class DbConnection {
 	{
 		ResultSet rsKeywords;
 		ArrayList <String> resultKeywords = new ArrayList<String>();
+		String noKeywords = String.valueOf(Constants.numberKeywordsThresh);
+		PreparedStatement keywords;
+		
 	
 		try
 		{			
-			PreparedStatement keywords = this.con.prepareStatement("Select StemmedName from project_domain_keywords where ProjectID = " +projectID + " LIMIT 10");
+			if (Constants.getKeywordsbyTopic){
+				keywords = this.con.prepareStatement("Select distinct " + Constants.keyWordstoGet + " from project_domain_keywords where ProjectID = " +projectID + " LIMIT " + noKeywords);				
+			}else {
+				keywords = this.con.prepareStatement("Select distinct " + Constants.keyWordstoGet + " from project_domain_keywords where ProjectID = " +projectID + " ORDER BY Proportion DESC LIMIT " + noKeywords);
+			}
 			rsKeywords = keywords.executeQuery();
 			while(rsKeywords.next()){
 				resultKeywords.add(rsKeywords.getString(1));

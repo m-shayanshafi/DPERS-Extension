@@ -182,7 +182,7 @@ public class JackardSimilarityBags {
 			System.out.println("\nRecommended Project ID: " + topProjects[x]);
 			writer.println("\r\n--------------------------- Project No. "+ (x+1) +"---------------------------");
 			//writer.println("\r\nRecommended Project ID: " + topProjects[x]);
-			this.recommendProject(topProjects[x], null);
+			recommendProject(topProjects[x], null);
 		}
 	}
 
@@ -364,8 +364,8 @@ public class JackardSimilarityBags {
 			//writer.println("Recommended project's uri is: " + dc.getProjectName(projectID));
 			
 			showProjectInfo(projectID, differences, dc);
-			showPatterns(projectID, dc);
-			showPatternInstances(projectID, dc);
+//			showPatterns(projectID, dc);
+//			showPatternInstances(projectID, dc);
 			dc.closeConnection();
 		}
 		else

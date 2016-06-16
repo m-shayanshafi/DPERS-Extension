@@ -16,5 +16,8 @@ public class Constants {
 	public static String recommendationsOutputPath = "F:\\Recommendations.txt";
 	public static double threshold = 0.0; //threshold includes this value and greater ones
 	public static int noOfRecommendations = 10;
+	public static int numberKeywordsThresh = 30;
+	public static String keyWordstoGet = "StemmedName"; // can be one of the three StemmedName, RootWord, Name 
+	public static boolean getKeywordsbyTopic = false;	
 
 }

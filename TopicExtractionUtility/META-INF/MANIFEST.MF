@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: TopicExtractionUtility
-Bundle-SymbolicName: TopicExtractionUtility
+Bundle-SymbolicName: DesignPatternRetrievalSystem
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: TopicExtractionUtility.jar,
  dist/mallet-deps.jar,
