@@ -13,14 +13,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import org.smu.wordsimilarity.JackardSimilarityBags;
 import org.smu.wordsimilarity.Sample;
+import org.smu.wordsimilarity.Stemmer;
 
 import cc.mallet.TopicExtraction.TopicModel;
 import cc.mallet.util.Constants;
+//import shamsa.clustering.DataGenerator.Stemmer;
+
+
 public class javaTotext {
 	public static TopicModel identifyTopic;
 	public static DbConnection db;
@@ -75,26 +81,151 @@ public class javaTotext {
 		}
 		identifyTopic.IdentifyTopic();
 		List<String> list=getTopics();
-		String[] tokens = breakTopics(list.toString());
-		double[] probs=getProbabilities(tokens);
-		int noTopicsInserted = 0; 
-		// while(DomainNames.length ) {
-		while ( (DomainNames.size() < Constants.numberKeywordsThresh) || noTopicsInserted > 10) {
-			int max=getMaxIndex(probs);
-			DomainNames.addAll(getDomainRow(tokens, max));//Get the names of the clusters having the highest weightage
-			probs[max] = -1; // remove the index so that doesnt interfere in next calculation		
-			while(DomainNames.size() > Constants.numberKeywordsThresh) {
-				DomainNames.remove(DomainNames.size() - 1);
-			}			
-			noTopicsInserted++;
-		}
+		String[] topicClusters = breakTopics(list.toString());
+		double[] probs=getProbabilities(topicClusters);
 		
+		if(Constants.getKeywordsbyTopic)
+		{
+			int noTopicsInserted = 0; 
+			// while(DomainNames.length ) {
+			while ( (DomainNames.size() < Constants.numberKeywordsThresh) || noTopicsInserted > 10) {
+				int max=getMaxIndex(probs);
+				DomainNames.addAll(getDomainRow(topicClusters, max));//Get the names of the clusters having the highest weightage
+				probs[max] = -1; // remove the index so that doesnt interfere in next calculation		
+				while(DomainNames.size() > Constants.numberKeywordsThresh) {
+					DomainNames.remove(DomainNames.size() - 1);
+				}			
+				noTopicsInserted++;
+			}
+		}
+		else
+		{
+			DomainNames.addAll(getKeywordsByProbability(topicClusters,probs));
+		}
 		//System.out.print(DomainNames);
 		clean();
 		javaTotext.delete(new File("Outfile\\Output.txt"));
 		delete(new File(FILES_TO_INDEX_DIRECTORY));
+		
+		
 		return DomainNames;
 	}
+	
+
+	private static ArrayList<String> getKeywordsByProbability(String[] topicClusters, double[] probs) {
+	
+		String[] orderedTopicClusters = getOrderedTopicClusters(topicClusters, probs);
+		
+		List<String> keywords = getDomainRow(orderedTopicClusters, true);
+		List<String> keywordsWeightage = getDomainRow(orderedTopicClusters, false);
+		String[] keywordsByProb = new String[100];
+		int keywordsByProbIndex = 0;
+		final Integer[] weightsByProb = new Integer[100];
+		int weightsByProbIndex = 0;
+		
+		for (int count = 0; count<10; count++) {		//loop till the number of topics
+								
+			String[] words = keywords.get(count).toString().split(" ");
+			String[] weights = keywordsWeightage.get(count).toString().split(" ");		
+			//sort words by weights
+			for(int i=1;i<words.length;i++)
+			{
+				keywordsByProb[keywordsByProbIndex] = words[i];				
+				weightsByProb[keywordsByProbIndex] = Integer.parseInt(weights[i]);
+				keywordsByProbIndex+=1;
+			}
+		}
+		//sort the words by weights
+		//sort weights to get the sorted ascending sequence in a third array idxs		
+		Integer[] idxs = new Integer[keywordsByProbIndex];
+		for(int i = 0; i < keywordsByProbIndex; i++) idxs[i] = i;
+		Arrays.sort(idxs, new Comparator<Integer>(){
+			public int compare(Integer o1, Integer o2){
+				return Double.compare(weightsByProb[o1], weightsByProb[o2]);
+			}
+		});
+		ArrayList<String> sorted = new ArrayList<String>();
+		String[] sortedKeywords = new String[keywordsByProbIndex];
+		
+		int numberOfKeywords = Constants.numberKeywordsThresh < keywordsByProbIndex ? Constants.numberKeywordsThresh:keywordsByProbIndex; 
+		int addedKeywords = 0;
+		
+		for (int i=0; i < numberOfKeywords || addedKeywords < numberOfKeywords; i++){
+			
+			sortedKeywords[i] = keywordsByProb[idxs[keywordsByProbIndex-1-i]];
+			if(!sorted.contains(sortedKeywords[i]))
+			{
+				sorted.add(sortedKeywords[i]);
+				addedKeywords+=1;
+			}
+		}		
+		return sorted;
+	}
+	public static List<String> getDomainRow(String[] topicArray, boolean div) {
+		List<String> domainElement = new ArrayList<String>();
+		
+		boolean tempPos = div;
+		String element = "";
+		int j = 2;
+		for (String line : topicArray) {
+			String[] clusterKeywords = line.replace("\t", " ").replace("\n", " ").split(" ");
+			if (line.startsWith(" ")) {
+				tempPos = !div;
+				j = 3;
+			}
+			for (int i = j; i < clusterKeywords.length; i++) {
+
+				if ((i % 2 == 0) == tempPos) {
+					element = element + " " + clusterKeywords[i];
+				}
+			}
+			element = element.replace("(", "").replace(")", "");
+			domainElement.add(element);
+			element = "";
+			tempPos = div;
+			
+		}
+		return domainElement;
+	}
+	private static double[] getOrderedProbabilities(double[] probs) {
+		Arrays.sort(probs);	
+		
+		double[] probabilities = Arrays.copyOf(probs, probs.length);
+		for(int i = 0,j = 9; i < 10; i++, j--)
+		{
+			probabilities[j] = probs[i];
+		}	
+		return probabilities;
+		}
+
+	private static String[] getOrderedTopicClusters(String[] topicClusters, double[] probs) {
+		
+			String[] orderedTopicClusters = new String[10];
+			double[] probabilities = Arrays.copyOf(probs, probs.length);
+			for(int c =0; c < 10; c++)
+			{
+				int index = getMaxValueIndex(probabilities);
+				probabilities[index]= 0;
+				orderedTopicClusters[c] = topicClusters[index];
+			}
+			
+			
+			return orderedTopicClusters;
+		}
+
+		public static int getMaxValueIndex(double[] array) {
+
+			double maxValue = array[0];
+			int maxIndex = 0;
+
+			for (int i = 1; i < array.length; i++) {
+				if (array[i] > maxValue) {
+					maxValue = array[i];
+					maxIndex = i;
+				}
+			}
+			return maxIndex;
+		}  
 
 	public static double[] getProbabilities(String[] topicList){
 		double[] outputProbs = new double[topicList.length-1];

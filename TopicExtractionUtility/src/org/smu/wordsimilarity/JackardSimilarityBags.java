@@ -63,10 +63,20 @@ public class JackardSimilarityBags {
 	{
 		
 		Sample s1 = new Sample();
-		ArrayList<String> stemmedUserFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector); //stemmed user feature vector
 		projectsKeywordsCollection.clear();
+		if(Constants.keyWordstoGet.contentEquals("StemmedName"))
+		{
+			ArrayList<String> stemmedUserFeatureVector = s1.generateEnhancedFeatureVector(userFeatureVector); //stemmed user feature vector
+					
+			projectsKeywordsCollection.add(stemmedUserFeatureVector);
+		
+		}
+		else
+		{
+			projectsKeywordsCollection.add(userFeatureVector);
+		}
+
 		featureProjectIDs.clear();
-		projectsKeywordsCollection.add(stemmedUserFeatureVector);
 		featureProjectIDs.add("");
 
 		getFeatureVectorsFromDB(); //get all the feature vectors from db based on project ids
