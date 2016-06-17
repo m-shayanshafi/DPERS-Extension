@@ -410,22 +410,45 @@ public class javaTotext {
 			String line = "";
 			boolean isMultilineComment = false;
 			boolean isCopyrightComment = false;			
+			// ignore first multiline comment
+			if ((line = br.readLine()) != null) {
+				if(line.startsWith("/*")){
+					isMultilineComment = true;
+					while ((line = br.readLine()) != null) {
+						if (line.endsWith("*/")) {
+							break;
+						}
+					}
+				}
+			}
 			
+			boolean isFirst = true; 
 			while ((line = br.readLine()) != null) {					
 				line = line.trim();
 				if(line.startsWith("/*"))
 				{
 					isMultilineComment = true;
-					if(line.contains("Copyright"))
-					{
-						isCopyrightComment = true;							
+					if (isFirst) {
+						while ((line = br.readLine()) != null) {
+							line = line.trim();
+							if (line.endsWith("*/")) {
+								isMultilineComment = false;
+								break;
+							}
+						}
+						isFirst = false;
+						continue;
 					}
-					else
-						isCopyrightComment = false;
+//					if(line.contains("Copyright"))
+//					{
+//						isCopyrightComment = true;							
+//					}
+//					else
+//						isCopyrightComment = false;
 					
 				}
 				
-				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")||(isMultilineComment && !isCopyrightComment))
+				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")||(isMultilineComment)) // && !isCopyrightComment))
 				{
 					preprocessedFile += cleanString(line)+ " ";
 					//System.out.println(line);					

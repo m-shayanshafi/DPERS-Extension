@@ -272,9 +272,9 @@ public class DbConnection {
 		try
 		{			
 			if (Constants.getKeywordsbyTopic){
-				keywords = this.con.prepareStatement("Select distinct " + Constants.keyWordstoGet + " from project_domain_keywords where ProjectID = " +projectID + " LIMIT " + noKeywords);				
+				keywords = this.con.prepareStatement("Select " + Constants.keyWordstoGet + " from project_domain_keywords where ProjectID = " +projectID + " LIMIT " + noKeywords);				
 			}else {
-				keywords = this.con.prepareStatement("Select distinct " + Constants.keyWordstoGet + " from project_domain_keywords where ProjectID = " +projectID + " ORDER BY Proportion DESC LIMIT " + noKeywords);
+				keywords = this.con.prepareStatement("Select " + Constants.keyWordstoGet + " from project_domain_keywords where ProjectID = " +projectID + " ORDER BY Proportion DESC LIMIT " + noKeywords);
 			}
 			rsKeywords = keywords.executeQuery();
 			while(rsKeywords.next()){

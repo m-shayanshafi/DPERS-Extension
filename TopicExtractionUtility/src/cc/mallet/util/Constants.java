@@ -13,11 +13,11 @@ public class Constants {
 	//public static String passwd = "Sham@123";
 	
 	public static String SEWordSimPath = System.getProperty("user.dir")+"/SEWordSim-r1.db";
-	public static String recommendationsOutputPath = "F:\\Recommendations.txt";
+	public static String recommendationsOutputPath = "F:\\SERL Internship\\Data Collection for Analysis\\For MAP\\RPG_RPG-master\\RPG_RPG-master_20_original_kwdwise.txt";
 	public static double threshold = 0.0; //threshold includes this value and greater ones
 	public static int noOfRecommendations = 10;
-	public static int numberKeywordsThresh = 30;
-	public static String keyWordstoGet = "StemmedName"; // can be one of the three StemmedName, RootWord, Name 
+	public static int numberKeywordsThresh = 70;
+	public static String keyWordstoGet = "RootWord"; // can be one of the three StemmedName, RootWord, Name 
 	public static boolean getKeywordsbyTopic = false;	
 
 }
