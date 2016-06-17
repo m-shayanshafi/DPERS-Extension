@@ -409,18 +409,8 @@ public class javaTotext {
 			String preprocessedFile = "0 " + "0 ";
 			String line = "";
 			boolean isMultilineComment = false;
-			boolean isCopyrightComment = false;			
-			// ignore first multiline comment
-			if ((line = br.readLine()) != null) {
-				if(line.startsWith("/*")){
-					isMultilineComment = true;
-					while ((line = br.readLine()) != null) {
-						if (line.endsWith("*/")) {
-							break;
-						}
-					}
-				}
-			}
+			boolean isCopyrightComment = false;
+			boolean isSinglelineComment = false;
 			
 			boolean isFirst = true; 
 			while ((line = br.readLine()) != null) {					
@@ -448,9 +438,20 @@ public class javaTotext {
 					
 				}
 				
-				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")||(isMultilineComment)) // && !isCopyrightComment))
+				if (line.startsWith("//")) {
+					isSinglelineComment = true;
+				}
+				
+				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")||(isMultilineComment) || isSinglelineComment) // && !isCopyrightComment))
 				{
-					preprocessedFile += cleanString(line)+ " ";
+					boolean canPreprocess = true;
+
+					if (isMultilineComment || isSinglelineComment) {
+						canPreprocess = hasNoJavaKeywords(line);
+					}
+					if (canPreprocess) {
+						preprocessedFile += cleanString(line)+ " ";
+					}
 					//System.out.println(line);					
 				}
 				if(line.endsWith("*/"))
@@ -459,6 +460,7 @@ public class javaTotext {
 					isCopyrightComment = false;
 					
 				}
+				isSinglelineComment = false;
 			}
 			br.close();
 			Files.write(consolidatedFilePath,  " \n".getBytes(), StandardOpenOption.APPEND);
@@ -469,6 +471,16 @@ public class javaTotext {
 		{			
 			  e.printStackTrace();
 		}
+	}
+
+	private static boolean hasNoJavaKeywords(String line) {
+		
+		for (int i = 0; i < Constants.javaKeywords.length; i++){
+			if (line.toLowerCase().contains(Constants.javaKeywords[i].toLowerCase())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public static void write(String s, boolean overwrite) throws IOException{
