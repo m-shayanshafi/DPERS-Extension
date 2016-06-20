@@ -447,7 +447,7 @@ public class javaTotext {
 					boolean canPreprocess = true;
 
 					if (isMultilineComment || isSinglelineComment) {
-						canPreprocess = hasNoJavaKeywords(line);
+						canPreprocess = hasNoJavaCode(line);
 					}
 					if (canPreprocess) {
 						preprocessedFile += cleanString(line)+ " ";
@@ -473,14 +473,13 @@ public class javaTotext {
 		}
 	}
 
-	private static boolean hasNoJavaKeywords(String line) {
+	private static boolean hasNoJavaCode(String line) {
 		
-		for (int i = 0; i < Constants.javaKeywords.length; i++){
-			if (line.toLowerCase().contains(Constants.javaKeywords[i].toLowerCase())) {
+		if (line.startsWith("private")||line.startsWith("public") || line.endsWith(";")) {
 				return false;
-			}
 		}
 		return true;
+		
 	}
 
 	public static void write(String s, boolean overwrite) throws IOException{
