@@ -105,7 +105,7 @@ public class JackardSimilarityBags {
 		writer.println("==END==");
 		writer.close();
 		System.out.println("==Done==");
-		DemoJFileChooser.setStatusLabel("Done!");
+//		DemoJFileChooser.setStatusLabel("Done!");
 		
 		/**** SEWordSim Recommendations *****/
 		//compareFeatureVectorsUsingSEWordSim();

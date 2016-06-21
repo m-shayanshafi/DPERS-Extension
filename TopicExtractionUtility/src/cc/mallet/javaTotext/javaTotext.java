@@ -478,8 +478,7 @@ public class javaTotext {
 		if (line.startsWith("private")||line.startsWith("public") || line.endsWith(";")) {
 				return false;
 		}
-		return true;
-		
+		return true;		
 	}
 
 	public static void write(String s, boolean overwrite) throws IOException{

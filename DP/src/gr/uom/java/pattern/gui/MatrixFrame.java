@@ -40,7 +40,7 @@ import gr.uom.java.pattern.PatternInstance;
 import gr.uom.java.pattern.SystemGenerator;
 import gr.uom.java.pattern.gui.progress.DetectionFinishedEvent;
 import gr.uom.java.pattern.gui.progress.PatternDetectionSource;
-import gr.uom.java.pattern.gui.progress.PopulateDBWithPatterns;
+import gr.uom.java.pattern.gui.progress.DatabaseLayer;
 import gr.uom.java.pattern.gui.progress.ProgressListener;
 import gr.uom.java.pattern.gui.progress.ProgressObserver;
 
@@ -63,14 +63,14 @@ public class MatrixFrame extends JFrame implements ActionListener, InternalFrame
     private Map<String,LinkedHashMap<String, Vector<PatternInstance>>> detectedPatternsMap;
 
     private ProgressObserver progressObserver;
-    private PopulateDBWithPatterns DBobj;
+    private DatabaseLayer DBobj;
     
-    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+    public static void main(String[] args) throws Throwable {
         if(args.length == 4) {
             if(args[0].equals("-target") && args[2].equals("-output")) {
                 File inputDir = new File(args[1]);
                 File outputXML = new File(args[3]);
-                new Console(inputDir,outputXML);
+                //new Console(inputDir,outputXML);
             }
             else {
                 System.out.println("Usage: java -Xms32m -Xmx512m -jar pattern2.jar -target \"c:\\foo\\myclasses\" -output \"c:\\foo\\build\\pattern-detector-output.xml\"");
@@ -88,7 +88,7 @@ public class MatrixFrame extends JFrame implements ActionListener, InternalFrame
         progressObserver = new ProgressObserver();
         progressObserver.addProgressListener(this);
         try {
-			DBobj = new PopulateDBWithPatterns();
+			DBobj = new DatabaseLayer();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -223,7 +223,7 @@ public class MatrixFrame extends JFrame implements ActionListener, InternalFrame
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
 				try {
-					this.DBobj = new PopulateDBWithPatterns();
+					this.DBobj = new DatabaseLayer();
 					this.DBobj.setFileDir(file.getPath());
 									
 				}  catch (Throwable e1) {

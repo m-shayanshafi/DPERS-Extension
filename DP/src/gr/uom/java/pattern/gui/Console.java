@@ -1,10 +1,15 @@
 package gr.uom.java.pattern.gui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.Vector;
@@ -23,16 +28,27 @@ import gr.uom.java.pattern.PatternGenerator;
 import gr.uom.java.pattern.PatternInstance;
 import gr.uom.java.pattern.SimilarityAlgorithm;
 import gr.uom.java.pattern.SystemGenerator;
+import gr.uom.java.pattern.gui.progress.DatabaseLayer;
 import gr.uom.java.pattern.inheritance.Enumeratable;
 
 public class Console {
-    public Console(File inputDir, File outputXML) {
-        BytecodeReader br = new BytecodeReader(inputDir);
+	private LinkedHashMap<String, Vector<PatternInstance>> map = new LinkedHashMap<String, Vector<PatternInstance>>();
+	
+    public Console() throws Throwable {
+        //detectPatternInstances(inputDir);   
+       
+        //saveDesignPatternInstances(); 
+
+        //new XMLExporter(map,outputXML);
+    }
+
+	public void detectPatternInstances(File inputDir) {
+		BytecodeReader br = new BytecodeReader(inputDir);
         SystemObject so = br.getSystemObject();
         SystemGenerator sg = new SystemGenerator(so);
         SortedSet<ClusterSet.Entry> clusterSet = sg.getClusterSet().getInvokingClusterSet();
         List<Enumeratable> hierarchyList = sg.getHierarchyList();
-        LinkedHashMap<String, Vector<PatternInstance>> map = new LinkedHashMap<String, Vector<PatternInstance>>();
+        
 
         PatternEnum[] patternEnum = PatternEnum.values();
         for(int i=0; i<patternEnum.length; i++) {
@@ -104,9 +120,51 @@ public class Console {
                 map.put(patternName,patternInstanceVector);
             }
         }
+	}
 
-        new XMLExporter(map,outputXML);
-    }
+	public boolean hasDesignPatternInstances()
+	{
+		//return !map.isEmpty();
+		 Set<Entry<String, Vector<PatternInstance>>> entrySet = map.entrySet();
+	     Iterator<Entry<String, Vector<PatternInstance>>> it = entrySet.iterator();
+	     while(it.hasNext())
+	        {
+	        	Map.Entry me = (Map.Entry)it.next();
+	        	System.out.println();
+	            //System.out.println(me.getKey() + ": ");
+	            //System.out.print(me.getValue());
+	            Vector<PatternInstance> vector = (Vector<PatternInstance>) me.getValue();
+	            if(!vector.isEmpty())
+	            {
+	            	return true;
+	            }
+	            
+	        }
+	     return false;
+	        
+	}
+	public void saveDesignPatternInstances()
+			throws Exception, Throwable {
+		 //iterating the hashmap and inserting the pattern instances into the DB
+        DatabaseLayer DBobj = new DatabaseLayer();
+        Set<Entry<String, Vector<PatternInstance>>> entrySet = map.entrySet();
+        Iterator<Entry<String, Vector<PatternInstance>>> it = entrySet.iterator();
+               
+		while(it.hasNext())
+        {
+        	Map.Entry me = (Map.Entry)it.next();
+            //System.out.print(me.getKey() + ": ");
+            //System.out.println(me.getValue());
+            Vector<PatternInstance> piVector = (Vector<PatternInstance>) me.getValue();
+            
+            //DBobj.patternName = me.getKey();
+            //DBobj.patternInstanceVector = piVector;
+            DBobj.populatePatternInstance((String) me.getKey(), piVector);
+            System.out.println(me.getKey()+" "+piVector);
+            
+        }
+        DBobj.closeConnection();
+	}
 
     private void generateResults(MatrixContainer systemContainer ,PatternDescriptor patternDescriptor, Vector<PatternInstance> patternInstanceVector) {
         double[][] results = SimilarityAlgorithm.getTotalScore(systemContainer,patternDescriptor);
