@@ -100,6 +100,7 @@ public class javaTotext {
 		}
 		else
 		{
+			
 			DomainNames.addAll(getKeywordsByProbability(topicClusters,probs));
 		}
 		//System.out.print(DomainNames);
@@ -150,7 +151,7 @@ public class javaTotext {
 		int numberOfKeywords = Constants.numberKeywordsThresh < keywordsByProbIndex ? Constants.numberKeywordsThresh:keywordsByProbIndex; 
 		int addedKeywords = 0;
 		
-		for (int i=0; i < numberOfKeywords || addedKeywords < numberOfKeywords; i++){
+		for (int i=0; i < numberOfKeywords || (addedKeywords < numberOfKeywords && (i < keywordsByProbIndex)); i++){
 			
 			sortedKeywords[i] = keywordsByProb[idxs[keywordsByProbIndex-1-i]];
 			if(!sorted.contains(sortedKeywords[i]))
