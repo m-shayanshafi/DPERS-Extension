@@ -88,7 +88,7 @@ public class javaTotext {
 		{
 			int noTopicsInserted = 0; 
 			// while(DomainNames.length ) {
-			while ( (DomainNames.size() < Constants.numberKeywordsThresh) || noTopicsInserted > 10) {
+			while ( (DomainNames.size() < Constants.numberKeywordsThresh) && noTopicsInserted < 10) {
 				int max=getMaxIndex(probs);
 				DomainNames.addAll(getDomainRow(topicClusters, max));//Get the names of the clusters having the highest weightage
 				probs[max] = -1; // remove the index so that doesnt interfere in next calculation		
@@ -246,7 +246,7 @@ public class javaTotext {
 
 	public static int getMaxIndex(double[] outputProbs){
 		int maxIndex = 0;
-		double max=0;
+		double max=outputProbs[0];
 		for (int i = 0; i <= outputProbs.length-1; i++) {
 			if (outputProbs[i] > max) {
 				max = outputProbs[i];
@@ -443,7 +443,7 @@ public class javaTotext {
 					isSinglelineComment = true;
 				}
 				
-				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")||(isMultilineComment) || isSinglelineComment) // && !isCopyrightComment))
+				if(line.startsWith("private")||line.startsWith("public")||line.startsWith("//")|| (isMultilineComment) || isSinglelineComment) // && !isCopyrightComment))
 				{
 					boolean canPreprocess = true;
 
