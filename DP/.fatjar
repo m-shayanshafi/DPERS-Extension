@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Jun 18 10:42:17 EDT 2014
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=false
+onejar.checkbox=false
+jarname=WordSimSE_DB.jar
+manifest.mergeall=true
+manifest.mainclass=WordSimDBFacade
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

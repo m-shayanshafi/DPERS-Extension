@@ -1,2 +1,0 @@
- concrete Command registers itself with the invoker
- invoker calls back concrete Command, which executes the Command on the receiver

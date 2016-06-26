@@ -1,1 +1,0 @@
-This class is implementing the Arabic editor and is using singlteton pattern

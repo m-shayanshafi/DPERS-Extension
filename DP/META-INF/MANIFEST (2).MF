@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: WordSimSEDB
+Bundle-SymbolicName: WordSimSEDB
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: WordSimSEDB.jar,
+ lib/sqlite-jdbc-3.7.2.jar
+Export-Package: org.ibex.nestedvm,
+ org.ibex.nestedvm.util,
+ org.smu.wordsimilarity,
+ org.sqlite

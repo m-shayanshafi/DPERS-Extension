@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/asm-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/asm-tree-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/asm-util-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/jdom.jar"/>
-	<classpathentry kind="lib" path="lib/jmatharray.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.37-bin.jar"/>
-	<classpathentry kind="lib" path="lib/compass-2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-core-5.3.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-core-5.3.1-sources.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-core-5.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/lukeall-0.9.9.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-analyzers-common-5.3.1.jar"/>
+	<classpathentry excluding="testProj/" kind="src" path="src"/>
+	<classpathentry kind="lib" path="dist/mallet-deps.jar"/>
+	<classpathentry kind="lib" path="dist/mallet.jar"/>
 	<classpathentry kind="lib" path="lib/bsh.jar"/>
 	<classpathentry kind="lib" path="lib/derby.jar"/>
 	<classpathentry kind="lib" path="lib/grmm-deps.jar"/>
-	<classpathentry kind="lib" path="lib/indexer.jar"/>
 	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgrapht-0.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.5.jar"/>
@@ -26,10 +14,15 @@
 	<classpathentry kind="lib" path="lib/mtj-0.9.9.jar"/>
 	<classpathentry kind="lib" path="lib/openjgraph.jar"/>
 	<classpathentry kind="lib" path="lib/trove-2.0.2.jar"/>
-	<classpathentry kind="lib" path="dist/mallet.jar"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.37-bin.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="jawjaw-1.0.2.jar"/>
 	<classpathentry kind="lib" path="jaws-bin.jar"/>
 	<classpathentry kind="lib" path="ws4j-1.0.1.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="lib/jmatharray.jar"/>
+	<classpathentry kind="lib" path="lib/domanExtractionLib/asm-5.1.jar"/>
+	<classpathentry kind="lib" path="lib/domanExtractionLib/asm-tree-5.1.jar"/>
+	<classpathentry kind="lib" path="lib/domanExtractionLib/asm-util-5.1.jar"/>
+	<classpathentry kind="output" path="class"/>
 </classpath>
