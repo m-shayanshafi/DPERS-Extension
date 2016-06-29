@@ -89,7 +89,14 @@ public class JackardSimilarityBags {
 		
 		System.out.println("Total methods: "+ totalMethods);
 		
-		writer = new PrintWriter(Constants.recommendationsOutputPath, "UTF-8");
+		String filename = "";
+		if(userFeatureVector.size() < Constants.numberKeywordsThresh) {
+			filename = Constants.recommendationsOutputPath.replaceAll(".txt", "_inadequate.txt");			
+		}else {
+			filename = Constants.recommendationsOutputPath;			
+			
+		}
+			writer = new PrintWriter(filename, "UTF-8");
 		
 		System.out.println("\nTopics extracted from your code:" + userFeatureVector);
 		

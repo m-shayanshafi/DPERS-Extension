@@ -28,22 +28,22 @@ public class RetrievalSessionsSimulator {
 					
 					Constants.getKeywordsbyTopic = true;
 					Constants.keyWordstoGet = Constants.stemmedName;
-					Constants.recommendationsOutputPath =  "F://SERL Internship//Wikipeda Projects Recommendations//Recommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
+					Constants.recommendationsOutputPath =  "F://SERL Internship//User Study Projects for Recommendation//myRecommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
 					javaTotext.run(file);
 					
 					Constants.getKeywordsbyTopic = false;
 					Constants.keyWordstoGet = Constants.stemmedName;
-					Constants.recommendationsOutputPath =  "F://SERL Internship//Wikipeda Projects Recommendations//Recommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
+					Constants.recommendationsOutputPath =  "F://SERL Internship//User Study Projects for Recommendation//myRecommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
 					javaTotext.run(file);
 					
 					Constants.getKeywordsbyTopic = true;
 					Constants.keyWordstoGet = Constants.originalName;
-					Constants.recommendationsOutputPath =  "F://SERL Internship//Wikipeda Projects Recommendations//Recommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
+					Constants.recommendationsOutputPath =  "F://SERL Internship//User Study Projects for Recommendation//myRecommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
 					javaTotext.run(file);
 					
 					Constants.getKeywordsbyTopic = false;
 					Constants.keyWordstoGet = Constants.originalName;
-					Constants.recommendationsOutputPath =  "F://SERL Internship//Wikipeda Projects Recommendations//Recommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
+					Constants.recommendationsOutputPath =  "F://SERL Internship//User Study Projects for Recommendation//myRecommendations//" + Integer.toString(projectID)+"_"+Integer.toString(i)+"_"+Constants.keyWordstoGet+"_"+Boolean.toString(Constants.getKeywordsbyTopic)+".txt";					
 					javaTotext.run(file);					
 				}
 				
